@@ -1,0 +1,2 @@
+# Preserve the competition baseline and translated C++ sources byte-for-byte.
+* -text

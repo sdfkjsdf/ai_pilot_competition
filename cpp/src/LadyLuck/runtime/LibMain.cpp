@@ -1,0 +1,336 @@
+#include <cmath>
+#include <cstring>
+#include "LadyLuck/geometry/EulerAngle.h"
+#include "LadyLuck/geometry/Vector3.h"
+#include "LadyLuck/runtime/AIPilotABI.h"
+#include "LadyLuck/runtime/ObservationRuntime.h"
+#include "LadyLuck/guidance/contracts/FrameContract.h"
+#include "LadyLuck/runtime/ProductionOwnerRegistryV1.hpp"
+
+using BT_Geometry::Vector3;
+
+#define MAX_ITEM 51
+#define MAX_OTHRES 3
+#define D2R 1.745329251994330e-2
+#define R2D 57.29577951308232e+0
+#define METER_TO_FEET 3.28084
+#define FEET_TO_METER 0.3048
+#define KNOT_TO_MS 0.5144444
+#define KNOT_TO_FT 1.68781
+
+extern "C"
+{
+    /** Behavior Tree 인스턴스를 생성한다.**/
+    /** OwnerID:BT를 소유한 개체ID, ForceID : 피아식별정보 **/
+    __declspec(dllexport) void CreateBehaviorTree(int OwnerID, int ForceID);
+
+    // Versioned lossless competition-observation interface. It contains only
+    // the kinematics supplied by PlaneInfo plus connector-owned timing/roles.
+    __declspec(dllexport) std::uint32_t GetAIPilotABIVersion() noexcept;
+    __declspec(dllexport) ControlValue StepKinematicObservationV1(
+        const KinematicObservationInputV1* Input) noexcept;
+    __declspec(dllexport) std::int32_t CopyLastKinematicObservationV1(
+        KinematicObservationInputV1* Output,
+        std::uint32_t OutputSize) noexcept;
+    __declspec(dllexport) std::int32_t GetLastKinematicObservationStatusV1() noexcept;
+    __declspec(dllexport) std::uint32_t GetLastControlAuthorizationV1() noexcept;
+    __declspec(dllexport) std::int32_t CopyLastControlCommandOutcomeDiagnosticsV1(
+        ControlCommandOutcomeDiagnosticsV1* Output,
+        std::uint32_t OutputSize) noexcept;
+    __declspec(dllexport) std::uint64_t GetAcceptedKinematicObservationCountV1() noexcept;
+    __declspec(dllexport) std::int32_t CreateBehaviorTreeV1(int OwnerID, int ForceID) noexcept;
+    __declspec(dllexport) std::uint32_t GetBehaviorTreeCountV1() noexcept;
+    __declspec(dllexport) std::int32_t CopyFrameContractDiagnosticsV1(
+        int OwnerID,
+        FrameContractDiagnosticsV1* Output,
+        std::uint32_t OutputSize) noexcept;
+
+    /*
+    2대2를 위해 새로 추가된 Step함수.
+    MyData                  : 내 비행기 정보
+    NumOfOthers             : 내 비행기 말고 다른 비행기들 개수
+    Others                  : 내 비행기 말고 다른 비행기들 정보
+    isLockedOn              : 적기에게 락온 여부
+    MSL_Lunch_Possible      : 현재 미사일 발사 가능 여부. true가 되면 LunchMSL() 함수 호출해줘야함
+    Flare_Lunch_Possible    : 현재 플레어 사용 가능 여부. true가 되면 LunchFlare() 함수 호출해줘야함
+    */
+    __declspec(dllexport) ControlValue Step(oPlaneData& MyData, int NumOfOthers, oPlaneData* Others, bool isLockedOn, bool& MSL_Lunch_Possible, bool& Flare_Lunch_Possible);
+    __declspec(dllexport) const char* GetAnnotation(int id);
+
+    //2대2를 위해 비행기 배열을 만들기위한 함수 
+    __declspec(dllexport) oPlaneData ChangeData(int ID, int Team, float HP, int OperType, oNavigationData& NaviData);
+
+    __declspec(dllexport) ControlValue GetStick(oPlaneData& MyData, float VP_X, float VP_Y, float VP_Z);
+
+    __declspec(dllexport) Vector3 LLAtoCartesian(Vector3 LLA, Vector3 BaseLLA);
+    //2대2에서 아군기의 타겟을 변경시키기 위한 함수 FriendID :아군기 DISID, TargetDIS : 아군기 타겟 설정
+    __declspec(dllexport) void SetTarget(int FriendID, int TargetDIS);
+
+    //2대2에서 아군기의 ACM 모드를 변경시키기 위한 함수 ACM : 0 == EF, ACM : 1 == SF. FriendID :아군기 DISID, ACM : 아군기 ACM 설정  
+    __declspec(dllexport) void SetACM_Mode(int FriendID, int ACM);
+
+    //비헤비어트리의 DeltaTime을 설정
+    __declspec(dllexport) void SetBehaviorTreeDeltaTime(int OwnShipID, double DT);
+
+    __declspec(dllexport) Vector3 GetVP(oPlaneData& MyData);
+
+    __declspec(dllexport) void Reset();
+    __declspec(dllexport) void RemoveBT(int OwnerID);
+
+}
+
+LadyLuck::runtime::ProductionOwnerRegistryV1 ProductionOwnersV1;
+
+std::uint32_t GetAIPilotABIVersion() noexcept
+{
+    return AIPILOT_ABI_VERSION_V1;
+}
+
+ControlValue StepKinematicObservationV1(
+    const KinematicObservationInputV1* Input) noexcept
+{
+    ControlValue output = AIP_Runtime::NeutralControlV1();
+    const std::int32_t input_status =
+        AIP_Runtime::RecordKinematicObservationV1(Input);
+    if (input_status == AIP_RUNTIME_INPUT_ACCEPTED_PORT_INCOMPLETE)
+    {
+        const auto owner = ProductionOwnersV1.Find(
+            Input->ownship.plane_id);
+        if (owner.code
+            != LadyLuck::runtime::ProductionOwnerRegistryV1Code::Found)
+        {
+            AIP_Runtime::SetLastObservationStatusV1(
+                AIP_RUNTIME_BT_NOT_FOUND);
+        }
+        else
+        {
+            // ControlCore first admits the estimator/geometry frame, then its
+            // injected doctrine provider ticks the only command-owning tree.
+            output = AIP_Runtime::StepProductionControlV1(*Input);
+        }
+    }
+    return output;
+}
+
+std::int32_t CopyLastKinematicObservationV1(
+    KinematicObservationInputV1* Output,
+    const std::uint32_t OutputSize) noexcept
+{
+    return AIP_Runtime::CopyLastKinematicObservationV1(Output, OutputSize);
+}
+
+std::int32_t GetLastKinematicObservationStatusV1() noexcept
+{
+    return AIP_Runtime::GetLastObservationStatusV1();
+}
+
+std::uint32_t GetLastControlAuthorizationV1() noexcept
+{
+    return AIP_Runtime::GetLastControlAuthorizationV1();
+}
+
+std::int32_t CopyLastControlCommandOutcomeDiagnosticsV1(
+    ControlCommandOutcomeDiagnosticsV1* Output,
+    const std::uint32_t OutputSize) noexcept
+{
+    return AIP_Runtime::CopyLastControlCommandOutcomeDiagnosticsV1(
+        Output, OutputSize);
+}
+
+std::uint64_t GetAcceptedKinematicObservationCountV1() noexcept
+{
+    return AIP_Runtime::GetAcceptedObservationCountV1();
+}
+
+std::uint32_t GetBehaviorTreeCountV1() noexcept
+{
+    return ProductionOwnersV1.Count();
+}
+
+std::int32_t CopyFrameContractDiagnosticsV1(
+    const int OwnerID,
+    FrameContractDiagnosticsV1* Output,
+    const std::uint32_t OutputSize) noexcept
+{
+    if (Output == nullptr || OutputSize < sizeof(FrameContractDiagnosticsV1))
+    {
+        return AIP_RUNTIME_INVALID_OUTPUT_BUFFER;
+    }
+
+    std::memset(Output, 0, sizeof(FrameContractDiagnosticsV1));
+
+    const std::int32_t runtime_status = AIP_Runtime::GetLastObservationStatusV1();
+    if (runtime_status < 0)
+    {
+        return runtime_status;
+    }
+
+    if (ProductionOwnersV1.Find(OwnerID).code
+        != LadyLuck::runtime::ProductionOwnerRegistryV1Code::Found)
+    {
+        return AIP_RUNTIME_BT_NOT_FOUND;
+    }
+
+    KinematicObservationInputV1 input{};
+    const std::int32_t copy_status =
+        AIP_Runtime::CopyLastKinematicObservationV1(
+            &input,
+            static_cast<std::uint32_t>(sizeof(input)));
+    if (copy_status < 0
+        || input.ownship.plane_id != OwnerID
+        || !AIP_Guidance::BuildFrameContractV1(input, *Output))
+    {
+        return AIP_RUNTIME_BT_CONTRACT_FAILED;
+    }
+
+    LadyLuck::behavior_tree::static_bt::
+        StaticDoctrineCommandProviderSnapshot receipt{};
+    LadyLuck::Status receipt_status{};
+    AIP_Runtime::CopyStaticDoctrineProviderSnapshotV1(
+        receipt,
+        receipt_status);
+    if (receipt_status.code != LadyLuck::StatusCode::Ok
+        || receipt.candidate_disposition
+            != LadyLuck::behavior_tree::static_bt::
+                StaticDoctrineCandidateDisposition::Selected
+        || receipt.selected_candidate_count != 1U
+        || receipt.selected_candidate.writer_id
+            == LadyLuck::ControlIntentWriterNone
+        || receipt.selected_candidate.frame_identity.frame_index
+            != input.ownship.frame_index)
+    {
+        return AIP_RUNTIME_BT_CONTRACT_FAILED;
+    }
+    Output->writer_count = receipt.selected_candidate_count;
+    Output->writer_id = static_cast<std::int32_t>(
+        receipt.selected_candidate.writer_id);
+    return runtime_status;
+}
+
+Vector3 LLAtoCartesian(Vector3 LLA, Vector3 BaseLLA)
+{
+	double eccentricitysquare, N, M;
+	eccentricitysquare = 1.0 - std::pow(6356752.3142, 2) / std::pow(6378137.0, 2);
+	N = 6378137.0 / std::sqrt(1.0 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * BT_Geometry::PI / 180.0), 2)); // prime vertical radius of curvature
+	M = 6378137.0 * (1.0 - eccentricitysquare) / std::pow(1 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * BT_Geometry::PI / 180.0), 2), 3 / 2);
+
+	double dlat, dlon;
+	dlat = LLA.X - BaseLLA.X;
+	dlon = LLA.Y - BaseLLA.Y;
+
+	double dN, dE, dD;
+	dN = (M + BaseLLA.Z) * dlat * BT_Geometry::PI / 180.0;
+	dE = (N + BaseLLA.Z) * std::cos(BaseLLA.X * BT_Geometry::PI / 180.0) * dlon * BT_Geometry::PI / 180.0;
+	dD = (LLA.Z - BaseLLA.Z);
+	Vector3 res(dN, dE, dD);
+	return res;
+}
+
+std::int32_t CreateBehaviorTreeV1(const int OwnerID, const int ForceID) noexcept
+{
+    using LadyLuck::runtime::ProductionOwnerRegistryV1Code;
+
+    const auto inspection = ProductionOwnersV1.InspectCreate(
+        OwnerID,
+        ForceID);
+    if (inspection.code
+        == ProductionOwnerRegistryV1Code::AlreadyExistsSameForce)
+    {
+        return AIP_TREE_ALREADY_EXISTS;
+    }
+    if (inspection.code != ProductionOwnerRegistryV1Code::NotFound)
+    {
+        return AIP_TREE_INITIALIZATION_FAILED;
+    }
+
+    const LadyLuck::Status prepare_status =
+        AIP_Runtime::PrepareControlOwnerV1(OwnerID, ForceID);
+    if (prepare_status.code != LadyLuck::StatusCode::Ok)
+    {
+        return AIP_TREE_INITIALIZATION_FAILED;
+    }
+
+    const auto committed = ProductionOwnersV1.Create(OwnerID, ForceID);
+    if (committed.code != ProductionOwnerRegistryV1Code::Created)
+    {
+        return AIP_TREE_INITIALIZATION_FAILED;
+    }
+    return AIP_TREE_CREATED;
+}
+
+void CreateBehaviorTree(int OwnerID, int ForceID)
+{
+    (void)CreateBehaviorTreeV1(OwnerID, ForceID);
+}
+
+void Reset()
+{
+    (void)ProductionOwnersV1.Reset();
+    AIP_Runtime::ResetObservationRuntimeV1();
+}
+
+void RemoveBT(int OwnerID)
+{
+    const auto removed = ProductionOwnersV1.Remove(OwnerID);
+    if (removed.code
+        == LadyLuck::runtime::ProductionOwnerRegistryV1Code::Removed)
+    {
+        AIP_Runtime::ResetObservationRuntimeV1();
+    }
+}
+
+ControlValue Step(oPlaneData& MyData, int NumOfOthers, oPlaneData* Others, bool isLockedOn, bool & MSL_Lunch_Possible, bool & Flare_Lunch_Possible)
+{
+    (void)MyData;
+    (void)NumOfOthers;
+    (void)Others;
+    (void)isLockedOn;
+    (void)MSL_Lunch_Possible;
+    (void)Flare_Lunch_Possible;
+    return ControlValue{ 0.0F, 0.0F, 0.0F, 0.0F };
+}
+
+ControlValue GetStick(oPlaneData& MyData, float VP_X, float VP_Y, float VP_Z)
+{
+    (void)MyData;
+    (void)VP_X;
+    (void)VP_Y;
+    (void)VP_Z;
+    return ControlValue{ 0.0F, 0.0F, 0.0F, -1.0F };
+}
+
+
+void SetBehaviorTreeDeltaTime(int OwnShipID, double DT)
+{
+    (void)OwnShipID;
+    (void)DT;
+}
+
+Vector3 GetVP(oPlaneData& MyData)
+{
+    (void)MyData;
+    return Vector3(0.0, 0.0, 0.0);
+}
+
+
+
+
+oPlaneData ChangeData(int ID, int Team, float HP, int OperType, oNavigationData& NaviData)
+{
+    oPlaneData PlaneData;
+    BT_Geometry::Vector3 LLA = BT_Geometry::Vector3(NaviData.Lat/1000000.0, NaviData.Lon/1000000.0, (NaviData.Alt / 1000.0) * FEET_TO_METER );
+    BT_Geometry::EulerAngle YPR = BT_Geometry::EulerAngle( NaviData.psi/1000.0, NaviData.theta/1000.0, NaviData.phi/1000.0); //yaw pitch roll (deg)
+    PlaneData.LocationX = LLA.X;
+    PlaneData.LocationY = LLA.Y;
+    PlaneData.LocationZ = LLA.Z;
+    PlaneData.Roll = YPR.Roll;
+    PlaneData.Pitch = YPR.Pitch;
+    PlaneData.Yaw  = YPR.Yaw;
+    PlaneData.Speed    = (NaviData.KTAS / 10.0) * 0.51444; //knot to m/s
+    PlaneData.Team     = Team;  //force side
+    PlaneData.Resv0    = ID;
+    PlaneData.Resv1    = HP;
+    PlaneData.Resv2    = OperType;
+
+    return PlaneData;
+}

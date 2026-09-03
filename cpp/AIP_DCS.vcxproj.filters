@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="LadyLuck\geometry">
+      <UniqueIdentifier>{0e71d6fc-71e6-477b-aff8-19ab626a5a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LadyLuck\runtime">
+      <UniqueIdentifier>{7af2d77d-b37b-4e5f-a019-0a5b98a20f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LadyLuck\guidance">
+      <UniqueIdentifier>{994991c7-0c89-46fb-a783-5068c6cd365d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LadyLuck\guidance\contracts">
+      <UniqueIdentifier>{534577d7-dc7e-4445-8f02-508a1978ceaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LadyLuck Core">
+      <UniqueIdentifier>{A0E0A8D7-74AE-4A7B-B3C5-6CC61F530E9F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Validated Port Closure">
+      <UniqueIdentifier>{D29B9F2C-AC82-4D4B-A41B-5106B51DC72B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\LadyLuck\runtime\AIPilotABI.h">
+      <Filter>LadyLuck\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\ObservationRuntime.h">
+      <Filter>LadyLuck\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\ProductionOwnerRegistryV1.hpp">
+      <Filter>LadyLuck\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\contracts\FrameContract.h">
+      <Filter>LadyLuck\guidance\contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Angle.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\AxisAngle.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\CoordinateConverter.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\EulerAngle.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Math.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Matrix3.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Matrix4.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Quaternion.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Vector3.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\Vector4.h">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LadyLuck\common\Constants.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\CommandFeedback.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\Enums.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\EstimatorOutput.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\FrameContext.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\common\Numerics.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\common\BoundedScaleProjection.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g13\G13FlatScissors.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\ControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\Kinematics.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\contracts\Status.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\direct_ned\DirectNedLoadVector.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\direct_body\DirectBodyReferenceAdapter.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\direct_ned\DirectNedReferenceShaper.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\direct_ned\ForceVectorTracking.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\route5\CommandEnvelope.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\route5\ReferenceGovernor.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\route5\Route5Guidance.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\route5\DirectLoadVectorNMuAdapter.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\control\tecs_cis\TecsCisControl.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\estimator\EstimatorTransaction.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\estimator\LightNzEstimator.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\estimator\PlaneStateEstimator.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\DogfightGeometryFrame.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\WezGeometry.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\geometry\WezRule.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\GunDefenseControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmBreakLoadControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmBreakMargin.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmDefenseSpeedControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmAltitudeSeparated.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmEscapeAdmission.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmPhaseGradedResponse.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmEscapeEnergy.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmHardTurnControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmOrdinaryMode.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\PathAngleReference.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\RollGV2.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\BilateralTurnCircleRootAuthority.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\ModeDecision.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\em\EnergyManeuverEnvelope.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidence.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidenceAdapter.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidenceProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g4\DivingSpiralOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseAdmissionProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseLagReacquisitionProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseSelectionSupply.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\ThreatRecoveryMargin.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16CommittedOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16HighObservation.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16HighPrevention.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16ProductionEvidence.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G5bDelayedClimb.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\TerminalAiming.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\BarrelRollCounter.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3RollCounterOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3ChaseDown.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3SAdversaryCourseReversal.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3SScissorsResponse.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\PursuitOvershootForecast.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\PursuitPlaneSeparationObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RelativeFlightPathCrossingObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollCounterLifecycle.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollDefenseObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollingScissors.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\TacticalSpeedFloorObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\TacticalSpeedFloorOverlay.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLagGuidance.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmApexDisplacement.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEntryLongitudinalReference.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEntryWindowAdmission.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmNearStationCarrot.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmSpacingOwner.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmChaseUpGuard.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\Obfm3dNecessity.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEmployGuidance.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLongitudinalAuthority.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLongitudinalReferenceProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLeadDiscipline.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmPursuitClassificationObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmStationHoldService.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmActiveControlCore.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmH09AltitudeStorage.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmEngageDecision.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\FrontalPassObserver.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmFrameEvidenceProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmMergeEvidenceProvider.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmObservations.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmVerticalRoom.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\prefire\GunAttackFormObservation.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\prefire\OfficialGunAttackResponse.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootGunTowardSideObservation.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootPrefireResponseSelection.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootPrefireThreatObservation.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\maneuver\HabfmFixedOneCircleControlIntent.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\math\Attitude321.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\observers\BodyRateObserver.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\observers\NedSpecificForceObserver.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\aero\AeroLookup.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\aero\AeroMoments.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\core\AuxiliaryState.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\core\ProcessModel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\dynamics\EngineModel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\dynamics\MassBalance.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\dynamics\MassModel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\fbw\Auxiliary.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\fbw\Common.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\fbw\PitchChannel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\fbw\RollChannel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\fbw\YawChannel.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\types\AuxState.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\types\PlantState.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\plant\types\PlantStatus.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\CurrentCisV4EnergyProjectionPort.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\TacticalControlCore.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\RootTacticalCommandWriters.hpp"><Filter>Validated Port Closure</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\TacticalCommandBuildInput.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\runtime\TacticalCompletedTotalLoadReceipt.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\safety\AutoGcas.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LadyLuck\geometry\Angle.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\AxisAngle.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\CoordinateConverter.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\EulerAngle.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Math.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Matrix3.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Matrix4.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Quaternion.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Vector3.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\Vector4.cpp">
+      <Filter>LadyLuck\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\LibMain.cpp">
+      <Filter>LadyLuck\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\ObservationRuntime.cpp">
+      <Filter>LadyLuck\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\contracts\FrameContract.cpp">
+      <Filter>LadyLuck\guidance\contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LadyLuck\common\Numerics.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g13\G13FlatScissors.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelEvidenceAdapter.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelEvidenceProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g4\DivingSpiralOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseAdmissionProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseLagReacquisitionProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseSelectionSupply.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\contracts\ControlIntent.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\contracts\FrameContext.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\direct_ned\DirectNedLoadVector.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\direct_body\DirectBodyReferenceAdapter.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\direct_ned\DirectNedReferenceShaper.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\direct_ned\ForceVectorTracking.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\route5\ReferenceGovernor.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\route5\Route5Guidance.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\route5\DirectLoadVectorNMuAdapter.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\control\tecs_cis\TecsCisControl.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\estimator\LightNzEstimator.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\estimator\PlaneStateEstimator.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\DogfightGeometryFrame.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\WezGeometry.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\geometry\WezRule.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmBreakLoadControlIntent.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmBreakMargin.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmDefenseSpeedControlIntent.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmAltitudeSeparated.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmEscapeAdmission.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmPhaseGradedResponse.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmEscapeEnergy.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmHardTurnControlIntent.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmOrdinaryMode.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\PathAngleReference.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\RollGV2.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\BilateralTurnCircleRootAuthority.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\em\EnergyManeuverEnvelope.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\ThreatRecoveryMargin.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16CommittedOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16HighObservation.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16HighPrevention.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16ProductionEvidence.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G5bDelayedClimb.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\TerminalAiming.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\BarrelRollCounter.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3RollCounterOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3ChaseDown.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3SAdversaryCourseReversal.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3SScissorsResponse.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\PursuitOvershootForecast.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\PursuitPlaneSeparationObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RelativeFlightPathCrossingObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollCounterLifecycle.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticBtAtomicEvaluator.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineCommandProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineObfmG16G5bInputBuilder.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineObfmG16G5bOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticImmediateGunResponseStagedOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticGunSnapshotStagedOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticSafetyGunStagedOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollDefenseObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollingScissors.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\TacticalSpeedFloorObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\TacticalSpeedFloorOverlay.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLagGuidance.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmApexDisplacement.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEntryLongitudinalReference.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEntryWindowAdmission.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmNearStationCarrot.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmSpacingOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmChaseUpGuard.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\Obfm3dNecessity.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEmployGuidance.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLongitudinalAuthority.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLongitudinalReferenceProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLeadDiscipline.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmPursuitClassificationObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmStationHoldService.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmActiveControlCore.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmTerminalControlIntentOwner.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmH09AltitudeStorage.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmEngageDecision.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\FrontalPassObserver.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmFrameEvidenceProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmMergeEvidenceProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmObservations.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmVerticalRoom.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\prefire\GunAttackFormObservation.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\prefire\OfficialGunAttackResponse.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootGunTowardSideObservation.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootPrefireResponseSelection.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootPrefireThreatObservation.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\math\Attitude321.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\math\KinematicConversion.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\maneuver\HabfmFixedOneCircleControlIntent.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\observers\BodyRateObserver.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\observers\NedSpecificForceObserver.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\aero\AeroLookup.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\aero\AeroMoments.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\core\AuxiliaryState.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\core\ProcessModel.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\dynamics\EngineModel.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\dynamics\MassBalance.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\fbw\Auxiliary.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\fbw\Common.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\fbw\PitchChannel.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\fbw\RollChannel.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\plant\fbw\YawChannel.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\TacticalControlCore.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\RootTacticalCommandWriters.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\RootGunPreTaskEvidenceProvider.cpp"><Filter>Validated Port Closure</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\TacticalCompletedTotalLoadReceipt.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\runtime\TacticalCommandBuildInput.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+    <ClCompile Include="src\LadyLuck\safety\AutoGcas.cpp"><Filter>LadyLuck Core</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config\LadyLuck_v2.xml" />
+    <None Include="src\LadyLuck\guidance\em\EnergyManeuverTables.generated.inc"><Filter>Validated Port Closure</Filter></None>
+    <None Include="src\LadyLuck\control\route5\envelope\ReferenceGovernorTable.inc"><Filter>LadyLuck Core</Filter></None>
+    <None Include="src\LadyLuck\control\tecs_cis\tables\TecsCisTables.inc"><Filter>LadyLuck Core</Filter></None>
+    <None Include="src\LadyLuck\plant\aero\AeroStaticTables.generated.inc"><Filter>LadyLuck Core</Filter></None>
+  </ItemGroup>
+</Project>

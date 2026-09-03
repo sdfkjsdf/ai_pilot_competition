@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{83af85c0-8db7-4bf1-9e13-f7f5f3b47fa8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>AIP_DCS</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\PropertySheets\Essential_debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)../bin/debug.x64</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)build\intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>LadyLuck_v2</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;AIPILOTV1_EXPORTS;LADYLUCK_PRODUCTION_BUILD=1;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir);D:\PropertySheets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(SolutionDir)../bin/intermediate/$(Configuration).$(ShortPlatform)/$(ProjectName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;AIPILOTV1_EXPORTS;LADYLUCK_PRODUCTION_BUILD=1;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;AIPILOTV1_EXPORTS;LADYLUCK_PRODUCTION_BUILD=1;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;AIPILOTV1_EXPORTS;LADYLUCK_PRODUCTION_BUILD=1;_HAS_EXCEPTIONS=0;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>false</ExceptionHandling>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\LadyLuck\geometry\Angle.h" />
+    <ClInclude Include="include\LadyLuck\geometry\AxisAngle.h" />
+    <ClInclude Include="include\LadyLuck\geometry\CoordinateConverter.h" />
+    <ClInclude Include="include\LadyLuck\geometry\EulerAngle.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Math.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Matrix3.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Matrix4.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Quaternion.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Vector3.h" />
+    <ClInclude Include="include\LadyLuck\geometry\Vector4.h" />
+    <ClInclude Include="include\LadyLuck\guidance\contracts\FrameContract.h" />
+    <ClInclude Include="include\LadyLuck\runtime\AIPilotABI.h" />
+    <ClInclude Include="include\LadyLuck\runtime\ObservationRuntime.h" />
+    <ClInclude Include="include\LadyLuck\runtime\ProductionOwnerRegistryV1.hpp" />
+    <ClInclude Include="include\LadyLuck\common\Constants.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\CommandFeedback.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\Enums.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\EstimatorOutput.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\FrameContext.hpp" />
+    <ClInclude Include="include\LadyLuck\common\Numerics.hpp" />
+    <ClInclude Include="include\LadyLuck\common\BoundedScaleProjection.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g13\G13FlatScissors.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\ControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\Kinematics.hpp" />
+    <ClInclude Include="include\LadyLuck\contracts\Status.hpp" />
+    <ClInclude Include="include\LadyLuck\control\direct_ned\DirectNedLoadVector.hpp" />
+    <ClInclude Include="include\LadyLuck\control\direct_body\DirectBodyReferenceAdapter.hpp" />
+    <ClInclude Include="include\LadyLuck\control\direct_ned\DirectNedReferenceShaper.hpp" />
+    <ClInclude Include="include\LadyLuck\control\direct_ned\ForceVectorTracking.hpp" />
+    <ClInclude Include="include\LadyLuck\control\route5\CommandEnvelope.hpp" />
+    <ClInclude Include="include\LadyLuck\control\route5\ReferenceGovernor.hpp" />
+    <ClInclude Include="include\LadyLuck\control\route5\Route5Guidance.hpp" />
+    <ClInclude Include="include\LadyLuck\control\route5\DirectLoadVectorNMuAdapter.hpp" />
+    <ClInclude Include="include\LadyLuck\control\tecs_cis\TecsCisControl.hpp" />
+    <ClInclude Include="include\LadyLuck\estimator\EstimatorTransaction.hpp" />
+    <ClInclude Include="include\LadyLuck\estimator\LightNzEstimator.hpp" />
+    <ClInclude Include="include\LadyLuck\estimator\PlaneStateEstimator.hpp" />
+    <ClInclude Include="include\LadyLuck\geometry\DogfightGeometryFrame.hpp" />
+    <ClInclude Include="include\LadyLuck\geometry\WezGeometry.hpp" />
+    <ClInclude Include="include\LadyLuck\geometry\WezRule.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\GunDefenseControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmBreakLoadControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmBreakMargin.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmDefenseSpeedControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmAltitudeSeparated.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmEscapeAdmission.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmPhaseGradedResponse.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmEscapeEnergy.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmHardTurnControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\DbfmOrdinaryMode.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\PathAngleReference.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\dbfm\RollGV2.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\BilateralTurnCircleRootAuthority.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\ModeDecision.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\TacticalSpeedFloorObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\doctrine\TacticalSpeedFloorOverlay.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\em\EnergyManeuverEnvelope.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidence.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidenceAdapter.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelEvidenceProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g4\HighGBarrelOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g4\DivingSpiralOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseAdmissionProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseLagReacquisitionProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\g10\G10SecondUseSelectionSupply.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\ThreatRecoveryMargin.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16CommittedOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16HighObservation.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16HighPrevention.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\committed\G16ProductionEvidence.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G5bDelayedClimb.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLagGuidance.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmApexDisplacement.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEntryLongitudinalReference.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEntryWindowAdmission.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmNearStationCarrot.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmSpacingOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmChaseUpGuard.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\Obfm3dNecessity.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmEmployGuidance.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLongitudinalAuthority.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLongitudinalReferenceProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmLeadDiscipline.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmPursuitClassificationObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\ObfmStationHoldService.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\TerminalAiming.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\BarrelRollCounter.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3RollCounterOwner.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3ChaseDown.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3SAdversaryCourseReversal.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\G3SScissorsResponse.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\PursuitOvershootForecast.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\PursuitPlaneSeparationObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RelativeFlightPathCrossingObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollCounterLifecycle.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollDefenseObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\obfm\RollingScissors.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmActiveControlCore.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmH09AltitudeStorage.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmEngageDecision.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\FrontalPassObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmFrameEvidenceProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmMergeEvidenceProvider.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmObservations.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\habfm\HabfmVerticalRoom.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\prefire\GunAttackFormObservation.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\prefire\OfficialGunAttackResponse.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootGunTowardSideObservation.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootPrefireResponseSelection.hpp" />
+    <ClInclude Include="include\LadyLuck\guidance\prefire\RootPrefireThreatObservation.hpp" />
+    <ClInclude Include="include\LadyLuck\maneuver\HabfmFixedOneCircleControlIntent.hpp" />
+    <ClInclude Include="include\LadyLuck\math\Attitude321.hpp" />
+    <ClInclude Include="include\LadyLuck\observers\BodyRateObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\observers\NedSpecificForceObserver.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\aero\AeroLookup.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\aero\AeroMoments.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\core\AuxiliaryState.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\core\ProcessModel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\dynamics\EngineModel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\dynamics\MassBalance.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\dynamics\MassModel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\fbw\Auxiliary.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\fbw\Common.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\fbw\PitchChannel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\fbw\RollChannel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\fbw\YawChannel.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\types\AuxState.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\types\PlantState.hpp" />
+    <ClInclude Include="include\LadyLuck\plant\types\PlantStatus.hpp" />
+    <ClInclude Include="include\LadyLuck\runtime\CurrentCisV4EnergyProjectionPort.hpp" />
+    <ClInclude Include="include\LadyLuck\runtime\TacticalControlCore.hpp" />
+    <ClInclude Include="include\LadyLuck\runtime\RootTacticalCommandWriters.hpp" />
+    <ClInclude Include="include\LadyLuck\runtime\TacticalCommandBuildInput.hpp" />
+    <ClInclude Include="include\LadyLuck\runtime\TacticalCompletedTotalLoadReceipt.hpp" />
+    <ClInclude Include="include\LadyLuck\safety\AutoGcas.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LadyLuck\geometry\Angle.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\AxisAngle.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\CoordinateConverter.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\EulerAngle.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Math.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Matrix3.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Matrix4.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Quaternion.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Vector3.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\Vector4.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\contracts\FrameContract.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\LibMain.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\ObservationRuntime.cpp" />
+    <ClCompile Include="src\LadyLuck\common\Numerics.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g13\G13FlatScissors.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelEvidenceAdapter.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelEvidenceProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g4\HighGBarrelOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g4\DivingSpiralOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseAdmissionProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseLagReacquisitionProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\g10\G10SecondUseSelectionSupply.cpp" />
+    <ClCompile Include="src\LadyLuck\contracts\ControlIntent.cpp" />
+    <ClCompile Include="src\LadyLuck\contracts\FrameContext.cpp" />
+    <ClCompile Include="src\LadyLuck\control\direct_ned\DirectNedLoadVector.cpp" />
+    <ClCompile Include="src\LadyLuck\control\direct_body\DirectBodyReferenceAdapter.cpp" />
+    <ClCompile Include="src\LadyLuck\control\direct_ned\DirectNedReferenceShaper.cpp" />
+    <ClCompile Include="src\LadyLuck\control\direct_ned\ForceVectorTracking.cpp" />
+    <ClCompile Include="src\LadyLuck\control\route5\ReferenceGovernor.cpp" />
+    <ClCompile Include="src\LadyLuck\control\route5\Route5Guidance.cpp" />
+    <ClCompile Include="src\LadyLuck\control\route5\DirectLoadVectorNMuAdapter.cpp" />
+    <ClCompile Include="src\LadyLuck\control\tecs_cis\TecsCisControl.cpp" />
+    <ClCompile Include="src\LadyLuck\estimator\LightNzEstimator.cpp" />
+    <ClCompile Include="src\LadyLuck\estimator\PlaneStateEstimator.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\DogfightGeometryFrame.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\WezGeometry.cpp" />
+    <ClCompile Include="src\LadyLuck\geometry\WezRule.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmBreakLoadControlIntent.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmBreakMargin.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmDefenseSpeedControlIntent.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\HorizontalBreakReference.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmAltitudeSeparated.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmEscapeAdmission.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmPhaseGradedResponse.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmEscapeEnergy.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmHardTurnControlIntent.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\DbfmOrdinaryMode.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\PathAngleReference.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\dbfm\RollGV2.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\BilateralTurnCircleRootAuthority.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\TacticalSpeedFloorObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\doctrine\TacticalSpeedFloorOverlay.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\em\EnergyManeuverEnvelope.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\ThreatRecoveryMargin.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticBtAtomicEvaluator.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineCommandProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineObfmG16G5bInputBuilder.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticDoctrineObfmG16G5bOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticHabfmG10StagedOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticImmediateGunResponseStagedOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticGunSnapshotStagedOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\behavior_tree\static\StaticSafetyGunStagedOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16CommittedOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16HighObservation.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16HighPrevention.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\committed\G16ProductionEvidence.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G5bDelayedClimb.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLagGuidance.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmApexDisplacement.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEntryLongitudinalReference.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEntryWindowAdmission.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmNearStationCarrot.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmSpacingOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmChaseUpGuard.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\Obfm3dNecessity.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmEmployGuidance.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLongitudinalAuthority.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLongitudinalReferenceProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmLeadDiscipline.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmPursuitClassificationObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\ObfmStationHoldService.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\TerminalAiming.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\BarrelRollCounter.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3RollCounterOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3ChaseDown.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3SAdversaryCourseReversal.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\G3SScissorsResponse.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\PursuitOvershootForecast.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\PursuitPlaneSeparationObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RelativeFlightPathCrossingObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollCounterLifecycle.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollDefenseObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\obfm\RollingScissors.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmActiveControlCore.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmTerminalControlIntentOwner.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmH09AltitudeStorage.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmEngageDecision.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\FrontalPassObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmFrameEvidenceProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmMergeEvidenceProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmObservations.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\habfm\HabfmVerticalRoom.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\prefire\GunAttackFormObservation.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\prefire\OfficialGunAttackResponse.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootGunTowardSideObservation.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootPrefireResponseSelection.cpp" />
+    <ClCompile Include="src\LadyLuck\guidance\prefire\RootPrefireThreatObservation.cpp" />
+    <ClCompile Include="src\LadyLuck\math\Attitude321.cpp" />
+    <ClCompile Include="src\LadyLuck\math\KinematicConversion.cpp" />
+    <ClCompile Include="src\LadyLuck\maneuver\HabfmFixedOneCircleControlIntent.cpp" />
+    <ClCompile Include="src\LadyLuck\observers\BodyRateObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\observers\NedSpecificForceObserver.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\aero\AeroLookup.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\aero\AeroMoments.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\core\AuxiliaryState.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\core\ProcessModel.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\dynamics\EngineModel.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\dynamics\MassBalance.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\fbw\Auxiliary.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\fbw\Common.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\fbw\PitchChannel.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\fbw\RollChannel.cpp" />
+    <ClCompile Include="src\LadyLuck\plant\fbw\YawChannel.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\TacticalControlCore.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\RootTacticalCommandWriters.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\RootGunPreTaskEvidenceProvider.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\TacticalCompletedTotalLoadReceipt.cpp" />
+    <ClCompile Include="src\LadyLuck\runtime\TacticalCommandBuildInput.cpp" />
+    <ClCompile Include="src\LadyLuck\safety\AutoGcas.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config\LadyLuck_v2.xml" />
+    <None Include="src\LadyLuck\guidance\em\EnergyManeuverTables.generated.inc" />
+    <None Include="src\LadyLuck\control\route5\envelope\ReferenceGovernorTable.inc" />
+    <None Include="src\LadyLuck\control\tecs_cis\tables\TecsCisTables.inc" />
+    <None Include="src\LadyLuck\plant\aero\AeroStaticTables.generated.inc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

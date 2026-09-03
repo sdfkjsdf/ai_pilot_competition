@@ -1,0 +1,2098 @@
+{
+  "direct_edges": [
+    {
+      "child_element_index": 1,
+      "child_ordinal": 0,
+      "edge_index": 0,
+      "parent_element_index": 0
+    },
+    {
+      "child_element_index": 2,
+      "child_ordinal": 1,
+      "edge_index": 1,
+      "parent_element_index": 0
+    },
+    {
+      "child_element_index": 3,
+      "child_ordinal": 0,
+      "edge_index": 2,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 6,
+      "child_ordinal": 1,
+      "edge_index": 3,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 14,
+      "child_ordinal": 2,
+      "edge_index": 4,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 15,
+      "child_ordinal": 3,
+      "edge_index": 5,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 29,
+      "child_ordinal": 4,
+      "edge_index": 6,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 35,
+      "child_ordinal": 5,
+      "edge_index": 7,
+      "parent_element_index": 2
+    },
+    {
+      "child_element_index": 4,
+      "child_ordinal": 0,
+      "edge_index": 8,
+      "parent_element_index": 3
+    },
+    {
+      "child_element_index": 5,
+      "child_ordinal": 1,
+      "edge_index": 9,
+      "parent_element_index": 3
+    },
+    {
+      "child_element_index": 7,
+      "child_ordinal": 0,
+      "edge_index": 10,
+      "parent_element_index": 6
+    },
+    {
+      "child_element_index": 8,
+      "child_ordinal": 1,
+      "edge_index": 11,
+      "parent_element_index": 6
+    },
+    {
+      "child_element_index": 9,
+      "child_ordinal": 2,
+      "edge_index": 12,
+      "parent_element_index": 6
+    },
+    {
+      "child_element_index": 10,
+      "child_ordinal": 0,
+      "edge_index": 13,
+      "parent_element_index": 9
+    },
+    {
+      "child_element_index": 11,
+      "child_ordinal": 1,
+      "edge_index": 14,
+      "parent_element_index": 9
+    },
+    {
+      "child_element_index": 12,
+      "child_ordinal": 2,
+      "edge_index": 15,
+      "parent_element_index": 9
+    },
+    {
+      "child_element_index": 13,
+      "child_ordinal": 3,
+      "edge_index": 16,
+      "parent_element_index": 9
+    },
+    {
+      "child_element_index": 16,
+      "child_ordinal": 0,
+      "edge_index": 17,
+      "parent_element_index": 15
+    },
+    {
+      "child_element_index": 17,
+      "child_ordinal": 1,
+      "edge_index": 18,
+      "parent_element_index": 15
+    },
+    {
+      "child_element_index": 18,
+      "child_ordinal": 0,
+      "edge_index": 19,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 19,
+      "child_ordinal": 1,
+      "edge_index": 20,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 20,
+      "child_ordinal": 2,
+      "edge_index": 21,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 21,
+      "child_ordinal": 3,
+      "edge_index": 22,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 22,
+      "child_ordinal": 4,
+      "edge_index": 23,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 23,
+      "child_ordinal": 5,
+      "edge_index": 24,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 24,
+      "child_ordinal": 6,
+      "edge_index": 25,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 25,
+      "child_ordinal": 7,
+      "edge_index": 26,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 26,
+      "child_ordinal": 8,
+      "edge_index": 27,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 27,
+      "child_ordinal": 9,
+      "edge_index": 28,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 28,
+      "child_ordinal": 10,
+      "edge_index": 29,
+      "parent_element_index": 17
+    },
+    {
+      "child_element_index": 30,
+      "child_ordinal": 0,
+      "edge_index": 30,
+      "parent_element_index": 29
+    },
+    {
+      "child_element_index": 31,
+      "child_ordinal": 1,
+      "edge_index": 31,
+      "parent_element_index": 29
+    },
+    {
+      "child_element_index": 32,
+      "child_ordinal": 0,
+      "edge_index": 32,
+      "parent_element_index": 31
+    },
+    {
+      "child_element_index": 33,
+      "child_ordinal": 1,
+      "edge_index": 33,
+      "parent_element_index": 31
+    },
+    {
+      "child_element_index": 34,
+      "child_ordinal": 2,
+      "edge_index": 34,
+      "parent_element_index": 31
+    },
+    {
+      "child_element_index": 36,
+      "child_ordinal": 0,
+      "edge_index": 35,
+      "parent_element_index": 35
+    },
+    {
+      "child_element_index": 37,
+      "child_ordinal": 1,
+      "edge_index": 36,
+      "parent_element_index": 35
+    },
+    {
+      "child_element_index": 38,
+      "child_ordinal": 0,
+      "edge_index": 37,
+      "parent_element_index": 37
+    },
+    {
+      "child_element_index": 39,
+      "child_ordinal": 1,
+      "edge_index": 38,
+      "parent_element_index": 37
+    },
+    {
+      "child_element_index": 40,
+      "child_ordinal": 2,
+      "edge_index": 39,
+      "parent_element_index": 37
+    }
+  ],
+  "elements": [
+    {
+      "attributes": {
+        "name": "StaticDoctrineRoot"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        1,
+        2
+      ],
+      "child_index": 0,
+      "document_order": 0,
+      "element_index": 0,
+      "name": "StaticDoctrineRoot",
+      "parent_element_index": null,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 1,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 0,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "ObserveSafetyGunAndClassifySituation",
+        "situation": "OBFM|HABFM|DBFM"
+      },
+      "category": "Service",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 1,
+      "element_index": 1,
+      "name": "ObserveSafetyGunAndClassifySituation",
+      "parent_element_index": 0,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/Svc_GlobalObservationAndSituationClassification[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 2,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Svc_GlobalObservationAndSituationClassification",
+      "tree_document_index": 0,
+      "tree_element_index": 1,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "FinalCommandSelector"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        3,
+        6,
+        14,
+        15,
+        29,
+        35
+      ],
+      "child_index": 1,
+      "document_order": 2,
+      "element_index": 2,
+      "name": "FinalCommandSelector",
+      "parent_element_index": 0,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 3,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveFallback",
+      "tree_document_index": 0,
+      "tree_element_index": 2,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "AutoGcasOverride"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        4,
+        5
+      ],
+      "child_index": 0,
+      "document_order": 3,
+      "element_index": 3,
+      "name": "AutoGcasOverride",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 4,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 3,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "TerrainRecoveryRequired"
+      },
+      "category": "Condition",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 4,
+      "element_index": 4,
+      "name": "TerrainRecoveryRequired",
+      "parent_element_index": 3,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[0]/Cond_TerrainRecoveryRequired[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 5,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Cond_TerrainRecoveryRequired",
+      "tree_document_index": 0,
+      "tree_element_index": 4,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "AutoGcasRecovery_writer1"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 5,
+      "element_index": 5,
+      "name": "AutoGcasRecovery_writer1",
+      "parent_element_index": 3,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[0]/Task_AutoGcasRecovery[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 6,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_AutoGcasRecovery",
+      "tree_document_index": 0,
+      "tree_element_index": 5,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 156,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterAutoGcasRecovery",
+          "value": 1
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "ImmediateGunDefense"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        7,
+        8,
+        9
+      ],
+      "child_index": 1,
+      "document_order": 6,
+      "element_index": 6,
+      "name": "ImmediateGunDefense",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 7,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 6,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "OfficialOrPredictiveGunThreat"
+      },
+      "category": "Condition",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 7,
+      "element_index": 7,
+      "name": "OfficialOrPredictiveGunThreat",
+      "parent_element_index": 6,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/Cond_ImmediateGunDefenseRequired[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 8,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Cond_ImmediateGunDefenseRequired",
+      "tree_document_index": 0,
+      "tree_element_index": 7,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "PrepareCurrentFrameGunBreak_writer2"
+      },
+      "category": "Service",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 8,
+      "element_index": 8,
+      "name": "PrepareCurrentFrameGunBreak_writer2",
+      "parent_element_index": 6,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/Svc_ImmediateGunBaseBreak[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 9,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Svc_ImmediateGunBaseBreak",
+      "tree_document_index": 0,
+      "tree_element_index": 8,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "ImmediateGunResponseSelector"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "child_index": 2,
+      "document_order": 9,
+      "element_index": 9,
+      "name": "ImmediateGunResponseSelector",
+      "parent_element_index": 6,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/ReactiveFallback[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 10,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveFallback",
+      "tree_document_index": 0,
+      "tree_element_index": 9,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "G4HighG_writer14"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 10,
+      "element_index": 10,
+      "name": "G4HighG_writer14",
+      "parent_element_index": 9,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/ReactiveFallback[2]/Task_G4HighG[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 11,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G4HighG",
+      "tree_document_index": 0,
+      "tree_element_index": 10,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 168,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG4HighGBarrel",
+          "value": 14
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "SnapshotPlaneChange_writer27"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 11,
+      "element_index": 11,
+      "name": "SnapshotPlaneChange_writer27",
+      "parent_element_index": 9,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/ReactiveFallback[2]/Task_SnapshotPlaneChange[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 12,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_SnapshotPlaneChange",
+      "tree_document_index": 0,
+      "tree_element_index": 11,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 184,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterOfficialGunSnapshotPlaneChange",
+          "value": 27
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "PhaseGradedHardTurn_writer3"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 2,
+      "document_order": 12,
+      "element_index": 12,
+      "name": "PhaseGradedHardTurn_writer3",
+      "parent_element_index": 9,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/ReactiveFallback[2]/Task_PhaseGradedHardTurn[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 13,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_PhaseGradedHardTurn",
+      "tree_document_index": 0,
+      "tree_element_index": 12,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 158,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterDbfmHardTurn",
+          "value": 3
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "BaseGunBreak_writer2"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 3,
+      "document_order": 13,
+      "element_index": 13,
+      "name": "BaseGunBreak_writer2",
+      "parent_element_index": 9,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[1]/ReactiveFallback[2]/Task_BaseGunBreak[3]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 14,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_BaseGunBreak",
+      "tree_document_index": 0,
+      "tree_element_index": 13,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 157,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterGunDefenseHorizontalBreak",
+          "value": 2
+        }
+      }
+    },
+    {
+      "attributes": {
+        "admission": "official_current_weapon_effect",
+        "name": "CurrentWeaponEffectEmploy_writer10",
+        "speed_authority": "station_hold",
+        "terminal_route": "DirectBody_NED_aiming"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 2,
+      "document_order": 14,
+      "element_index": 14,
+      "name": "CurrentWeaponEffectEmploy_writer10",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/Task_ObfmEmploy[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 15,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_ObfmEmploy",
+      "tree_document_index": 0,
+      "tree_element_index": 14,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 15,
+            "source": "include/LadyLuck/guidance/obfm/ObfmEmployGuidance.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmEmploy",
+          "value": 10
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "OBFM"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        16,
+        17
+      ],
+      "child_index": 3,
+      "document_order": 15,
+      "element_index": 15,
+      "name": "OBFM",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 16,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 15,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "SituationIsOBFM"
+      },
+      "category": "Condition",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 16,
+      "element_index": 16,
+      "name": "SituationIsOBFM",
+      "parent_element_index": 15,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/Cond_CurrentSituationObfm[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 17,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Cond_CurrentSituationObfm",
+      "tree_document_index": 0,
+      "tree_element_index": 16,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "ObfmManeuverSelector"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "child_index": 1,
+      "document_order": 17,
+      "element_index": 17,
+      "name": "ObfmManeuverSelector",
+      "parent_element_index": 15,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 18,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveFallback",
+      "tree_document_index": 0,
+      "tree_element_index": 17,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "G16Committed_writer6"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 18,
+      "element_index": 18,
+      "name": "G16Committed_writer6",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G16Committed[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 19,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G16Committed",
+      "tree_document_index": 0,
+      "tree_element_index": 18,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 161,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG16Committed",
+          "value": 6
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "G16High_writer8"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 19,
+      "element_index": 19,
+      "name": "G16High_writer8",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G16High[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 20,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G16High",
+      "tree_document_index": 0,
+      "tree_element_index": 19,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 163,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG16HighPrevention",
+          "value": 8
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "HighToLag_writer5"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 2,
+      "document_order": 20,
+      "element_index": 20,
+      "name": "HighToLag_writer5",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_HighToLag[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 21,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_HighToLag",
+      "tree_document_index": 0,
+      "tree_element_index": 20,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 15,
+            "source": "include/LadyLuck/guidance/obfm/ObfmLagGuidance.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmLag",
+          "value": 5
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "G5bExtendZoom_writer7"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 3,
+      "document_order": 21,
+      "element_index": 21,
+      "name": "G5bExtendZoom_writer7",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G5b[3]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 22,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G5b",
+      "tree_document_index": 0,
+      "tree_element_index": 21,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "g5b_delayed_climb",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 21,
+            "source": "include/LadyLuck/guidance/obfm/G5bDelayedClimb.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG5bDelayedClimb",
+          "value": 7
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "extend_or_zoom_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 21,
+            "source": "include/LadyLuck/guidance/obfm/G5bDelayedClimb.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG5bDelayedClimb",
+          "value": 7
+        }
+      }
+    },
+    {
+      "attributes": {
+        "lifecycle": "observe_command_release",
+        "name": "G3CounterBarrel_writer17"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 4,
+      "document_order": 22,
+      "element_index": 22,
+      "name": "G3CounterBarrel_writer17",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G3CounterBarrel[4]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 23,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G3CounterBarrel",
+      "tree_document_index": 0,
+      "tree_element_index": 22,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "g3_counter_barrel",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 171,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3CounterBarrel",
+          "value": 17
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "counter_barrel_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 171,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3CounterBarrel",
+          "value": 17
+        }
+      }
+    },
+    {
+      "attributes": {
+        "lifecycle": "counter_barrel_handoff_hold_release",
+        "name": "G3CounterRollingScissors_writer18"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 5,
+      "document_order": 23,
+      "element_index": 23,
+      "name": "G3CounterRollingScissors_writer18",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G3CounterRollingScissors[5]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 24,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G3CounterRollingScissors",
+      "tree_document_index": 0,
+      "tree_element_index": 23,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "g3_counter_rolling_scissors",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 172,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3CounterRollingScissors",
+          "value": 18
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "counter_rolling_scissors_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 172,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3CounterRollingScissors",
+          "value": 18
+        }
+      }
+    },
+    {
+      "attributes": {
+        "lifecycle": "measured_reversal_gap_egress_release",
+        "name": "G3ScissorsGapEgress_writer16"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 6,
+      "document_order": 24,
+      "element_index": 24,
+      "name": "G3ScissorsGapEgress_writer16",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_G3Scissors[6]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 25,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G3Scissors",
+      "tree_document_index": 0,
+      "tree_element_index": 24,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "g3_scissors_gap_egress",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 170,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3Scissors",
+          "value": 16
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "gap_or_egress_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 170,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG3Scissors",
+          "value": 16
+        }
+      }
+    },
+    {
+      "attributes": {
+        "entry_route": "existing_lag_vector_to_a_cmd_N",
+        "lifecycle": "g16_high_apex_displace_until_lag_reachable",
+        "name": "G16ApexDirectEntryDisplacement_writer21",
+        "speed_authority": "precision_lag_v_cmd"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 7,
+      "document_order": 25,
+      "element_index": 25,
+      "name": "G16ApexDirectEntryDisplacement_writer21",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_ObfmApexDisplacement[7]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 26,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_ObfmApexDisplacement",
+      "tree_document_index": 0,
+      "tree_element_index": 25,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "obfm_apex_displacement",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 176,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmApexDisplacement",
+          "value": 21
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "apex_displacement_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 176,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmApexDisplacement",
+          "value": 21
+        }
+      }
+    },
+    {
+      "attributes": {
+        "admission": "two_official_chords_and_safety",
+        "entry_route": "x_vpp_to_a_cmd_N",
+        "name": "CurrentTurnEntryWindow_writer29",
+        "speed_authority": "episode_latched_entry_v_cmd"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 8,
+      "document_order": 26,
+      "element_index": 26,
+      "name": "CurrentTurnEntryWindow_writer29",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_ObfmEntry[8]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 27,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_ObfmEntry",
+      "tree_document_index": 0,
+      "tree_element_index": 26,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "obfm_current_turn_entry",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 189,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmEntrySetup",
+          "value": 29
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "entry_window_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 189,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmEntrySetup",
+          "value": 29
+        }
+      }
+    },
+    {
+      "attributes": {
+        "entry_route": "x_vpp_to_a_cmd_N",
+        "name": "SpacingArrest_writer28",
+        "speed_authority": "phase_energy_exchange"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 9,
+      "document_order": 27,
+      "element_index": 27,
+      "name": "SpacingArrest_writer28",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_ObfmSpacing[9]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 28,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_ObfmSpacing",
+      "tree_document_index": 0,
+      "tree_element_index": 27,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "obfm_spacing",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 186,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmSpacing",
+          "value": 28
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "spacing_arrest_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 186,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmSpacing",
+          "value": 28
+        }
+      }
+    },
+    {
+      "attributes": {
+        "entry_route": "x_vpp_to_a_cmd_N",
+        "name": "LagPrecision_writer5",
+        "speed_authority": "phase_or_station",
+        "terminal_route": "DirectBody_NED_aiming"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 10,
+      "document_order": 28,
+      "element_index": 28,
+      "name": "LagPrecision_writer5",
+      "parent_element_index": 17,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[3]/ReactiveFallback[1]/Task_ObfmLagPrecision[10]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 29,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_ObfmLagPrecision",
+      "tree_document_index": 0,
+      "tree_element_index": 28,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 15,
+            "source": "include/LadyLuck/guidance/obfm/ObfmLagGuidance.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterObfmLag",
+          "value": 5
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "HABFM"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        30,
+        31
+      ],
+      "child_index": 4,
+      "document_order": 29,
+      "element_index": 29,
+      "name": "HABFM",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 30,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 29,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "SituationIsHABFM"
+      },
+      "category": "Condition",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 30,
+      "element_index": 30,
+      "name": "SituationIsHABFM",
+      "parent_element_index": 29,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]/Cond_CurrentSituationHabfm[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 31,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Cond_CurrentSituationHabfm",
+      "tree_document_index": 0,
+      "tree_element_index": 30,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "HabfmManeuverSelector"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        32,
+        33,
+        34
+      ],
+      "child_index": 1,
+      "document_order": 31,
+      "element_index": 31,
+      "name": "HabfmManeuverSelector",
+      "parent_element_index": 29,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]/ReactiveFallback[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 32,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveFallback",
+      "tree_document_index": 0,
+      "tree_element_index": 31,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "lifecycle": "cross_then_extend_until_reengage",
+        "name": "HabfmEnergyAvoidPass_writer11"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 32,
+      "element_index": 32,
+      "name": "HabfmEnergyAvoidPass_writer11",
+      "parent_element_index": 31,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]/ReactiveFallback[1]/Task_HabfmEnergyAvoidPass[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 33,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_HabfmEnergyAvoidPass",
+      "tree_document_index": 0,
+      "tree_element_index": 32,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 165,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterHabfmAvoidPass",
+          "value": 11
+        }
+      }
+    },
+    {
+      "attributes": {
+        "lifecycle": "pitch_up_winding_rear_reacquire_descending_lag",
+        "name": "G10SecondUse_writer19"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 33,
+      "element_index": 33,
+      "name": "G10SecondUse_writer19",
+      "parent_element_index": 31,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]/ReactiveFallback[1]/Task_G10SecondUse[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 34,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_G10SecondUse",
+      "tree_document_index": 0,
+      "tree_element_index": 33,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": "g10_second_use",
+        "lifecycle_writer": {
+          "definition": {
+            "line": 173,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG10SecondUse",
+          "value": 19
+        },
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "phase_command",
+        "status": "lifecycle_fixed",
+        "writer": {
+          "definition": {
+            "line": 173,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterG10SecondUse",
+          "value": 19
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "HabfmMergeEnergyOneTwoCircle_writer4"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 2,
+      "document_order": 34,
+      "element_index": 34,
+      "name": "HabfmMergeEnergyOneTwoCircle_writer4",
+      "parent_element_index": 31,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[4]/ReactiveFallback[1]/Task_HabfmTerminalOwner[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 35,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_HabfmTerminalOwner",
+      "tree_document_index": 0,
+      "tree_element_index": 34,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 159,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterHabfm",
+          "value": 4
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "DBFM"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        36,
+        37
+      ],
+      "child_index": 5,
+      "document_order": 35,
+      "element_index": 35,
+      "name": "DBFM",
+      "parent_element_index": 2,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 36,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveSequence",
+      "tree_document_index": 0,
+      "tree_element_index": 35,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "SituationIsDBFM"
+      },
+      "category": "Condition",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 36,
+      "element_index": 36,
+      "name": "SituationIsDBFM",
+      "parent_element_index": 35,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]/Cond_CurrentSituationDbfm[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 37,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Cond_CurrentSituationDbfm",
+      "tree_document_index": 0,
+      "tree_element_index": 36,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "DbfmManeuverSelector"
+      },
+      "category": "Composite",
+      "child_element_indices": [
+        38,
+        39,
+        40
+      ],
+      "child_index": 1,
+      "document_order": 37,
+      "element_index": 37,
+      "name": "DbfmManeuverSelector",
+      "parent_element_index": 35,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]/ReactiveFallback[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "builtin"
+      },
+      "static_node_id": 38,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "ReactiveFallback",
+      "tree_document_index": 0,
+      "tree_element_index": 37,
+      "tree_id": "LadyLuck_v2"
+    },
+    {
+      "attributes": {
+        "name": "DbfmBreak_writer22"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 0,
+      "document_order": 38,
+      "element_index": 38,
+      "name": "DbfmBreak_writer22",
+      "parent_element_index": 37,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]/ReactiveFallback[1]/Task_DbfmBreak[0]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 39,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_DbfmBreak",
+      "tree_document_index": 0,
+      "tree_element_index": 38,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 177,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterDbfmBreak",
+          "value": 22
+        }
+      }
+    },
+    {
+      "attributes": {
+        "guidance": "horizontal_away_max_power_shallow_dive_if_safe",
+        "name": "DbfmAltitudeSeparated_writer23"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 1,
+      "document_order": 39,
+      "element_index": 39,
+      "name": "DbfmAltitudeSeparated_writer23",
+      "parent_element_index": 37,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]/ReactiveFallback[1]/Task_DbfmAltitudeSeparated[1]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 40,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_DbfmAltitudeSeparated",
+      "tree_document_index": 0,
+      "tree_element_index": 39,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 178,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterDbfmAltitudeSeparated",
+          "value": 23
+        }
+      }
+    },
+    {
+      "attributes": {
+        "name": "DbfmHardTurn_writer3"
+      },
+      "category": "Task",
+      "child_element_indices": [],
+      "child_index": 2,
+      "document_order": 40,
+      "element_index": 40,
+      "name": "DbfmHardTurn_writer3",
+      "parent_element_index": 37,
+      "path": "/BehaviorTree[0]/ReactiveSequence[0]/ReactiveFallback[1]/ReactiveSequence[5]/ReactiveFallback[1]/Task_DbfmHardTurn[2]",
+      "reachable": true,
+      "registration": {
+        "matches": [],
+        "status": "unmapped"
+      },
+      "static_node_id": 41,
+      "static_stage_id": 1,
+      "subtree_target": null,
+      "tag": "Task_DbfmHardTurn",
+      "tree_document_index": 0,
+      "tree_element_index": 40,
+      "tree_id": "LadyLuck_v2",
+      "writer_mapping": {
+        "lifecycle_owner_group": null,
+        "lifecycle_writer": null,
+        "mapping_basis": "explicit_static_binding_table",
+        "publication_role": "command",
+        "status": "fixed",
+        "writer": {
+          "definition": {
+            "line": 158,
+            "source": "include/LadyLuck/contracts/ControlIntent.hpp"
+          },
+          "runtime_references": [],
+          "status": "resolved",
+          "symbol": "ControlIntentWriterDbfmHardTurn",
+          "value": 3
+        }
+      }
+    }
+  ],
+  "gate_failures": [],
+  "production_topology_projection": {
+    "conflict_count": 0,
+    "conflict_counts": {},
+    "conflicts": [],
+    "status": "REPRESENTABLE",
+    "target_contract": "ProductionBtTopology"
+  },
+  "referenced_writer_constant_definitions": {
+    "ControlIntentWriterAutoGcasRecovery": [
+      {
+        "line": 156,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 1
+      }
+    ],
+    "ControlIntentWriterDbfmAltitudeSeparated": [
+      {
+        "line": 178,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 23
+      }
+    ],
+    "ControlIntentWriterDbfmBreak": [
+      {
+        "line": 177,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 22
+      }
+    ],
+    "ControlIntentWriterDbfmHardTurn": [
+      {
+        "line": 158,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 3
+      }
+    ],
+    "ControlIntentWriterG10SecondUse": [
+      {
+        "line": 173,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 19
+      }
+    ],
+    "ControlIntentWriterG13FirstReverse": [
+      {
+        "line": 167,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 13
+      }
+    ],
+    "ControlIntentWriterG16Committed": [
+      {
+        "line": 161,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 6
+      }
+    ],
+    "ControlIntentWriterG16HighPrevention": [
+      {
+        "line": 163,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 8
+      }
+    ],
+    "ControlIntentWriterG3ChaseDownAimFloor": [
+      {
+        "line": 169,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 15
+      }
+    ],
+    "ControlIntentWriterG3CounterBarrel": [
+      {
+        "line": 171,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 17
+      }
+    ],
+    "ControlIntentWriterG3CounterRollingScissors": [
+      {
+        "line": 172,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 18
+      }
+    ],
+    "ControlIntentWriterG3Scissors": [
+      {
+        "line": 170,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 16
+      }
+    ],
+    "ControlIntentWriterG4HighGBarrel": [
+      {
+        "line": 168,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 14
+      }
+    ],
+    "ControlIntentWriterG5bDelayedClimb": [
+      {
+        "line": 21,
+        "source": "include/LadyLuck/guidance/obfm/G5bDelayedClimb.hpp",
+        "value": 7
+      }
+    ],
+    "ControlIntentWriterGunDefenseHorizontalBreak": [
+      {
+        "line": 157,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 2
+      }
+    ],
+    "ControlIntentWriterHabfm": [
+      {
+        "line": 159,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 4
+      }
+    ],
+    "ControlIntentWriterHabfmAvoidPass": [
+      {
+        "line": 165,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 11
+      }
+    ],
+    "ControlIntentWriterObfmApexDisplacement": [
+      {
+        "line": 176,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 21
+      }
+    ],
+    "ControlIntentWriterObfmEmploy": [
+      {
+        "line": 15,
+        "source": "include/LadyLuck/guidance/obfm/ObfmEmployGuidance.hpp",
+        "value": 10
+      }
+    ],
+    "ControlIntentWriterObfmEntrySetup": [
+      {
+        "line": 189,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 29
+      }
+    ],
+    "ControlIntentWriterObfmLag": [
+      {
+        "line": 15,
+        "source": "include/LadyLuck/guidance/obfm/ObfmLagGuidance.hpp",
+        "value": 5
+      }
+    ],
+    "ControlIntentWriterObfmSpacing": [
+      {
+        "line": 186,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 28
+      }
+    ],
+    "ControlIntentWriterOfficialGunSnapshotPlaneChange": [
+      {
+        "line": 184,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 27
+      }
+    ],
+    "ControlIntentWriterPrefireSnapshotPlaneChange": [
+      {
+        "line": 166,
+        "source": "include/LadyLuck/contracts/ControlIntent.hpp",
+        "value": 12
+      }
+    ]
+  },
+  "registered_node_types": {},
+  "schema": "LadyLuck.BtTopologyInventory.v1",
+  "source": {
+    "main_tree_to_execute": "LadyLuck_v2",
+    "sha256": "8DB80DA77C13E28196EB960ED0389FF5EA941C585BAE5752323433686A708301",
+    "xml": "config/LadyLuck_v2.xml"
+  },
+  "static_identity_mapping": {
+    "basis": "frozen_xml_source_position",
+    "node": {
+      "cpp_type": "static_bt::BtNodeId",
+      "domain_count": 41,
+      "formula": "static_node_id = element_index + 1",
+      "invertible": true,
+      "nonzero": true,
+      "unique": true
+    },
+    "source_xml_sha256": "8DB80DA77C13E28196EB960ED0389FF5EA941C585BAE5752323433686A708301",
+    "stage": {
+      "cpp_type": "static_bt::BtStageId",
+      "domain_count": 1,
+      "formula": "static_stage_id = tree_document_index + 1",
+      "invertible": true,
+      "nonzero": true,
+      "unique": true
+    }
+  },
+  "summary": {
+    "category_counts": {
+      "Composite": 11,
+      "Condition": 5,
+      "Service": 2,
+      "Task": 23
+    },
+    "edge_count": 40,
+    "edge_definition": "direct_xml_parent_child_only",
+    "element_count": 41,
+    "failure_count": 0,
+    "failure_counts": {},
+    "gate_status": "GO",
+    "lifecycle_owner_group_counts": {
+      "g10_second_use": 1,
+      "g3_counter_barrel": 1,
+      "g3_counter_rolling_scissors": 1,
+      "g3_scissors_gap_egress": 1,
+      "g5b_delayed_climb": 1,
+      "obfm_apex_displacement": 1,
+      "obfm_current_turn_entry": 1,
+      "obfm_spacing": 1
+    },
+    "max_direct_children": 11,
+    "production_topology_projection_status": "REPRESENTABLE",
+    "registration_status_counts": {
+      "builtin": 11,
+      "unmapped": 30
+    },
+    "tag_counts": {
+      "Cond_CurrentSituationDbfm": 1,
+      "Cond_CurrentSituationHabfm": 1,
+      "Cond_CurrentSituationObfm": 1,
+      "Cond_ImmediateGunDefenseRequired": 1,
+      "Cond_TerrainRecoveryRequired": 1,
+      "ReactiveFallback": 5,
+      "ReactiveSequence": 6,
+      "Svc_GlobalObservationAndSituationClassification": 1,
+      "Svc_ImmediateGunBaseBreak": 1,
+      "Task_AutoGcasRecovery": 1,
+      "Task_BaseGunBreak": 1,
+      "Task_DbfmAltitudeSeparated": 1,
+      "Task_DbfmBreak": 1,
+      "Task_DbfmHardTurn": 1,
+      "Task_G10SecondUse": 1,
+      "Task_G16Committed": 1,
+      "Task_G16High": 1,
+      "Task_G3CounterBarrel": 1,
+      "Task_G3CounterRollingScissors": 1,
+      "Task_G3Scissors": 1,
+      "Task_G4HighG": 1,
+      "Task_G5b": 1,
+      "Task_HabfmEnergyAvoidPass": 1,
+      "Task_HabfmTerminalOwner": 1,
+      "Task_HighToLag": 1,
+      "Task_ObfmApexDisplacement": 1,
+      "Task_ObfmEmploy": 1,
+      "Task_ObfmEntry": 1,
+      "Task_ObfmLagPrecision": 1,
+      "Task_ObfmSpacing": 1,
+      "Task_PhaseGradedHardTurn": 1,
+      "Task_SnapshotPlaneChange": 1
+    },
+    "task_instance_count": 23,
+    "task_registration_status_counts": {
+      "unmapped": 23
+    },
+    "tree_count": 1,
+    "unique_task_tag_count": 23,
+    "writer_mapping_status_counts": {
+      "fixed": 15,
+      "lifecycle_fixed": 8
+    }
+  },
+  "tree_inventory": [
+    {
+      "document_index": 0,
+      "element_count": 41,
+      "reachable_from_main": true,
+      "referenced_by_element_indices": [],
+      "root_element_indices": [
+        0
+      ],
+      "static_stage_id": 1,
+      "tree_id": "LadyLuck_v2"
+    }
+  ]
+}

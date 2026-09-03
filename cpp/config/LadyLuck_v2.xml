@@ -1,0 +1,104 @@
+<root main_tree_to_execute="LadyLuck_v2">
+  <!--
+    Offline topology authority for the fixed-capacity C++ production tree.
+    The DLL does not parse this file at runtime. Observation/classification is
+    command-neutral; exactly one selected Task publishes one raw guidance
+    intent, which Route-5, DirectBody or DirectNED and then FCS admits.
+  -->
+  <BehaviorTree ID="LadyLuck_v2">
+    <ReactiveSequence name="StaticDoctrineRoot">
+      <Svc_GlobalObservationAndSituationClassification
+          name="ObserveSafetyGunAndClassifySituation"
+          situation="OBFM|HABFM|DBFM" />
+
+      <ReactiveFallback name="FinalCommandSelector">
+        <ReactiveSequence name="AutoGcasOverride">
+          <Cond_TerrainRecoveryRequired name="TerrainRecoveryRequired" />
+          <Task_AutoGcasRecovery name="AutoGcasRecovery_writer1" />
+        </ReactiveSequence>
+
+        <ReactiveSequence name="ImmediateGunDefense">
+          <Cond_ImmediateGunDefenseRequired
+              name="OfficialOrPredictiveGunThreat" />
+          <Svc_ImmediateGunBaseBreak
+              name="PrepareCurrentFrameGunBreak_writer2" />
+          <ReactiveFallback name="ImmediateGunResponseSelector">
+            <Task_G4HighG name="G4HighG_writer14" />
+            <Task_SnapshotPlaneChange name="SnapshotPlaneChange_writer27" />
+            <Task_PhaseGradedHardTurn name="PhaseGradedHardTurn_writer3" />
+            <Task_BaseGunBreak name="BaseGunBreak_writer2" />
+          </ReactiveFallback>
+        </ReactiveSequence>
+
+        <Task_ObfmEmploy
+            name="CurrentWeaponEffectEmploy_writer10"
+            admission="official_current_weapon_effect"
+            speed_authority="station_hold"
+            terminal_route="DirectBody_NED_aiming" />
+
+        <ReactiveSequence name="OBFM">
+          <Cond_CurrentSituationObfm name="SituationIsOBFM" />
+          <ReactiveFallback name="ObfmManeuverSelector">
+            <Task_G16Committed name="G16Committed_writer6" />
+            <Task_G16High name="G16High_writer8" />
+            <Task_HighToLag name="HighToLag_writer5" />
+            <Task_G5b name="G5bExtendZoom_writer7" />
+            <Task_G3CounterBarrel
+                name="G3CounterBarrel_writer17"
+                lifecycle="observe_command_release" />
+            <Task_G3CounterRollingScissors
+                name="G3CounterRollingScissors_writer18"
+                lifecycle="counter_barrel_handoff_hold_release" />
+            <Task_G3Scissors
+                name="G3ScissorsGapEgress_writer16"
+                lifecycle="measured_reversal_gap_egress_release" />
+            <Task_ObfmApexDisplacement
+                name="G16ApexDirectEntryDisplacement_writer21"
+                lifecycle="g16_high_apex_displace_until_lag_reachable"
+                speed_authority="precision_lag_v_cmd"
+                entry_route="existing_lag_vector_to_a_cmd_N" />
+            <Task_ObfmEntry
+                name="CurrentTurnEntryWindow_writer29"
+                admission="two_official_chords_and_safety"
+                speed_authority="episode_latched_entry_v_cmd"
+                entry_route="x_vpp_to_a_cmd_N" />
+            <Task_ObfmSpacing
+                name="SpacingArrest_writer28"
+                speed_authority="phase_energy_exchange"
+                entry_route="x_vpp_to_a_cmd_N" />
+            <Task_ObfmLagPrecision
+                name="LagPrecision_writer5"
+                speed_authority="phase_or_station"
+                entry_route="x_vpp_to_a_cmd_N"
+                terminal_route="DirectBody_NED_aiming" />
+          </ReactiveFallback>
+        </ReactiveSequence>
+
+        <ReactiveSequence name="HABFM">
+          <Cond_CurrentSituationHabfm name="SituationIsHABFM" />
+          <ReactiveFallback name="HabfmManeuverSelector">
+            <Task_HabfmEnergyAvoidPass
+                name="HabfmEnergyAvoidPass_writer11"
+                lifecycle="cross_then_extend_until_reengage" />
+            <Task_G10SecondUse
+                name="G10SecondUse_writer19"
+                lifecycle="pitch_up_winding_rear_reacquire_descending_lag" />
+            <Task_HabfmTerminalOwner
+                name="HabfmMergeEnergyOneTwoCircle_writer4" />
+          </ReactiveFallback>
+        </ReactiveSequence>
+
+        <ReactiveSequence name="DBFM">
+          <Cond_CurrentSituationDbfm name="SituationIsDBFM" />
+          <ReactiveFallback name="DbfmManeuverSelector">
+            <Task_DbfmBreak name="DbfmBreak_writer22" />
+            <Task_DbfmAltitudeSeparated
+                name="DbfmAltitudeSeparated_writer23"
+                guidance="horizontal_away_max_power_shallow_dive_if_safe" />
+            <Task_DbfmHardTurn name="DbfmHardTurn_writer3" />
+          </ReactiveFallback>
+        </ReactiveSequence>
+      </ReactiveFallback>
+    </ReactiveSequence>
+  </BehaviorTree>
+</root>

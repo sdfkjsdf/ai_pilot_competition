@@ -1,0 +1,28 @@
+# Visual Studio user state and generated outputs
+.vs/
+*.suo
+*.user
+*.VC.db
+*.ipch
+
+# MSBuild outputs
+/Debug/
+/Release/
+/x64/
+/AIP_DCS/x64/
+*.obj
+*.o
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.log
+
+# Local test and trace outputs
+/artifacts/
+/build/
+/tmp/
+__pycache__/
+*.pyc

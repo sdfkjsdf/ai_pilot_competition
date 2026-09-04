@@ -57,6 +57,9 @@ Copy-Item -LiteralPath .\cpp\config\LadyLuck_v2.xml `
     -Destination (Join-Path $releaseDir "LadyLuck_v2.xml") -Force
 ```
 
+배치 대상 Python 실행기는 DLL의 중립 진입점 `StepKinematicObservation`을
+지원하는 버전을 사용해야 합니다.
+
 ## 실행
 
 대회 서버가 실행 중인 상태에서 `DogFightEnv\Release` 폴더로 이동한 뒤
@@ -65,8 +68,8 @@ Copy-Item -LiteralPath .\cpp\config\LadyLuck_v2.xml `
 ```powershell
 Set-Location "C:\path\to\AIP_LIB\DogFightEnv\Release"
 
-$serverIp = "   "
-$serverPort = 
+$serverIp = Read-Host "대회 서버 IP"
+$serverPort = [int](Read-Host "대회 서버 포트")
 
 python .\run_unreal_inference.py `
     --mode bt `

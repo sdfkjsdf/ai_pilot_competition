@@ -1,6 +1,7 @@
 #include "LadyLuck/guidance/dbfm/DbfmBreakMargin.hpp"
 
 #include "LadyLuck/common/Constants.hpp"
+#include "LadyLuck/common/FiniteMathState.hpp"
 #include "LadyLuck/geometry/WezGeometry.hpp"
 
 #include <algorithm>
@@ -13,19 +14,13 @@ using LadyLuck::DogfightGeometryFrame;
 using LadyLuck::Status;
 using LadyLuck::StatusCode;
 using LadyLuck::Vector3;
+using LadyLuck::common::FiniteMathState;
 using LadyLuck::guidance::dbfm::DbfmBreakMarginActivation;
 using LadyLuck::guidance::dbfm::DbfmBreakMarginObservation;
 using LadyLuck::guidance::dbfm::DbfmBreakMarginReason;
 using LadyLuck::guidance::dbfm::DbfmBreakMarginTurnCapabilityReceipt;
 using LadyLuck::guidance::dbfm::DbfmBreakOfficialThreatObservation;
 using LadyLuck::guidance::dbfm::DbfmBreakOfficialThreatReason;
-
-enum class FiniteMathState : std::uint8_t
-{
-    Available = 0U,
-    TooSmall = 1U,
-    ArithmeticUnavailable = 2U
-};
 
 bool FiniteVector(const Vector3& value) noexcept
 {
@@ -167,7 +162,7 @@ FiniteMathState PythonNorm3(
     }
     output = std::sqrt(sum_squared);
     return output < LadyLuck::constants::Tiny
-        ? FiniteMathState::TooSmall
+        ? FiniteMathState::Degenerate
         : FiniteMathState::Available;
 }
 
@@ -350,7 +345,7 @@ void EvaluateMargin(
         output.reason = DbfmBreakMarginReason::ArithmeticUnavailable;
         return;
     }
-    if (speed_state == FiniteMathState::TooSmall)
+    if (speed_state == FiniteMathState::Degenerate)
     {
         output.reason = DbfmBreakMarginReason::OwnSpeedUnavailable;
         return;
@@ -422,7 +417,7 @@ void EvaluateMargin(
         output.reason = DbfmBreakMarginReason::ArithmeticUnavailable;
         return;
     }
-    if (separation_state == FiniteMathState::TooSmall)
+    if (separation_state == FiniteMathState::Degenerate)
     {
         output.reason = DbfmBreakMarginReason::SeparationUnavailable;
         return;

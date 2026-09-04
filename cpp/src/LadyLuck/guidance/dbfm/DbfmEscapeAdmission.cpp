@@ -1,6 +1,7 @@
 #include "LadyLuck/guidance/dbfm/DbfmEscapeAdmission.hpp"
 
 #include "LadyLuck/common/Constants.hpp"
+#include "LadyLuck/common/FiniteMathState.hpp"
 #include "LadyLuck/geometry/WezGeometry.hpp"
 #include "LadyLuck/geometry/WezRule.hpp"
 
@@ -15,6 +16,7 @@ using LadyLuck::DogfightGeometryFrame;
 using LadyLuck::Status;
 using LadyLuck::StatusCode;
 using LadyLuck::Vector3;
+using LadyLuck::common::FiniteMathState;
 using LadyLuck::guidance::dbfm::DbfmDefenseUrgencyReason;
 using LadyLuck::guidance::dbfm::DbfmDefenseUrgencyReceipt;
 using LadyLuck::guidance::dbfm::DbfmEscapeEligibilityReason;
@@ -23,13 +25,6 @@ using LadyLuck::guidance::dbfm::DbfmEscapeTurnCapabilityReceipt;
 using LadyLuck::guidance::dbfm::DbfmOfficialScratchReason;
 using LadyLuck::guidance::dbfm::DbfmOfficialScratchReceipt;
 using LadyLuck::guidance::dbfm::DbfmScratchEntryForecastReceipt;
-
-enum class FiniteMathState : std::uint8_t
-{
-    Available = 0U,
-    Zero = 1U,
-    ArithmeticUnavailable = 2U
-};
 
 constexpr double Float32RelativeQuantum = 1.1920928955078125e-7;
 // Frozen Python math.sqrt(3.0) * 0.0003048 result.
@@ -170,7 +165,7 @@ FiniteMathState PythonNorm3(
     }
     output = std::sqrt(sum_squared);
     return output == 0.0
-        ? FiniteMathState::Zero
+        ? FiniteMathState::Degenerate
         : FiniteMathState::Available;
 }
 
@@ -315,7 +310,7 @@ void EvaluateDefenseUrgency(
         output.reason = DbfmDefenseUrgencyReason::ArithmeticUnavailable;
         return;
     }
-    if (own_speed_state == FiniteMathState::Zero)
+    if (own_speed_state == FiniteMathState::Degenerate)
     {
         output.reason = DbfmDefenseUrgencyReason::OwnSpeedUnavailable;
         return;
@@ -337,7 +332,7 @@ void EvaluateDefenseUrgency(
         output.reason = DbfmDefenseUrgencyReason::ArithmeticUnavailable;
         return;
     }
-    if (opponent_speed_state == FiniteMathState::Zero)
+    if (opponent_speed_state == FiniteMathState::Degenerate)
     {
         output.reason = DbfmDefenseUrgencyReason::OpponentSpeedUnavailable;
         return;
@@ -388,7 +383,7 @@ void EvaluateDefenseUrgency(
         output.reason = DbfmDefenseUrgencyReason::ArithmeticUnavailable;
         return;
     }
-    if (separation_state == FiniteMathState::Zero)
+    if (separation_state == FiniteMathState::Degenerate)
     {
         output.reason = DbfmDefenseUrgencyReason::SeparationUnavailable;
         return;
@@ -718,7 +713,7 @@ void DbfmEscapeAdmissionEvaluator::UpdateEntryForecast(
             DbfmScratchEntryForecastReason::ArithmeticUnavailable;
         return;
     }
-    if (separation_state == FiniteMathState::Zero)
+    if (separation_state == FiniteMathState::Degenerate)
     {
         output.reason =
             DbfmScratchEntryForecastReason::DegenerateSeparation;

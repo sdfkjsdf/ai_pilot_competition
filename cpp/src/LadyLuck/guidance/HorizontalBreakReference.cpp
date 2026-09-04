@@ -1,6 +1,7 @@
 #include "LadyLuck/guidance/GunDefenseControlIntent.hpp"
 
 #include "LadyLuck/common/Constants.hpp"
+#include "LadyLuck/common/FiniteMathState.hpp"
 
 #include <cmath>
 #include <cstddef>
@@ -8,12 +9,7 @@
 
 namespace
 {
-enum class FiniteMathState : std::uint8_t
-{
-    Available = 0U,
-    TooSmall = 1U,
-    ArithmeticUnavailable = 2U
-};
+using LadyLuck::common::FiniteMathState;
 
 bool FiniteVector(const LadyLuck::Vector3& value) noexcept
 {
@@ -150,7 +146,7 @@ FiniteMathState Norm3(
     }
     output = std::sqrt(sum_squared);
     return output < LadyLuck::constants::Tiny
-        ? FiniteMathState::TooSmall
+        ? FiniteMathState::Degenerate
         : FiniteMathState::Available;
 }
 
@@ -195,7 +191,7 @@ bool FirstHorizontalUnit(
             arithmetic_unavailable = true;
             continue;
         }
-        if (norm_state == FiniteMathState::TooSmall)
+        if (norm_state == FiniteMathState::Degenerate)
         {
             continue;
         }
@@ -292,7 +288,7 @@ void BuildHorizontalBreakReference(
         output.reason = HorizontalBreakReferenceReason::ArithmeticUnavailable;
         return;
     }
-    if (speed_state == FiniteMathState::TooSmall)
+    if (speed_state == FiniteMathState::Degenerate)
     {
         output.reason = HorizontalBreakReferenceReason::OwnSpeedUnavailable;
         return;

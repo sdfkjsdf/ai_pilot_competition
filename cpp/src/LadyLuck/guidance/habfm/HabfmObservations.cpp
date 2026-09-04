@@ -1,10 +1,16 @@
 #include "LadyLuck/guidance/habfm/HabfmObservations.hpp"
 
+#include "LadyLuck/common/CompensatedDouble.hpp"
+
 #include <cmath>
 #include <limits>
 
 namespace
 {
+using LadyLuck::common::CompensatedDouble;
+using LadyLuck::common::ExactProduct;
+using LadyLuck::common::FastSum;
+
 constexpr double kBodyVelocityQuantumMps = 0.001 * 0.3048;
 constexpr double kPlaneInfoFloat32RelativeQuantum = 0x1.0p-23;
 constexpr double kStandardGravityMps2 = 9.80665;
@@ -40,28 +46,6 @@ double Dot3(
     return left[0] * right[0]
         + left[1] * right[1]
         + left[2] * right[2];
-}
-
-struct DoubleLength
-{
-    double hi = 0.0;
-    double lo = 0.0;
-};
-
-DoubleLength FastSum(const double a, const double b) noexcept
-{
-    DoubleLength result{};
-    result.hi = a + b;
-    result.lo = (a - result.hi) + b;
-    return result;
-}
-
-DoubleLength ExactProduct(const double left, const double right) noexcept
-{
-    DoubleLength result{};
-    result.hi = left * right;
-    result.lo = std::fma(left, right, -result.hi);
-    return result;
 }
 
 double PythonHypot3(const LadyLuck::Vector3& value) noexcept
@@ -106,8 +90,8 @@ double PythonHypot3(const LadyLuck::Vector3& value) noexcept
     for (double coordinate : coordinates)
     {
         coordinate *= scale;
-        const DoubleLength product = ExactProduct(coordinate, coordinate);
-        const DoubleLength sum = FastSum(corrected_sum, product.hi);
+        const CompensatedDouble product = ExactProduct(coordinate, coordinate);
+        const CompensatedDouble sum = FastSum(corrected_sum, product.hi);
         corrected_sum = sum.hi;
         fraction_products += product.lo;
         fraction_sums += sum.lo;
@@ -115,8 +99,8 @@ double PythonHypot3(const LadyLuck::Vector3& value) noexcept
 
     double magnitude = std::sqrt(
         corrected_sum - 1.0 + (fraction_products + fraction_sums));
-    const DoubleLength negative_square = ExactProduct(-magnitude, magnitude);
-    const DoubleLength residual_sum = FastSum(
+    const CompensatedDouble negative_square = ExactProduct(-magnitude, magnitude);
+    const CompensatedDouble residual_sum = FastSum(
         corrected_sum,
         negative_square.hi);
     corrected_sum = residual_sum.hi;

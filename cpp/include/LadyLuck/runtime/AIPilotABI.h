@@ -9,6 +9,23 @@
 constexpr std::uint32_t AIPILOT_ABI_VERSION_V1 = 1U;
 constexpr LadyLuck::Float64 AIPILOT_NOMINAL_DT_S_V1 = 1.0 / 60.0;
 
+// Fixed-layout compatibility payload for the legacy GetVP and
+// LLAtoCartesian exports. Production guidance uses LadyLuck::Vector3;
+// this type exists only at the external C ABI boundary.
+typedef struct LegacyVector3V1
+{
+    LadyLuck::Float64 X;
+    LadyLuck::Float64 Y;
+    LadyLuck::Float64 Z;
+} LegacyVector3V1;
+
+static_assert(std::is_standard_layout<LegacyVector3V1>::value, "");
+static_assert(std::is_trivially_copyable<LegacyVector3V1>::value, "");
+static_assert(sizeof(LegacyVector3V1) == 24U, "");
+static_assert(offsetof(LegacyVector3V1, X) == 0U, "");
+static_assert(offsetof(LegacyVector3V1, Y) == 8U, "");
+static_assert(offsetof(LegacyVector3V1, Z) == 16U, "");
+
 #pragma pack(push, 1)
 
 typedef struct _ControlValue

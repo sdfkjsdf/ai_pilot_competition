@@ -1,13 +1,9 @@
 #include <cmath>
 #include <cstring>
-#include "LadyLuck/geometry/EulerAngle.h"
-#include "LadyLuck/geometry/Vector3.h"
 #include "LadyLuck/runtime/AIPilotABI.h"
 #include "LadyLuck/runtime/ObservationRuntime.h"
 #include "LadyLuck/guidance/contracts/FrameContract.h"
 #include "LadyLuck/runtime/ProductionOwnerRegistryV1.hpp"
-
-using BT_Geometry::Vector3;
 
 #define MAX_ITEM 51
 #define MAX_OTHRES 3
@@ -62,7 +58,9 @@ extern "C"
 
     __declspec(dllexport) ControlValue GetStick(oPlaneData& MyData, float VP_X, float VP_Y, float VP_Z);
 
-    __declspec(dllexport) Vector3 LLAtoCartesian(Vector3 LLA, Vector3 BaseLLA);
+    __declspec(dllexport) LegacyVector3V1 LLAtoCartesian(
+        LegacyVector3V1 LLA,
+        LegacyVector3V1 BaseLLA);
     //2대2에서 아군기의 타겟을 변경시키기 위한 함수 FriendID :아군기 DISID, TargetDIS : 아군기 타겟 설정
     __declspec(dllexport) void SetTarget(int FriendID, int TargetDIS);
 
@@ -72,7 +70,7 @@ extern "C"
     //비헤비어트리의 DeltaTime을 설정
     __declspec(dllexport) void SetBehaviorTreeDeltaTime(int OwnShipID, double DT);
 
-    __declspec(dllexport) Vector3 GetVP(oPlaneData& MyData);
+    __declspec(dllexport) LegacyVector3V1 GetVP(oPlaneData& MyData);
 
     __declspec(dllexport) void Reset();
     __declspec(dllexport) void RemoveBT(int OwnerID);
@@ -207,22 +205,24 @@ std::int32_t CopyFrameContractDiagnosticsV1(
     return runtime_status;
 }
 
-Vector3 LLAtoCartesian(Vector3 LLA, Vector3 BaseLLA)
+LegacyVector3V1 LLAtoCartesian(
+    LegacyVector3V1 LLA,
+    LegacyVector3V1 BaseLLA)
 {
 	double eccentricitysquare, N, M;
 	eccentricitysquare = 1.0 - std::pow(6356752.3142, 2) / std::pow(6378137.0, 2);
-	N = 6378137.0 / std::sqrt(1.0 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * BT_Geometry::PI / 180.0), 2)); // prime vertical radius of curvature
-	M = 6378137.0 * (1.0 - eccentricitysquare) / std::pow(1 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * BT_Geometry::PI / 180.0), 2), 3 / 2);
+	N = 6378137.0 / std::sqrt(1.0 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * D2R), 2)); // prime vertical radius of curvature
+	M = 6378137.0 * (1.0 - eccentricitysquare) / std::pow(1 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * D2R), 2), 3 / 2);
 
 	double dlat, dlon;
 	dlat = LLA.X - BaseLLA.X;
 	dlon = LLA.Y - BaseLLA.Y;
 
 	double dN, dE, dD;
-	dN = (M + BaseLLA.Z) * dlat * BT_Geometry::PI / 180.0;
-	dE = (N + BaseLLA.Z) * std::cos(BaseLLA.X * BT_Geometry::PI / 180.0) * dlon * BT_Geometry::PI / 180.0;
+	dN = (M + BaseLLA.Z) * dlat * D2R;
+	dE = (N + BaseLLA.Z) * std::cos(BaseLLA.X * D2R) * dlon * D2R;
 	dD = (LLA.Z - BaseLLA.Z);
-	Vector3 res(dN, dE, dD);
+	LegacyVector3V1 res{dN, dE, dD};
 	return res;
 }
 
@@ -306,10 +306,10 @@ void SetBehaviorTreeDeltaTime(int OwnShipID, double DT)
     (void)DT;
 }
 
-Vector3 GetVP(oPlaneData& MyData)
+LegacyVector3V1 GetVP(oPlaneData& MyData)
 {
     (void)MyData;
-    return Vector3(0.0, 0.0, 0.0);
+    return LegacyVector3V1{0.0, 0.0, 0.0};
 }
 
 
@@ -318,19 +318,25 @@ Vector3 GetVP(oPlaneData& MyData)
 oPlaneData ChangeData(int ID, int Team, float HP, int OperType, oNavigationData& NaviData)
 {
     oPlaneData PlaneData;
-    BT_Geometry::Vector3 LLA = BT_Geometry::Vector3(NaviData.Lat/1000000.0, NaviData.Lon/1000000.0, (NaviData.Alt / 1000.0) * FEET_TO_METER );
-    BT_Geometry::EulerAngle YPR = BT_Geometry::EulerAngle( NaviData.psi/1000.0, NaviData.theta/1000.0, NaviData.phi/1000.0); //yaw pitch roll (deg)
-    PlaneData.LocationX = LLA.X;
-    PlaneData.LocationY = LLA.Y;
-    PlaneData.LocationZ = LLA.Z;
-    PlaneData.Roll = YPR.Roll;
-    PlaneData.Pitch = YPR.Pitch;
-    PlaneData.Yaw  = YPR.Yaw;
-    PlaneData.Speed    = (NaviData.KTAS / 10.0) * 0.51444; //knot to m/s
+    const LegacyVector3V1 LLA{
+        NaviData.Lat / 1000000.0,
+        NaviData.Lon / 1000000.0,
+        (NaviData.Alt / 1000.0) * FEET_TO_METER};
+    const double yaw_deg = NaviData.psi / 1000.0;
+    const double pitch_deg = NaviData.theta / 1000.0;
+    const double roll_deg = NaviData.phi / 1000.0;
+    PlaneData.LocationX = static_cast<LadyLuck::Float32>(LLA.X);
+    PlaneData.LocationY = static_cast<LadyLuck::Float32>(LLA.Y);
+    PlaneData.LocationZ = static_cast<LadyLuck::Float32>(LLA.Z);
+    PlaneData.Roll = static_cast<LadyLuck::Float32>(roll_deg);
+    PlaneData.Pitch = static_cast<LadyLuck::Float32>(pitch_deg);
+    PlaneData.Yaw  = static_cast<LadyLuck::Float32>(yaw_deg);
+    PlaneData.Speed = static_cast<LadyLuck::Float32>(
+        (NaviData.KTAS / 10.0) * 0.51444); //knot to m/s
     PlaneData.Team     = Team;  //force side
-    PlaneData.Resv0    = ID;
+    PlaneData.Resv0    = static_cast<LadyLuck::Float32>(ID);
     PlaneData.Resv1    = HP;
-    PlaneData.Resv2    = OperType;
+    PlaneData.Resv2    = static_cast<LadyLuck::Float32>(OperType);
 
     return PlaneData;
 }

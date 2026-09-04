@@ -161,21 +161,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\LadyLuck\geometry\Angle.h" />
-    <ClInclude Include="include\LadyLuck\geometry\AxisAngle.h" />
-    <ClInclude Include="include\LadyLuck\geometry\CoordinateConverter.h" />
-    <ClInclude Include="include\LadyLuck\geometry\EulerAngle.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Math.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Matrix3.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Matrix4.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Quaternion.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Vector3.h" />
-    <ClInclude Include="include\LadyLuck\geometry\Vector4.h" />
     <ClInclude Include="include\LadyLuck\guidance\contracts\FrameContract.h" />
     <ClInclude Include="include\LadyLuck\runtime\AIPilotABI.h" />
     <ClInclude Include="include\LadyLuck\runtime\ObservationRuntime.h" />
     <ClInclude Include="include\LadyLuck\runtime\ProductionOwnerRegistryV1.hpp" />
     <ClInclude Include="include\LadyLuck\common\Constants.hpp" />
+    <ClInclude Include="include\LadyLuck\common\CompensatedDouble.hpp" />
+    <ClInclude Include="include\LadyLuck\common\FiniteMathState.hpp" />
     <ClInclude Include="include\LadyLuck\contracts\CommandFeedback.hpp" />
     <ClInclude Include="include\LadyLuck\contracts\Enums.hpp" />
     <ClInclude Include="include\LadyLuck\contracts\EstimatorOutput.hpp" />
@@ -299,16 +291,6 @@
     <ClInclude Include="include\LadyLuck\safety\AutoGcas.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\LadyLuck\geometry\Angle.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\AxisAngle.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\CoordinateConverter.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\EulerAngle.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Math.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Matrix3.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Matrix4.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Quaternion.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Vector3.cpp" />
-    <ClCompile Include="src\LadyLuck\geometry\Vector4.cpp" />
     <ClCompile Include="src\LadyLuck\guidance\contracts\FrameContract.cpp" />
     <ClCompile Include="src\LadyLuck\runtime\LibMain.cpp" />
     <ClCompile Include="src\LadyLuck\runtime\ObservationRuntime.cpp" />

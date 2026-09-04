@@ -1,5 +1,6 @@
 #include "LadyLuck/guidance/prefire/GunAttackFormObservation.hpp"
 
+#include "LadyLuck/common/CompensatedDouble.hpp"
 #include "LadyLuck/common/Constants.hpp"
 
 #include <algorithm>
@@ -16,6 +17,9 @@ using LadyLuck::Status;
 using LadyLuck::StatusCode;
 using LadyLuck::Vector3;
 using LadyLuck::WezPhase;
+using LadyLuck::common::CompensatedDouble;
+using LadyLuck::common::ExactProduct;
+using LadyLuck::common::FastSum;
 using LadyLuck::guidance::prefire::GunAttackForm;
 using LadyLuck::guidance::prefire::GunAttackFormObservation;
 using LadyLuck::guidance::prefire::GunAttackFormReason;
@@ -249,30 +253,6 @@ double Dot3(const Vector3& left, const Vector3& right) noexcept
             + left[2] * right[2]);
 }
 
-struct DoubleLength
-{
-    double hi = 0.0;
-    double lo = 0.0;
-};
-
-DoubleLength DoubleLengthFastSum(
-    const double a,
-    const double b) noexcept
-{
-    const double sum = a + b;
-    const double error = (a - sum) + b;
-    return DoubleLength{sum, error};
-}
-
-DoubleLength DoubleLengthMultiply(
-    const double left,
-    const double right) noexcept
-{
-    const double product = left * right;
-    const double error = std::fma(left, right, -product);
-    return DoubleLength{product, error};
-}
-
 // Exact allocation-free n=3 specialization of CPython 3.12 vector_norm(),
 // which is the implementation behind d90's three-argument math.hypot calls.
 double MathHypot3(const Vector3& value) noexcept
@@ -312,8 +292,8 @@ double MathHypot3(const Vector3& value) noexcept
     for (std::size_t index = 0U; index < 3U; ++index)
     {
         const double scaled = coordinates[index] * scale;
-        const DoubleLength product = DoubleLengthMultiply(scaled, scaled);
-        const DoubleLength sum = DoubleLengthFastSum(
+        const CompensatedDouble product = ExactProduct(scaled, scaled);
+        const CompensatedDouble sum = FastSum(
             compensated_sum,
             product.hi);
         compensated_sum = sum.hi;
@@ -322,10 +302,10 @@ double MathHypot3(const Vector3& value) noexcept
     }
     double result = std::sqrt(
         compensated_sum - 1.0 + (fraction_one + fraction_two));
-    const DoubleLength negative_square = DoubleLengthMultiply(
+    const CompensatedDouble negative_square = ExactProduct(
         -result,
         result);
-    const DoubleLength corrected_sum = DoubleLengthFastSum(
+    const CompensatedDouble corrected_sum = FastSum(
         compensated_sum,
         negative_square.hi);
     compensated_sum = corrected_sum.hi;

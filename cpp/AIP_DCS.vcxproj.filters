@@ -45,37 +45,9 @@
     <ClInclude Include="include\LadyLuck\guidance\contracts\FrameContract.h">
       <Filter>LadyLuck\guidance\contracts</Filter>
     </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Angle.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\AxisAngle.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\CoordinateConverter.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\EulerAngle.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Math.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Matrix3.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Matrix4.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Quaternion.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Vector3.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LadyLuck\geometry\Vector4.h">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClInclude>
     <ClInclude Include="include\LadyLuck\common\Constants.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\common\CompensatedDouble.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
+    <ClInclude Include="include\LadyLuck\common\FiniteMathState.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
     <ClInclude Include="include\LadyLuck\contracts\CommandFeedback.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
     <ClInclude Include="include\LadyLuck\contracts\Enums.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
     <ClInclude Include="include\LadyLuck\contracts\EstimatorOutput.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
@@ -199,36 +171,6 @@
     <ClInclude Include="include\LadyLuck\safety\AutoGcas.hpp"><Filter>LadyLuck Core</Filter></ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\LadyLuck\geometry\Angle.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\AxisAngle.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\CoordinateConverter.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\EulerAngle.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Math.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Matrix3.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Matrix4.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Quaternion.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Vector3.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LadyLuck\geometry\Vector4.cpp">
-      <Filter>LadyLuck\geometry</Filter>
-    </ClCompile>
     <ClCompile Include="src\LadyLuck\runtime\LibMain.cpp">
       <Filter>LadyLuck\runtime</Filter>
     </ClCompile>

@@ -1,5 +1,6 @@
 #include "LadyLuck/guidance/obfm/G3ChaseDown.hpp"
 
+#include "LadyLuck/common/CompensatedDouble.hpp"
 #include "LadyLuck/common/Constants.hpp"
 
 #include <algorithm>
@@ -14,6 +15,9 @@ using LadyLuck::DogfightGeometryFrame;
 using LadyLuck::Status;
 using LadyLuck::StatusCode;
 using LadyLuck::Vector3;
+using LadyLuck::common::CompensatedDouble;
+using LadyLuck::common::ExactProduct;
+using LadyLuck::common::FastSum;
 using LadyLuck::guidance::obfm::G3ChaseDownObservation;
 using LadyLuck::guidance::obfm::G3ChaseDownObservationReason;
 using LadyLuck::guidance::obfm::G3ChaseDownPursuitBehavior;
@@ -46,30 +50,6 @@ double Dot3NumpyAssociation(
 double NumpyNorm3(const Vector3& value) noexcept
 {
     return std::sqrt(Dot3NumpyAssociation(value, value));
-}
-
-struct DoubleLength
-{
-    double hi = 0.0;
-    double lo = 0.0;
-};
-
-DoubleLength DoubleLengthFastSum(
-    const double a,
-    const double b) noexcept
-{
-    const double sum = a + b;
-    return DoubleLength{sum, (a - sum) + b};
-}
-
-DoubleLength DoubleLengthMultiply(
-    const double left,
-    const double right) noexcept
-{
-    const double product = left * right;
-    return DoubleLength{
-        product,
-        std::fma(left, right, -product)};
 }
 
 // Allocation-free n=3 specialization of CPython 3.12 vector_norm(), the
@@ -115,8 +95,8 @@ double MathHypot3(const Vector3& value) noexcept
     for (std::size_t index = 0U; index < 3U; ++index)
     {
         const double scaled = coordinates[index] * scale;
-        const DoubleLength product = DoubleLengthMultiply(scaled, scaled);
-        const DoubleLength sum = DoubleLengthFastSum(
+        const CompensatedDouble product = ExactProduct(scaled, scaled);
+        const CompensatedDouble sum = FastSum(
             compensated_sum,
             product.hi);
         compensated_sum = sum.hi;
@@ -125,10 +105,10 @@ double MathHypot3(const Vector3& value) noexcept
     }
     double result = std::sqrt(
         compensated_sum - 1.0 + (fraction_one + fraction_two));
-    const DoubleLength negative_square = DoubleLengthMultiply(
+    const CompensatedDouble negative_square = ExactProduct(
         -result,
         result);
-    const DoubleLength corrected_sum = DoubleLengthFastSum(
+    const CompensatedDouble corrected_sum = FastSum(
         compensated_sum,
         negative_square.hi);
     compensated_sum = corrected_sum.hi;

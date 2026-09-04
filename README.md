@@ -57,11 +57,6 @@ Copy-Item -LiteralPath .\cpp\config\LadyLuck_v2.xml `
     -Destination (Join-Path $releaseDir "LadyLuck_v2.xml") -Force
 ```
 
-DLL은 `GetAIPilotABIVersion`과 `StepKinematicObservationV1`을 사용하는
-Kinematic Observation ABI V1 방식입니다. 이는 DLL 이름의 `v2`와 다른
-개념입니다. Python 실행기의 `native_bt.py`는 V1 DLL을 발견했을 때 구형
-`Step`, `GetVP`, `ChangeData` export를 요구하지 않는 버전이어야 합니다.
-
 ## 실행
 
 대회 서버가 실행 중인 상태에서 `DogFightEnv\Release` 폴더로 이동한 뒤

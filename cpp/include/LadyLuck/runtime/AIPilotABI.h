@@ -107,9 +107,9 @@ enum AIPilotCurrentBaseOwnershipEventV1 : std::int32_t
     AIP_CURRENT_BASE_EVENT_ENDED = 2
 };
 
-// Additive V1 diagnostics export.  It does not alter the frozen observation
-// or control ABI and makes doctrine-base ownership visible without inventing
-// a command or overloading the legacy runtime status.
+// Additive diagnostics record. It does not alter the frozen observation or
+// control layout and makes doctrine-base ownership visible without inventing
+// a command or overloading the runtime status.
 typedef struct ControlCommandOutcomeDiagnosticsV1
 {
     std::uint32_t abi_version;
@@ -186,7 +186,7 @@ enum AIPilotObservationGapPolicyV1 : std::int32_t
     AIP_GAP_RESYNC = 4
 };
 
-// Frozen exported CopyFrameContractDiagnosticsV1 buffer layout. The C ABI is
+// Frozen exported CopyFrameContractDiagnostics buffer layout. The C ABI is
 // packed to one-byte alignment; the manifest is named explicitly so native
 // and external frozen parsers can validate the same field map.
 struct FrameContractDiagnosticsV1X64LayoutManifest

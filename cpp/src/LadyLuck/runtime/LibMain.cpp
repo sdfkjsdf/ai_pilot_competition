@@ -9,20 +9,20 @@ extern "C"
     // Versioned lossless competition-observation interface. It contains only
     // the kinematics supplied by PlaneInfo plus connector-owned timing/roles.
     __declspec(dllexport) std::uint32_t GetAIPilotABIVersion() noexcept;
-    __declspec(dllexport) ControlValue StepKinematicObservationV1(
+    __declspec(dllexport) ControlValue StepKinematicObservation(
         const KinematicObservationInputV1* Input) noexcept;
-    __declspec(dllexport) std::int32_t CopyLastKinematicObservationV1(
+    __declspec(dllexport) std::int32_t CopyLastKinematicObservation(
         KinematicObservationInputV1* Output,
         std::uint32_t OutputSize) noexcept;
-    __declspec(dllexport) std::int32_t GetLastKinematicObservationStatusV1() noexcept;
-    __declspec(dllexport) std::uint32_t GetLastControlAuthorizationV1() noexcept;
-    __declspec(dllexport) std::int32_t CopyLastControlCommandOutcomeDiagnosticsV1(
+    __declspec(dllexport) std::int32_t GetLastKinematicObservationStatus() noexcept;
+    __declspec(dllexport) std::uint32_t GetLastControlAuthorization() noexcept;
+    __declspec(dllexport) std::int32_t CopyLastControlCommandOutcomeDiagnostics(
         ControlCommandOutcomeDiagnosticsV1* Output,
         std::uint32_t OutputSize) noexcept;
-    __declspec(dllexport) std::uint64_t GetAcceptedKinematicObservationCountV1() noexcept;
-    __declspec(dllexport) std::int32_t CreateBehaviorTreeV1(int OwnerID, int ForceID) noexcept;
-    __declspec(dllexport) std::uint32_t GetBehaviorTreeCountV1() noexcept;
-    __declspec(dllexport) std::int32_t CopyFrameContractDiagnosticsV1(
+    __declspec(dllexport) std::uint64_t GetAcceptedKinematicObservationCount() noexcept;
+    __declspec(dllexport) std::int32_t CreateBehaviorTree(int OwnerID, int ForceID) noexcept;
+    __declspec(dllexport) std::uint32_t GetBehaviorTreeCount() noexcept;
+    __declspec(dllexport) std::int32_t CopyFrameContractDiagnostics(
         int OwnerID,
         FrameContractDiagnosticsV1* Output,
         std::uint32_t OutputSize) noexcept;
@@ -39,7 +39,7 @@ std::uint32_t GetAIPilotABIVersion() noexcept
     return AIPILOT_ABI_VERSION_V1;
 }
 
-ControlValue StepKinematicObservationV1(
+ControlValue StepKinematicObservation(
     const KinematicObservationInputV1* Input) noexcept
 {
     ControlValue output = AIP_Runtime::NeutralControlV1();
@@ -65,24 +65,24 @@ ControlValue StepKinematicObservationV1(
     return output;
 }
 
-std::int32_t CopyLastKinematicObservationV1(
+std::int32_t CopyLastKinematicObservation(
     KinematicObservationInputV1* Output,
     const std::uint32_t OutputSize) noexcept
 {
     return AIP_Runtime::CopyLastKinematicObservationV1(Output, OutputSize);
 }
 
-std::int32_t GetLastKinematicObservationStatusV1() noexcept
+std::int32_t GetLastKinematicObservationStatus() noexcept
 {
     return AIP_Runtime::GetLastObservationStatusV1();
 }
 
-std::uint32_t GetLastControlAuthorizationV1() noexcept
+std::uint32_t GetLastControlAuthorization() noexcept
 {
     return AIP_Runtime::GetLastControlAuthorizationV1();
 }
 
-std::int32_t CopyLastControlCommandOutcomeDiagnosticsV1(
+std::int32_t CopyLastControlCommandOutcomeDiagnostics(
     ControlCommandOutcomeDiagnosticsV1* Output,
     const std::uint32_t OutputSize) noexcept
 {
@@ -90,17 +90,17 @@ std::int32_t CopyLastControlCommandOutcomeDiagnosticsV1(
         Output, OutputSize);
 }
 
-std::uint64_t GetAcceptedKinematicObservationCountV1() noexcept
+std::uint64_t GetAcceptedKinematicObservationCount() noexcept
 {
     return AIP_Runtime::GetAcceptedObservationCountV1();
 }
 
-std::uint32_t GetBehaviorTreeCountV1() noexcept
+std::uint32_t GetBehaviorTreeCount() noexcept
 {
     return ProductionOwnersV1.Count();
 }
 
-std::int32_t CopyFrameContractDiagnosticsV1(
+std::int32_t CopyFrameContractDiagnostics(
     const int OwnerID,
     FrameContractDiagnosticsV1* Output,
     const std::uint32_t OutputSize) noexcept
@@ -160,7 +160,7 @@ std::int32_t CopyFrameContractDiagnosticsV1(
     return runtime_status;
 }
 
-std::int32_t CreateBehaviorTreeV1(const int OwnerID, const int ForceID) noexcept
+std::int32_t CreateBehaviorTree(const int OwnerID, const int ForceID) noexcept
 {
     using LadyLuck::runtime::ProductionOwnerRegistryV1Code;
 

@@ -6,7 +6,6 @@
 #include "LadyLuck/behavior_tree/static/ProductionBtTopology.hpp"
 #include "LadyLuck/behavior_tree/static/StaticBtAtomicEvaluator.hpp"
 #include "LadyLuck/runtime/ProductionOwnerRegistryV1.hpp"
-#include "LadyLuck/transport/DogFightProtocol.hpp"
 
 #include <array>
 #include <cstddef>
@@ -36,11 +35,6 @@ constexpr bool LadyLuckV2ProductionTopologyProjectionAdmitted = false;
 // These are aliases to the protocol-owned capacities, not new policy.
 constexpr std::uint32_t LadyLuckV2V1OwnerCapacity =
     runtime::ProductionOwnerRegistryV1MaxOwners;
-constexpr std::size_t LadyLuckV2TeamNameWireCapacity =
-    transport::TeamNameWireStorageSize;
-constexpr std::size_t LadyLuckV2TeamNameContentCapacity =
-    transport::TeamNameContentCapacity;
-
 using LadyLuckV2OracleTopologyStorage = static_bt::ProductionBtTopology<
     LadyLuckV2OracleNodeCapacity,
     LadyLuckV2OracleEdgeCapacity>;
@@ -332,10 +326,6 @@ static_assert(LadyLuckV2TreeDocumentIndexFromStaticStageId(LadyLuckV2StaticStage
               "static stage mapping must be invertible at its upper bound");
 static_assert(LadyLuckV2V1OwnerCapacity == 128U,
               "V1 owner protocol domain changed");
-static_assert(LadyLuckV2TeamNameWireCapacity == 30U,
-              "team-name wire storage contract changed");
-static_assert(LadyLuckV2TeamNameContentCapacity == 29U,
-              "team-name content contract changed");
 static_assert(LadyLuckV2XmlNodes.size() == LadyLuckV2OracleNodeCapacity,
               "generated node table must cover every XML element");
 static_assert(LadyLuckV2XmlDirectEdges.size() == LadyLuckV2OracleEdgeCapacity,

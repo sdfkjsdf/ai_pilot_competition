@@ -1,25 +1,11 @@
-#include <cmath>
 #include <cstring>
 #include "LadyLuck/runtime/AIPilotABI.h"
 #include "LadyLuck/runtime/ObservationRuntime.h"
 #include "LadyLuck/guidance/contracts/FrameContract.h"
 #include "LadyLuck/runtime/ProductionOwnerRegistryV1.hpp"
 
-#define MAX_ITEM 51
-#define MAX_OTHRES 3
-#define D2R 1.745329251994330e-2
-#define R2D 57.29577951308232e+0
-#define METER_TO_FEET 3.28084
-#define FEET_TO_METER 0.3048
-#define KNOT_TO_MS 0.5144444
-#define KNOT_TO_FT 1.68781
-
 extern "C"
 {
-    /** Behavior Tree 인스턴스를 생성한다.**/
-    /** OwnerID:BT를 소유한 개체ID, ForceID : 피아식별정보 **/
-    __declspec(dllexport) void CreateBehaviorTree(int OwnerID, int ForceID);
-
     // Versioned lossless competition-observation interface. It contains only
     // the kinematics supplied by PlaneInfo plus connector-owned timing/roles.
     __declspec(dllexport) std::uint32_t GetAIPilotABIVersion() noexcept;
@@ -40,37 +26,6 @@ extern "C"
         int OwnerID,
         FrameContractDiagnosticsV1* Output,
         std::uint32_t OutputSize) noexcept;
-
-    /*
-    2대2를 위해 새로 추가된 Step함수.
-    MyData                  : 내 비행기 정보
-    NumOfOthers             : 내 비행기 말고 다른 비행기들 개수
-    Others                  : 내 비행기 말고 다른 비행기들 정보
-    isLockedOn              : 적기에게 락온 여부
-    MSL_Lunch_Possible      : 현재 미사일 발사 가능 여부. true가 되면 LunchMSL() 함수 호출해줘야함
-    Flare_Lunch_Possible    : 현재 플레어 사용 가능 여부. true가 되면 LunchFlare() 함수 호출해줘야함
-    */
-    __declspec(dllexport) ControlValue Step(oPlaneData& MyData, int NumOfOthers, oPlaneData* Others, bool isLockedOn, bool& MSL_Lunch_Possible, bool& Flare_Lunch_Possible);
-    __declspec(dllexport) const char* GetAnnotation(int id);
-
-    //2대2를 위해 비행기 배열을 만들기위한 함수 
-    __declspec(dllexport) oPlaneData ChangeData(int ID, int Team, float HP, int OperType, oNavigationData& NaviData);
-
-    __declspec(dllexport) ControlValue GetStick(oPlaneData& MyData, float VP_X, float VP_Y, float VP_Z);
-
-    __declspec(dllexport) LegacyVector3V1 LLAtoCartesian(
-        LegacyVector3V1 LLA,
-        LegacyVector3V1 BaseLLA);
-    //2대2에서 아군기의 타겟을 변경시키기 위한 함수 FriendID :아군기 DISID, TargetDIS : 아군기 타겟 설정
-    __declspec(dllexport) void SetTarget(int FriendID, int TargetDIS);
-
-    //2대2에서 아군기의 ACM 모드를 변경시키기 위한 함수 ACM : 0 == EF, ACM : 1 == SF. FriendID :아군기 DISID, ACM : 아군기 ACM 설정  
-    __declspec(dllexport) void SetACM_Mode(int FriendID, int ACM);
-
-    //비헤비어트리의 DeltaTime을 설정
-    __declspec(dllexport) void SetBehaviorTreeDeltaTime(int OwnShipID, double DT);
-
-    __declspec(dllexport) LegacyVector3V1 GetVP(oPlaneData& MyData);
 
     __declspec(dllexport) void Reset();
     __declspec(dllexport) void RemoveBT(int OwnerID);
@@ -205,27 +160,6 @@ std::int32_t CopyFrameContractDiagnosticsV1(
     return runtime_status;
 }
 
-LegacyVector3V1 LLAtoCartesian(
-    LegacyVector3V1 LLA,
-    LegacyVector3V1 BaseLLA)
-{
-	double eccentricitysquare, N, M;
-	eccentricitysquare = 1.0 - std::pow(6356752.3142, 2) / std::pow(6378137.0, 2);
-	N = 6378137.0 / std::sqrt(1.0 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * D2R), 2)); // prime vertical radius of curvature
-	M = 6378137.0 * (1.0 - eccentricitysquare) / std::pow(1 - eccentricitysquare * std::pow(std::sin(BaseLLA.X * D2R), 2), 3 / 2);
-
-	double dlat, dlon;
-	dlat = LLA.X - BaseLLA.X;
-	dlon = LLA.Y - BaseLLA.Y;
-
-	double dN, dE, dD;
-	dN = (M + BaseLLA.Z) * dlat * D2R;
-	dE = (N + BaseLLA.Z) * std::cos(BaseLLA.X * D2R) * dlon * D2R;
-	dD = (LLA.Z - BaseLLA.Z);
-	LegacyVector3V1 res{dN, dE, dD};
-	return res;
-}
-
 std::int32_t CreateBehaviorTreeV1(const int OwnerID, const int ForceID) noexcept
 {
     using LadyLuck::runtime::ProductionOwnerRegistryV1Code;
@@ -258,11 +192,6 @@ std::int32_t CreateBehaviorTreeV1(const int OwnerID, const int ForceID) noexcept
     return AIP_TREE_CREATED;
 }
 
-void CreateBehaviorTree(int OwnerID, int ForceID)
-{
-    (void)CreateBehaviorTreeV1(OwnerID, ForceID);
-}
-
 void Reset()
 {
     (void)ProductionOwnersV1.Reset();
@@ -277,66 +206,4 @@ void RemoveBT(int OwnerID)
     {
         AIP_Runtime::ResetObservationRuntimeV1();
     }
-}
-
-ControlValue Step(oPlaneData& MyData, int NumOfOthers, oPlaneData* Others, bool isLockedOn, bool & MSL_Lunch_Possible, bool & Flare_Lunch_Possible)
-{
-    (void)MyData;
-    (void)NumOfOthers;
-    (void)Others;
-    (void)isLockedOn;
-    (void)MSL_Lunch_Possible;
-    (void)Flare_Lunch_Possible;
-    return ControlValue{ 0.0F, 0.0F, 0.0F, 0.0F };
-}
-
-ControlValue GetStick(oPlaneData& MyData, float VP_X, float VP_Y, float VP_Z)
-{
-    (void)MyData;
-    (void)VP_X;
-    (void)VP_Y;
-    (void)VP_Z;
-    return ControlValue{ 0.0F, 0.0F, 0.0F, -1.0F };
-}
-
-
-void SetBehaviorTreeDeltaTime(int OwnShipID, double DT)
-{
-    (void)OwnShipID;
-    (void)DT;
-}
-
-LegacyVector3V1 GetVP(oPlaneData& MyData)
-{
-    (void)MyData;
-    return LegacyVector3V1{0.0, 0.0, 0.0};
-}
-
-
-
-
-oPlaneData ChangeData(int ID, int Team, float HP, int OperType, oNavigationData& NaviData)
-{
-    oPlaneData PlaneData;
-    const LegacyVector3V1 LLA{
-        NaviData.Lat / 1000000.0,
-        NaviData.Lon / 1000000.0,
-        (NaviData.Alt / 1000.0) * FEET_TO_METER};
-    const double yaw_deg = NaviData.psi / 1000.0;
-    const double pitch_deg = NaviData.theta / 1000.0;
-    const double roll_deg = NaviData.phi / 1000.0;
-    PlaneData.LocationX = static_cast<LadyLuck::Float32>(LLA.X);
-    PlaneData.LocationY = static_cast<LadyLuck::Float32>(LLA.Y);
-    PlaneData.LocationZ = static_cast<LadyLuck::Float32>(LLA.Z);
-    PlaneData.Roll = static_cast<LadyLuck::Float32>(roll_deg);
-    PlaneData.Pitch = static_cast<LadyLuck::Float32>(pitch_deg);
-    PlaneData.Yaw  = static_cast<LadyLuck::Float32>(yaw_deg);
-    PlaneData.Speed = static_cast<LadyLuck::Float32>(
-        (NaviData.KTAS / 10.0) * 0.51444); //knot to m/s
-    PlaneData.Team     = Team;  //force side
-    PlaneData.Resv0    = static_cast<LadyLuck::Float32>(ID);
-    PlaneData.Resv1    = HP;
-    PlaneData.Resv2    = static_cast<LadyLuck::Float32>(OperType);
-
-    return PlaneData;
 }

@@ -9,23 +9,6 @@
 constexpr std::uint32_t AIPILOT_ABI_VERSION_V1 = 1U;
 constexpr LadyLuck::Float64 AIPILOT_NOMINAL_DT_S_V1 = 1.0 / 60.0;
 
-// Fixed-layout compatibility payload for the legacy GetVP and
-// LLAtoCartesian exports. Production guidance uses LadyLuck::Vector3;
-// this type exists only at the external C ABI boundary.
-typedef struct LegacyVector3V1
-{
-    LadyLuck::Float64 X;
-    LadyLuck::Float64 Y;
-    LadyLuck::Float64 Z;
-} LegacyVector3V1;
-
-static_assert(std::is_standard_layout<LegacyVector3V1>::value, "");
-static_assert(std::is_trivially_copyable<LegacyVector3V1>::value, "");
-static_assert(sizeof(LegacyVector3V1) == 24U, "");
-static_assert(offsetof(LegacyVector3V1, X) == 0U, "");
-static_assert(offsetof(LegacyVector3V1, Y) == 8U, "");
-static_assert(offsetof(LegacyVector3V1, Z) == 16U, "");
-
 #pragma pack(push, 1)
 
 typedef struct _ControlValue
@@ -35,86 +18,6 @@ typedef struct _ControlValue
     LadyLuck::Float32 RudderCMD;
     LadyLuck::Float32 Throttle;
 } ControlValue, *pControlValue;
-
-typedef struct NavigationData
-{
-    std::uint8_t Header[2];
-    std::uint8_t Counter;
-    LadyLuck::Float64 SimTime;
-    std::uint8_t AircraftModel;
-    std::uint8_t AircraftID;
-
-    std::int32_t Lat;
-    std::int32_t Lon;
-    std::uint32_t Alt;
-
-    std::int32_t phi;
-    std::int32_t theta;
-    std::int32_t psi;
-
-    std::int32_t u;
-    std::int32_t v;
-    std::int32_t w;
-
-    std::int32_t p;
-    std::int32_t q;
-    std::int32_t r;
-
-    std::int32_t Ax;
-    std::int32_t Ay;
-    std::int32_t Az;
-
-    LadyLuck::Float32 AOA;
-    LadyLuck::Float32 AOS;
-    std::uint16_t KCAS;
-    std::uint16_t KTAS;
-    std::uint16_t GNDS;
-    std::uint16_t MachNum;
-    LadyLuck::Float32 VV;
-    std::int16_t Nz;
-    std::int16_t Ny;
-
-    std::uint8_t LonMode;
-    LadyLuck::Float32 LonCtrlCmd;
-    std::int16_t ElevatorPosition;
-    std::int8_t FlapCtrlCmd;
-    std::int16_t FlapPosition;
-
-    std::uint8_t LatMode;
-    LadyLuck::Float32 LatCtrlCmd;
-    std::int16_t AileronPosition;
-    LadyLuck::Float32 DirCtrlCmd;
-    std::int16_t RudderPosition;
-
-    std::uint8_t SpeedMode;
-    LadyLuck::Float32 SpeedCtrlCmd1;
-    std::uint32_t Engine1_N1RPM;
-    std::uint32_t Engine1_N2RPM;
-    LadyLuck::Float64 Engine1_FuelFlow;
-    LadyLuck::Float32 SpeedCtrlCmd2;
-    std::uint32_t Engine2_N1RPM;
-    std::uint32_t Engine2_N2RPM;
-    LadyLuck::Float64 Engine2_FuelFlow;
-    std::int8_t SpeedBrakeCtrlCmd;
-    std::uint16_t SpeedBrakePosition;
-    LadyLuck::Float64 Fuel;
-    std::uint8_t checksum;
-} oNavigationData;
-
-typedef struct LPlaneData
-{
-    LadyLuck::Float32 LocationX;
-    LadyLuck::Float32 LocationY;
-    LadyLuck::Float32 LocationZ;
-    LadyLuck::Float32 Roll;
-    LadyLuck::Float32 Pitch;
-    LadyLuck::Float32 Yaw;
-    LadyLuck::Float32 Speed;
-    std::int32_t Team;
-    LadyLuck::Float32 Resv0;
-    LadyLuck::Float32 Resv1;
-    LadyLuck::Float32 Resv2;
-} oPlaneData;
 
 // Complete kinematic observation available from the competition PlaneInfo.
 // This is not a full aircraft dynamics state: p/q/r, Nz, actuator feedback,
@@ -338,79 +241,6 @@ static_assert(offsetof(ControlValue, RollCMD) == 0U, "ControlValue offsets chang
 static_assert(offsetof(ControlValue, PitchCMD) == 4U, "ControlValue offsets changed.");
 static_assert(offsetof(ControlValue, RudderCMD) == 8U, "ControlValue offsets changed.");
 static_assert(offsetof(ControlValue, Throttle) == 12U, "ControlValue offsets changed.");
-
-static_assert(std::is_standard_layout<oPlaneData>::value, "oPlaneData must be standard-layout.");
-static_assert(std::is_trivially_copyable<oPlaneData>::value, "oPlaneData must be trivially copyable.");
-static_assert(alignof(oPlaneData) == 1U, "oPlaneData ABI alignment changed.");
-static_assert(sizeof(oPlaneData) == 44U, "oPlaneData ABI changed.");
-static_assert(offsetof(oPlaneData, LocationX) == 0U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, LocationY) == 4U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, LocationZ) == 8U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Roll) == 12U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Pitch) == 16U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Yaw) == 20U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Speed) == 24U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Team) == 28U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Resv0) == 32U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Resv1) == 36U, "oPlaneData offsets changed.");
-static_assert(offsetof(oPlaneData, Resv2) == 40U, "oPlaneData offsets changed.");
-
-static_assert(std::is_standard_layout<oNavigationData>::value, "oNavigationData must be standard-layout.");
-static_assert(std::is_trivially_copyable<oNavigationData>::value, "oNavigationData must be trivially copyable.");
-static_assert(alignof(oNavigationData) == 1U, "oNavigationData ABI alignment changed.");
-static_assert(sizeof(oNavigationData) == 173U, "oNavigationData ABI changed.");
-static_assert(offsetof(oNavigationData, Header) == 0U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Counter) == 2U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SimTime) == 3U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, AircraftModel) == 11U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, AircraftID) == 12U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Lat) == 13U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Lon) == 17U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Alt) == 21U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, phi) == 25U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, theta) == 29U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, psi) == 33U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, u) == 37U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, v) == 41U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, w) == 45U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, p) == 49U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, q) == 53U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, r) == 57U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Ax) == 61U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Ay) == 65U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Az) == 69U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, AOA) == 73U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, AOS) == 77U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, KCAS) == 81U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, KTAS) == 83U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, GNDS) == 85U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, MachNum) == 87U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, VV) == 89U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Nz) == 93U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Ny) == 95U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, LonMode) == 97U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, LonCtrlCmd) == 98U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, ElevatorPosition) == 102U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, FlapCtrlCmd) == 104U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, FlapPosition) == 105U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, LatMode) == 107U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, LatCtrlCmd) == 108U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, AileronPosition) == 112U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, DirCtrlCmd) == 114U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, RudderPosition) == 118U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SpeedMode) == 120U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SpeedCtrlCmd1) == 121U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine1_N1RPM) == 125U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine1_N2RPM) == 129U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine1_FuelFlow) == 133U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SpeedCtrlCmd2) == 141U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine2_N1RPM) == 145U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine2_N2RPM) == 149U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Engine2_FuelFlow) == 153U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SpeedBrakeCtrlCmd) == 161U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, SpeedBrakePosition) == 162U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, Fuel) == 164U, "oNavigationData offsets changed.");
-static_assert(offsetof(oNavigationData, checksum) == 172U, "oNavigationData offsets changed.");
 
 static_assert(std::is_standard_layout<PlaneKinematicObservationV1>::value, "Plane observation must be standard-layout.");
 static_assert(std::is_trivially_copyable<PlaneKinematicObservationV1>::value, "Plane observation must be trivially copyable.");

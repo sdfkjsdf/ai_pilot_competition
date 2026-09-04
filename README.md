@@ -65,8 +65,8 @@ Copy-Item -LiteralPath .\cpp\config\LadyLuck_v2.xml `
 ```powershell
 Set-Location "C:\path\to\AIP_LIB\DogFightEnv\Release"
 
-$serverIp = "10.0.0.1"
-$serverPort = 9999
+$serverIp = "   "
+$serverPort = 
 
 python .\run_unreal_inference.py `
     --mode bt `

@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Behavior Tree Study Notes | Manual-Based Automated Maneuvering Decisions for Air-to-Air Combat</title>
+<style>
+  :root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#18202a;
+    --muted:#5e6b7a;
+    --line:#d9e1ea;
+    --accent:#275dad;
+    --accent-soft:#eaf2ff;
+    --green:#2f7d5a;
+    --green-soft:#eaf7f0;
+    --orange:#a75d12;
+    --orange-soft:#fff3e7;
+    --purple:#6949a5;
+    --purple-soft:#f2edfb;
+    --danger:#a33b3b;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.72;
+  }
+  header{
+    background:linear-gradient(135deg,#173b72,#2b69ba);
+    color:#fff;
+    padding:58px 20px 48px;
+  }
+  .wrap{max-width:1100px;margin:0 auto}
+  header h1{margin:0 0 10px;font-size:clamp(30px,5vw,48px);line-height:1.18}
+  header p{margin:8px 0;color:#e6eefb;font-size:17px}
+  .paper{
+    margin-top:20px;padding:14px 16px;border:1px solid rgba(255,255,255,.22);
+    border-radius:14px;background:rgba(255,255,255,.08);font-size:14px
+  }
+  nav{
+    position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)
+  }
+  nav .wrap{display:flex;gap:18px;overflow:auto;padding:12px 18px}
+  nav a{color:#314153;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px}
+  main{padding:34px 18px 70px}
+  section{margin:0 0 48px}
+  h2{font-size:29px;margin:0 0 16px}
+  h3{font-size:20px;margin:0 0 8px}
+  .lead{font-size:18px;color:#34404d}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px;box-shadow:0 8px 24px rgba(38,55,78,.05)
+  }
+  .tag{
+    display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;
+    font-weight:800;margin-bottom:9px
+  }
+  .blue{background:var(--accent-soft);color:var(--accent)}
+  .green{background:var(--green-soft);color:var(--green)}
+  .orange{background:var(--orange-soft);color:var(--orange)}
+  .purple{background:var(--purple-soft);color:var(--purple)}
+  .source{
+    margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
+    color:var(--muted);font-size:13px
+  }
+  .quote-note{
+    background:#fff;border-left:5px solid var(--accent);padding:17px 19px;border-radius:12px;
+    box-shadow:0 5px 18px rgba(38,55,78,.05)
+  }
+  .interpret{
+    background:var(--orange-soft);border:1px solid #f1cfaa;padding:16px 18px;border-radius:14px
+  }
+  .diagram{
+    background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;
+    overflow:auto;box-shadow:0 8px 24px rgba(38,55,78,.05)
+  }
+  .flow{min-width:850px;display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 6px}
+  .box{
+    min-width:140px;text-align:center;padding:14px 12px;border:2px solid #adc1db;
+    background:#f8fbff;border-radius:13px;font-weight:800
+  }
+  .arrow{font-size:28px;color:#6c7d90}
+  .bt-wrap{display:flex;flex-direction:column;align-items:center;min-width:760px;padding:14px}
+  .node{
+    border:2px solid #8fa8c5;background:#f9fbff;border-radius:12px;padding:10px 16px;
+    text-align:center;font-weight:800;min-width:140px
+  }
+  .root{background:#1f4f8d;color:#fff;border-color:#1f4f8d}
+  .cond{background:#eef5ff;border-color:#7ea4d5}
+  .task{background:#eef9f2;border-color:#76af8e}
+  .service{background:#fff5e8;border-color:#d7a16e}
+  .children{display:flex;gap:26px;justify-content:center;align-items:flex-start;margin-top:20px}
+  .branch{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .vline{width:2px;height:22px;background:#a7b4c4}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}
+  th,td{border-bottom:1px solid var(--line);padding:13px 14px;vertical-align:top;text-align:left}
+  th{background:#edf3f9}
+  tr:last-child td{border-bottom:none}
+  code{
+    background:#eef2f6;padding:2px 6px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace
+  }
+  .check{
+    background:#eef8f2;border:1px solid #bfdcc9;border-radius:15px;padding:17px 20px
+  }
+  .small{font-size:14px;color:var(--muted)}
+  .mini-diagram{
+    margin:14px 0 10px;
+    background:#f8fbff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+  }
+  .mini-center{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .mini-row{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
+  .mini-box{
+    min-width:92px;
+    padding:8px 12px;
+    border:2px solid #a8bdd6;
+    border-radius:12px;
+    background:#fff;
+    text-align:center;
+    font-weight:800;
+  }
+  .mini-box.rootbox{background:#1f4f8d;color:#fff;border-color:#1f4f8d}
+  .mini-box.parentbox{background:#eef5ff}
+  .mini-box.childbox{background:#f8fbff}
+  .mini-box.subbox{background:#fff7eb;border-color:#d4a36b}
+  .mini-label{
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:8px;
+  }
+  .mini-arrow{
+    text-align:center;
+    color:#7d8fa3;
+    font-weight:800;
+    line-height:1.1;
+  }
+  .basics-stack{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin-top:18px;
+  }
+  .basic-item{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap:18px;
+    align-items:start;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 8px 24px rgba(38,55,78,.05);
+  }
+  .basic-item .meta h3{margin-top:0}
+  .big-diagram{
+    background:#f8fbff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    min-height:180px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .big-diagram pre{
+    margin:0;
+    background:transparent;
+    border:none;
+    padding:0;
+    white-space:pre;
+    overflow:auto;
+    line-height:1.45;
+    font-size:15px;
+  }
+  .plain-list{
+    margin:8px 0 0 0;
+    padding-left:20px;
+  }
+  .plain-list li{margin:3px 0}
+  @media (max-width:900px){
+    .basic-item{
+      grid-template-columns:1fr;
+    }
+  }
+.mini-pre{
+    background:#f6f8fb;
+    border-radius:12px;
+    padding:14px;
+    overflow:auto;
+    line-height:1.45;
+    white-space:pre;
+    font-size:14px;
+    border:1px solid var(--line);
+  }
+
+  footer{padding:30px 18px 50px;color:#697686;text-align:center}
+  @media (max-width:850px){
+    .grid,.grid2{grid-template-columns:1fr}
+    h2{font-size:25px}
+  }
+</style>
+<link rel="stylesheet" href="../document-nav.css">
+</head>
+<body>
+<nav class="documentation-toolbar" aria-label="Document navigation"><a href="./">English documentation</a><a href="../ko/behavior_tree_study_notes.html" lang="ko">한국어</a></nav>
+<header>
+<div class="wrap">
+<h1>Behavior Tree Study Notes</h1>
+<p>A source-grounded guide to <strong>why this paper uses BT,</strong>, <strong>what it is made of,</strong>, <strong>and how the pieces connect in practice,</strong>based on the paper itself</p>
+<div class="paper">
+<strong>Target paper</strong><br/>
+      Yang et al., “Manual-Based Automated Maneuvering Decisions for Air-to-Air Combat,”
+      <em>Journal of Aerospace Information Systems</em>, Vol. 21, No. 1, 2024.<br/>
+      DOI: 10.2514/1.I011234
+    </div>
+</div>
+</header>
+<nav>
+<div class="wrap">
+<a href="#why">1. Why BT?</a>
+<a href="#basics">2. Prerequisite Terms</a>
+<a href="#parts">3. BT Components</a>
+<a href="#structure">4. Overall Structure</a>
+<a href="#branches">5. OBFM/HABFM/DBFM</a>
+<a href="#summary">6. Summary</a>
+<a href="#sources">Source Locations</a>
+</div>
+</nav>
+<main class="wrap">
+<section id="why">
+<h2>1. Why does this paper use a Behavior Tree?</h2>
+<p class="lead">
+    In this paper, BT is used to implement the <strong>decision-making model</strong>. The authors' stated reasons are the management limitations of FSMs, the scalability of BTs, and the need for repeated, instantaneous situation assessment in WVR air combat.
+  </p>
+<div class="grid">
+<div class="card">
+<span class="tag blue">Source basis ①</span>
+<h3>FSMs become difficult to manage as complexity grows</h3>
+<p>
+        The paper explains that although an FSM is an easy way to implement AI, <strong>it becomes difficult to manage as the number of states grows or state transitions become more complex</strong>.
+      </p>
+<div class="source">Source: Sec. IV-A “System Structure”, journal p.32</div>
+</div>
+<div class="card">
+<span class="tag green">Source basis ②</span>
+<h3>BT is highly scalable</h3>
+<p>
+        BT represents decision making as a tree, and when more sophisticated and complex decisions are required,
+        <strong>nonleaf nodes can be added, making it highly scalable</strong>, as the paper explicitly states.
+      </p>
+<div class="source">Source: Abstract; Sec. IV-A, journal pp.28, 32</div>
+</div>
+<div class="card">
+<span class="tag purple">Source basis ③</span>
+<h3>Well suited to repeated, moment-to-moment judgment</h3>
+<p>
+        In WVR air combat, the situation changes greatly from moment to moment and requires instantaneous judgment. The paper explains that <strong>BT evaluation is repeated whenever a tick event occurs</strong>, giving it an advantage for instantaneous situation determination.
+      </p>
+<div class="source">Source: Sec. IV-B “Decision Model Using Behavior Tree”, journal p.32</div>
+</div>
+</div>
+<div class="quote-note" style="margin-top:18px">
+<strong>In one sentence, the paper's role for BT is:</strong><br/>
+    BT is the mechanism used to turn the air-combat flow diagram extracted from the BEM into an executable
+    <strong>decision-making AI model</strong>.
+  </div>
+<div class="interpret" style="margin-top:16px">
+<strong>Study interpretation</strong><br/>
+    The advantage here is not that “the BT itself learns a new tactic.” Rather, it <strong>moves the pilot decision logic already specified in the BEM and flow diagram into a program structure that is manageable and can be reevaluated repeatedly</strong>.
+  </div>
+</section>
+<section id="basics">
+<h2>2. Terms to know before studying the Behavior Tree</h2>
+<p class="lead">
+    Before memorizing Sequence or Selector, it helps to first understand <strong>how nodes relate to one another in a tree structure</strong>. The terms below are arranged <strong>one at a time from top to bottom</strong> so you can build the concepts in order.
+  </p>
+<div class="interpret">
+<strong>Notation</strong><br/>
+    Below, <strong>“Direct statement from the paper”</strong>means the authors explicitly define or use the concept in the text, while
+    <strong>“Study explanation”</strong>is a learner-friendly restatement. Where the paper does not define a detailed rule, the notes do not overstate it as if it were explicitly specified.
+  </div>
+<div class="basics-stack">
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">Basic ①</span>
+<h3>Tree</h3>
+<p><strong>Study explanation:</strong> In a Behavior Tree, <strong>Tree</strong>a Tree is the overall structure formed by nodes connected hierarchically.</p>
+<ul class="plain-list">
+<li>The Root is at the top as the starting point.</li>
+<li>Intermediate nodes handle decision making.</li>
+<li>Leaf nodes at the bottom handle final actions.</li>
+</ul>
+<div class="source">Source: reconstructed from the paper's discussion of tree, root, leaf, and node relationships in Sec. IV-B</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Tree structure" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 320">
+<defs>
+<marker id="a1" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="28">Tree = the overall structure of nodes connected from top to bottom</text>
+<rect fill="#1f4f8d" height="52" rx="14" stroke="#1f4f8d" stroke-width="2" width="160" x="300" y="50"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="380" y="82">Root</text>
+<line marker-end="url(#a1)" stroke="#71869f" stroke-width="3" x1="380" x2="260" y1="102" y2="155"></line>
+<line marker-end="url(#a1)" stroke="#71869f" stroke-width="3" x1="380" x2="500" y1="102" y2="155"></line>
+<rect fill="#eef5ff" height="56" rx="14" stroke="#7ea4d5" stroke-width="2" width="180" x="150" y="158"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="240" y="192">Nonleaf Node</text>
+<rect fill="#eef5ff" height="56" rx="14" stroke="#7ea4d5" stroke-width="2" width="180" x="430" y="158"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="520" y="192">Nonleaf Node</text>
+<line marker-end="url(#a1)" stroke="#71869f" stroke-width="3" x1="240" x2="240" y1="214" y2="248"></line>
+<line marker-end="url(#a1)" stroke="#71869f" stroke-width="3" x1="520" x2="450" y1="214" y2="248"></line>
+<line marker-end="url(#a1)" stroke="#71869f" stroke-width="3" x1="520" x2="590" y1="214" y2="248"></line>
+<rect fill="#eaf7f0" height="48" rx="12" stroke="#76af8e" stroke-width="2" width="160" x="160" y="250"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="240" y="280">Leaf</text>
+<rect fill="#eaf7f0" height="48" rx="12" stroke="#76af8e" stroke-width="2" width="160" x="370" y="250"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="450" y="280">Leaf</text>
+<rect fill="#eaf7f0" height="48" rx="12" stroke="#76af8e" stroke-width="2" width="160" x="510" y="250"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="590" y="280">Leaf</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">Basic ②</span>
+<h3>Node</h3>
+<p><strong>Study explanation:</strong> A Node is one block that makes up the Tree. Some nodes make decisions, while others perform actual actions.</p>
+<p class="small">The paper describes several node types: Root, Composite, Task, Decorator, and Service.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 240">
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="34">Each box is a Node</text>
+<rect fill="#eef5ff" height="54" rx="14" stroke="#7ea4d5" stroke-width="2" width="140" x="60" y="80"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="130" y="113">OBFM?</text>
+<rect fill="#f2edfb" height="54" rx="14" stroke="#8c72bd" stroke-width="2" width="140" x="230" y="80"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="300" y="113">Selector</text>
+<rect fill="#fff3e7" height="54" rx="14" stroke="#d49a61" stroke-width="2" width="140" x="400" y="80"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="470" y="113">Service</text>
+<rect fill="#eaf7f0" height="54" rx="14" stroke="#76af8e" stroke-width="2" width="130" x="570" y="80"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="635" y="113">Task</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="130" y="162">condition-checking node</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="300" y="162">selection node</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="470" y="162">information-update node</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="635" y="162">actual-action node</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">Basic ③</span>
+<h3>Root Node</h3>
+<p><strong>Direct statement from the paper:</strong> The Root Node represents the beginning of the tree. Every tree has a root node, and each loop traverses the tree from the root toward the leaf nodes.</p>
+<p class="small"><strong>Study explanation:</strong> Think of it as “the starting point of BT decision making.”</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Root Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 260">
+<defs><marker id="a3" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="34">Root Node = the starting point of BT decision making</text>
+<rect fill="#1f4f8d" height="58" rx="14" stroke="#1f4f8d" stroke-width="2" width="180" x="290" y="60"></rect>
+<text fill="white" font-size="20" font-weight="700" text-anchor="middle" x="380" y="96">ROOT</text>
+<line marker-end="url(#a3)" stroke="#71869f" stroke-width="3" x1="380" x2="250" y1="118" y2="175"></line>
+<line marker-end="url(#a3)" stroke="#71869f" stroke-width="3" x1="380" x2="510" y1="118" y2="175"></line>
+<rect fill="#eef5ff" height="50" rx="12" stroke="#7ea4d5" stroke-width="2" width="190" x="155" y="178"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="250" y="209">Start with Branch A</text>
+<rect fill="#eef5ff" height="50" rx="12" stroke="#7ea4d5" stroke-width="2" width="190" x="415" y="178"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="510" y="209">Start with Branch B</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">Basic ④</span>
+<h3>Parent Node</h3>
+<p><strong>Study explanation:</strong> The node immediately above other connected nodes can be understood as their parent.</p>
+<p class="small">The paper explicitly uses the term “parent node” in its Selector description.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Parent Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 250">
+<defs><marker id="a4" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="32">Parent Node = the upper node that directly owns Child nodes</text>
+<rect fill="#1f4f8d" height="56" rx="14" stroke="#1f4f8d" stroke-width="2" width="150" x="305" y="55"></rect>
+<text fill="white" font-size="19" font-weight="700" text-anchor="middle" x="380" y="89">A (Parent)</text>
+<line marker-end="url(#a4)" stroke="#71869f" stroke-width="3" x1="380" x2="250" y1="111" y2="165"></line>
+<line marker-end="url(#a4)" stroke="#71869f" stroke-width="3" x1="380" x2="510" y1="111" y2="165"></line>
+<rect fill="#f8fbff" height="52" rx="12" stroke="#a8bdd6" stroke-width="2" width="160" x="170" y="168"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="250" y="200">B</text>
+<rect fill="#f8fbff" height="52" rx="12" stroke="#a8bdd6" stroke-width="2" width="160" x="430" y="168"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="510" y="200">C</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">Basic ⑤</span>
+<h3>Child Node</h3>
+<p><strong>Study explanation:</strong> A child can be understood as a lower node connected directly beneath another node.</p>
+<p class="small">The paper explicitly uses the term “child nodes” in its Selector description.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Child Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 250">
+<defs><marker id="a5" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="32">Child Node = a lower node connected directly beneath another Node</text>
+<rect fill="#eef5ff" height="56" rx="14" stroke="#7ea4d5" stroke-width="2" width="150" x="305" y="55"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="89">A</text>
+<line marker-end="url(#a5)" stroke="#71869f" stroke-width="3" x1="380" x2="250" y1="111" y2="165"></line>
+<line marker-end="url(#a5)" stroke="#71869f" stroke-width="3" x1="380" x2="510" y1="111" y2="165"></line>
+<rect fill="#1f4f8d" height="52" rx="12" stroke="#1f4f8d" stroke-width="2" width="160" x="170" y="168"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="250" y="200">B (Child)</text>
+<rect fill="#1f4f8d" height="52" rx="12" stroke="#1f4f8d" stroke-width="2" width="160" x="430" y="168"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="510" y="200">C (Child)</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">Basic ⑥</span>
+<h3>Subnode</h3>
+<p><strong>Study explanation:</strong> A subnode can be understood as a lower node evaluated under a given node. For example, if A, B, and C are connected below a Sequence, then A, B, and C are subnodes of that Sequence.</p>
+<p class="small">The paper uses the phrases “multiple subnodes” and “execution result of all subnodes” when describing Sequence.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Subnode explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 270">
+<defs><marker id="a6" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="32">Subnode = lower nodes evaluated under another Node</text>
+<rect fill="#f2edfb" height="56" rx="14" stroke="#8c72bd" stroke-width="2" width="180" x="290" y="55"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="89">Sequence</text>
+<line marker-end="url(#a6)" stroke="#71869f" stroke-width="3" x1="380" x2="190" y1="111" y2="175"></line>
+<line marker-end="url(#a6)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="111" y2="175"></line>
+<line marker-end="url(#a6)" stroke="#71869f" stroke-width="3" x1="380" x2="570" y1="111" y2="175"></line>
+<rect fill="#fff3e7" height="50" rx="12" stroke="#d49a61" stroke-width="2" width="130" x="125" y="178"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="190" y="209">A</text>
+<rect fill="#fff3e7" height="50" rx="12" stroke="#d49a61" stroke-width="2" width="130" x="315" y="178"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="380" y="209">B</text>
+<rect fill="#fff3e7" height="50" rx="12" stroke="#d49a61" stroke-width="2" width="130" x="505" y="178"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="570" y="209">C</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag green">Basic ⑦</span>
+<h3>Leaf Node</h3>
+<p>
+<strong>the final Node with no Child Node beneath it</strong>can be understood as a Leaf Node.</p>
+<div class="interpret" style="margin:12px 0">
+          There is only one question to ask:<br/><br/>
+<strong>“Does this Node have a Child below it?”</strong><br/><br/>
+          No → <strong>Leaf Node</strong>
+</div>
+<p><strong>Direct statement from the paper:</strong>
+        In this paper, <strong>Task Node is explicitly described as a leaf node of the BT</strong>.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Leaf Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 290">
+<defs><marker id="a7" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="32">Leaf Node = the final Node with no Child below it</text>
+<rect fill="#eef5ff" height="56" rx="14" stroke="#7ea4d5" stroke-width="2" width="180" x="290" y="55"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="89">Selector</text>
+<line marker-end="url(#a7)" stroke="#71869f" stroke-width="3" x1="380" x2="260" y1="111" y2="170"></line>
+<line marker-end="url(#a7)" stroke="#71869f" stroke-width="3" x1="380" x2="500" y1="111" y2="170"></line>
+<rect fill="#2f7d5a" height="54" rx="12" stroke="#2f7d5a" stroke-width="2" width="160" x="180" y="173"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="260" y="206">Task A</text>
+<rect fill="#2f7d5a" height="54" rx="12" stroke="#2f7d5a" stroke-width="2" width="160" x="420" y="173"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="500" y="206">Task B</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="260" y="254">No Child below</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="500" y="254">No Child below</text>
+<text fill="#2f7d5a" font-size="17" font-weight="700" text-anchor="middle" x="380" y="280">→ therefore Task A and Task B are Leaves</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag green">Basic ⑧</span>
+<h3>Nonleaf Node</h3>
+<p>
+<strong>a Node with one or more Child Nodes beneath it</strong>can be understood as a Nonleaf Node.</p>
+<div class="interpret" style="margin:12px 0">
+          Again, there is only one question:<br/><br/>
+<strong>“Does this Node have a Child below it?”</strong><br/><br/>
+          Yes → <strong>Nonleaf Node</strong>
+</div>
+<p><strong>For example:</strong>
+        If a Task is connected below a Selector, the Selector has a Child and is therefore <strong>Nonleaf</strong>, while the Task has no Child below it and is therefore <strong>Leaf</strong>.</p>
+<p><strong>Direct usage in the paper:</strong>
+        The authors state that when more complex decision making is required,
+        <strong>nonleaf nodes can be added</strong>.</p>
+<div class="source">Source: Abstract; Sec. IV-A–B, journal pp.28, 32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Nonleaf Node explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 340">
+<defs><marker id="a8" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="30">Nonleaf Node = a Node with one or more Children beneath it</text>
+<rect fill="#f2edfb" height="56" rx="14" stroke="#8c72bd" stroke-width="2" width="190" x="285" y="55"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="89">Decorator</text>
+<line marker-end="url(#a8)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="111" y2="150"></line>
+<rect fill="#eef5ff" height="56" rx="14" stroke="#7ea4d5" stroke-width="2" width="190" x="285" y="155"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="189">Selector</text>
+<line marker-end="url(#a8)" stroke="#71869f" stroke-width="3" x1="380" x2="250" y1="211" y2="265"></line>
+<line marker-end="url(#a8)" stroke="#71869f" stroke-width="3" x1="380" x2="510" y1="211" y2="265"></line>
+<rect fill="#eaf7f0" height="50" rx="12" stroke="#76af8e" stroke-width="2" width="160" x="170" y="268"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="250" y="299">Task A</text>
+<rect fill="#eaf7f0" height="50" rx="12" stroke="#76af8e" stroke-width="2" width="160" x="430" y="268"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="510" y="299">Task B</text>
+<text fill="#6949a5" font-size="14" x="170" y="125">Decorator has a Child below → Nonleaf</text>
+<text fill="#275dad" font-size="14" x="150" y="240">Selector has a Child below → Nonleaf</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag orange">Basic ⑨</span>
+<h3>What do Nonleaf and Leaf nodes do? — Decision / Execute</h3>
+<p><strong>What to understand immediately after distinguishing Leaf from Nonleaf:</strong><br/>
+        The paper gives a very concise description of BT operation:
+        <strong>“decisions are made at nonleaf nodes, and the decisions are executed when the tree reaches leaf nodes”</strong>.</p>
+<div class="interpret" style="margin:12px 0">
+<strong>In plain terms:</strong><br/><br/>
+<strong>Nonleaf Node</strong> → the side that decides “which judgment/path should be taken now?”<br/>
+<strong>Leaf Node</strong> → the side that reaches the end of the decision process and performs the actual action
+        </div>
+<p><strong>In this paper specifically:</strong><br/>
+        Task Node is <strong>leaf node</strong>explicitly defined as a leaf node, and the Task Node performs the actual action. The leaf tasks in this paper also designate the
+        <strong>pursuit point</strong>.</p>
+<div class="interpret" style="margin-top:14px">
+<strong>What does Execute mean here?</strong><br/>
+          It can be understood as “turning the decision result into an actual action.”<br/><br/>
+          In other words, the upper part of the BT <strong>decides what to do</strong>, and when the tree reaches a leaf Task, it <strong>executes that action</strong>.
+        </div>
+<p class="small">
+<strong>Note:</strong> The paper does not break down every type of nonleaf node as performing decisions in exactly the same way. Here, we follow the authors' high-level description of BT operation.
+        </p>
+<div class="source">Source: Sec. IV-A–B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Decision and Execute explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 280">
+<defs><marker id="a9" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="32">Decision at Nonleaf, Execute at Leaf</text>
+<rect fill="#eef5ff" height="70" rx="16" stroke="#7ea4d5" stroke-width="2" width="220" x="120" y="85"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="230" y="113">Nonleaf Node</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="230" y="139">decide which child / branch to take</text>
+<line marker-end="url(#a9)" stroke="#71869f" stroke-width="4" x1="340" x2="415" y1="120" y2="120"></line>
+<rect fill="#eaf7f0" height="70" rx="16" stroke="#76af8e" stroke-width="2" width="220" x="420" y="85"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="530" y="113">Leaf / Task</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="530" y="139">perform the actual action</text>
+<text fill="#275dad" font-size="17" font-weight="700" text-anchor="middle" x="230" y="205">Decision</text>
+<text fill="#2f7d5a" font-size="17" font-weight="700" text-anchor="middle" x="530" y="205">Execute</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag orange">Basic ⑩</span>
+<h3>Branch</h3>
+<p><strong>First:</strong>
+        A Branch is <strong>one “branch/path” created when the Tree splits</strong>.</p>
+<div class="interpret" style="margin:12px 0">
+<strong>Distinguishing Node from Branch</strong><br/><br/>
+<strong>Node</strong> = one block / point<br/>
+<strong>Branch</strong> = one path extending downward from that point
+        </div>
+<p><strong>For example:</strong><br/>
+        If the Root splits into OBFM, HABFM, and DBFM, each downward path can be regarded as one <strong>branch</strong>.</p>
+<p><strong>What the paper directly states:</strong>
+        The authors explain that a Composite Node
+        <strong>“defines the basic rules in which the branch is executed”</strong>.</p>
+<p class="small">
+<strong>Note:</strong> The paper does not separately define the term “branch.” Therefore, describing it here as a “branch/path” is a <strong>Study interpretation</strong>study interpretation
+      </p>
+<div class="source">Source: Sec. IV-B, journal p.32; Fig. 3, Fig. 7</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Branch explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 310">
+<defs><marker id="a10" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="28">Branch = one path extending downward after the Tree splits</text>
+<rect fill="#1f4f8d" height="54" rx="14" stroke="#1f4f8d" stroke-width="2" width="150" x="305" y="48"></rect>
+<text fill="white" font-size="19" font-weight="700" text-anchor="middle" x="380" y="81">Root</text>
+<line marker-end="url(#a10)" stroke="#275dad" stroke-width="4" x1="380" x2="170" y1="102" y2="170"></line>
+<line marker-end="url(#a10)" stroke="#8c72bd" stroke-width="4" x1="380" x2="380" y1="102" y2="170"></line>
+<line marker-end="url(#a10)" stroke="#d49a61" stroke-width="4" x1="380" x2="590" y1="102" y2="170"></line>
+<rect fill="#eef5ff" height="52" rx="12" stroke="#275dad" stroke-width="2" width="160" x="90" y="175"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="170" y="206">OBFM</text>
+<rect fill="#f2edfb" height="52" rx="12" stroke="#8c72bd" stroke-width="2" width="160" x="300" y="175"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="380" y="206">HABFM</text>
+<rect fill="#fff3e7" height="52" rx="12" stroke="#d49a61" stroke-width="2" width="160" x="510" y="175"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="590" y="206">DBFM</text>
+<text fill="#275dad" font-size="14" text-anchor="middle" x="170" y="262">one Branch</text>
+<text fill="#6949a5" font-size="14" text-anchor="middle" x="380" y="262">one Branch</text>
+<text fill="#a75d12" font-size="14" text-anchor="middle" x="590" y="262">one Branch</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">Basic ⑪</span>
+<h3>One BT decision cycle — Tick → execution → result → Return → repeat</h3>
+<p><strong>Rather than memorizing the ideas in Basics ⑪–⑬ separately, it is easier to see them as one flow.</strong><br/>
+        The key idea is: <strong>“BT makes one decision, sends the result upward, and then decides again on the next tick”</strong>.</p>
+<div class="interpret" style="margin:12px 0">
+<strong>Remember this single flow first</strong><br/><br/>
+          ① <strong>Tick</strong>occurs.<br/>
+          ② Start at the Root and judge the current situation.<br/>
+          ③ Follow lower nodes down and execute until reaching a leaf/task.<br/>
+          ④ Represent the execution/evaluation result using <strong>True / False</strong>or a similar result value.<br/>
+          ⑤ Sending that result upward to the parent is understood as <strong>Return</strong>.<br/>
+          ⑥ When the next Tick arrives, evaluate again using the current situation.
+        </div>
+<p><strong>What are True / False?</strong><br/>
+        They can be understood as result values indicating whether the currently evaluated node or condition is satisfied. The paper specifically describes <strong>the conditions under which true is returned</strong>for Sequence and Selector.</p>
+<p><strong>What is Return?</strong><br/>
+        It can be understood as <strong>passing the result from a lower child/node to the upper parent node</strong>. The paper states that a Selector returns true to its parent as soon as one child node is true.</p>
+<p><strong>What are Tick / Loop?</strong><br/>
+        Rather than making a decision once and stopping,
+        <strong>the tree is evaluated again on the next tick</strong>because WVR air combat changes continuously.</p>
+<p class="small">
+<strong>Source-scope note:</strong>
+          The paper explains the conditions under which Sequence/Selector return true and discusses tick-based repeated judgment, but it does not provide a complete state table defining True/False behavior for every node type. The diagram below is therefore a <strong>study flowchart</strong>.
+        </p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="One BT decision cycle: Tick, Root, decision, Leaf Task, result return, next Tick" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 650">
+<defs>
+<marker id="arrow11" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<rect fill="#eaf2ff" height="60" rx="15" stroke="#5f87b8" stroke-width="2" width="250" x="255" y="20"></rect>
+<text fill="#18202a" font-size="20" font-weight="700" text-anchor="middle" x="380" y="48">① Tick occurs</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="380" y="70">“Reevaluate using the current situation”</text>
+<line marker-end="url(#arrow11)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="80" y2="115"></line>
+<rect fill="#1f4f8d" height="58" rx="14" stroke="#1f4f8d" stroke-width="2" width="190" x="285" y="120"></rect>
+<text fill="white" font-size="20" font-weight="700" text-anchor="middle" x="380" y="155">② ROOT</text>
+<line marker-end="url(#arrow11)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="178" y2="215"></line>
+<rect fill="#eef5ff" height="72" rx="14" stroke="#7ea4d5" stroke-width="2" width="260" x="250" y="220"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="250">③ Decision at a Nonleaf</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="380" y="276">evaluate which child / branch to take</text>
+<line marker-end="url(#arrow11)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="292" y2="330"></line>
+<rect fill="#eaf7f0" height="72" rx="14" stroke="#76af8e" stroke-width="2" width="230" x="265" y="335"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="380" y="365">④ Execute Leaf / Task</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="380" y="391">perform the selected action</text>
+<path d="M 265 371 C 150 371, 130 445, 235 470" fill="none" marker-end="url(#arrow11)" stroke="#71869f" stroke-width="3"></path>
+<rect fill="#fff3e7" height="88" rx="14" stroke="#d49a61" stroke-width="2" width="250" x="50" y="475"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="175" y="505">⑤ Result</text>
+<text fill="#18202a" font-size="16" text-anchor="middle" x="175" y="531">True / False, etc.</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="175" y="553">node evaluation/execution result</text>
+<path d="M 300 520 C 385 520, 435 500, 500 468" fill="none" marker-end="url(#arrow11)" stroke="#71869f" stroke-width="3"></path>
+<rect fill="#f2edfb" height="92" rx="14" stroke="#8c72bd" stroke-width="2" width="240" x="470" y="430"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="590" y="462">⑥ Return</text>
+<text fill="#18202a" font-size="15" text-anchor="middle" x="590" y="488">pass the result to the Parent</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="590" y="511">result flows upward</text>
+<path d="M 590 430 C 670 360, 680 220, 510 255" fill="none" marker-end="url(#arrow11)" stroke="#8c72bd" stroke-dasharray="8 7" stroke-width="3"></path>
+<text fill="#6949a5" font-size="13" text-anchor="middle" transform="rotate(-90 665 338)" x="665" y="338">result is used by the upper decision logic</text>
+<path d="M 590 522 C 590 610, 455 620, 380 590 C 270 545, 235 105, 255 58" fill="none" marker-end="url(#arrow11)" stroke="#2f7d5a" stroke-dasharray="9 7" stroke-width="3"></path>
+<rect fill="#eef8f2" height="46" rx="12" stroke="#76af8e" stroke-width="1.5" width="154" x="303" y="565"></rect>
+<text fill="#2f7d5a" font-size="15" font-weight="700" text-anchor="middle" x="380" y="593">Next Tick → repeat</text>
+</svg>
+<div class="interpret" style="margin-top:14px">
+<strong>In one line:</strong><br/>
+<code>Tick → Root → decision → Leaf/Task execution → result (True/False) → Return to Parent → next Tick</code>
+</div>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">Basic ⑫</span>
+<h3>Tree Traversal</h3>
+<p><strong>Direct usage in the paper:</strong> The authors state that in each loop the tree is <strong>traverse</strong>traversed from the root toward the leaf nodes</p>
+<p class="small"><strong>Study explanation:</strong> . Think of this as “following the tree downward to determine which branch and node to execute.”</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Traversal explanation" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 320">
+<defs><marker id="a12" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<text fill="#18202a" font-size="22" font-weight="700" text-anchor="middle" x="380" y="28">Traversal = following the tree from Root toward Leaf</text>
+<rect fill="#1f4f8d" height="52" rx="14" stroke="#1f4f8d" stroke-width="2" width="160" x="300" y="55"></rect>
+<text fill="white" font-size="18" font-weight="700" text-anchor="middle" x="380" y="87">1. Root</text>
+<line marker-end="url(#a12)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="107" y2="145"></line>
+<rect fill="#eef5ff" height="52" rx="14" stroke="#7ea4d5" stroke-width="2" width="200" x="280" y="150"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="380" y="182">2. Nonleaf decision</text>
+<line marker-end="url(#a12)" stroke="#71869f" stroke-width="3" x1="380" x2="250" y1="202" y2="238"></line>
+<line stroke="#d9e1ea" stroke-width="2" x1="380" x2="510" y1="202" y2="238"></line>
+<rect fill="#eaf7f0" height="48" rx="12" stroke="#76af8e" stroke-width="2" width="180" x="150" y="242"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="240" y="272">3. Leaf / Task</text>
+<rect fill="#f5f7fb" height="48" rx="12" stroke="#d9e1ea" stroke-width="2" width="180" x="430" y="242"></rect>
+<text fill="#9aa6b2" font-size="17" font-weight="700" text-anchor="middle" x="520" y="272">unselected path</text>
+</svg>
+</div>
+</div>
+</div>
+<div class="check" style="margin-top:18px">
+<h3>Now, when you look at a Selector</h3>
+<p>
+      a Selector is not some completely separate object. It is <strong>one Node</strong>. Because it has children below it, it is <strong>nonleaf node</strong>, and because it handles branches based on the results of multiple children, it is <strong>a type of Composite Node</strong>.
+    </p>
+<p>
+      A natural study order is:
+      <code>Tree → Node → Root → Parent/Child → Subnode → Leaf/Nonleaf → Decision/Execute → Branch → Tick/Result/Return → Traversal</code>
+      first, and then move on to
+      <code>Composite → Sequence / Selector</code>.
+    </p>
+</div>
+</section>
+<section id="parts">
+<h2>3. Behavior Tree Components</h2>
+<p class="lead">
+    After learning the prerequisite terms, it is easier to understand the nodes as a flow rather than memorizing each one in isolation:
+    <strong>“start → decision/branching → actual action → information support”</strong>. The organization below preserves the definitions in Sec. IV-B while grouping them for study.
+  </p>
+<div class="interpret">
+<strong>Keep the study grouping separate from the paper's formal classification</strong><br/><br/>
+    For learning purposes, <strong>Sequence / Selector / Decorator</strong>are grouped together as one <strong>“decision/branching node group”</strong>.<br/><br/>
+    However, in the paper's formal classification,
+    <strong>Sequence and Selector are subtypes of Composite Node</strong>, while
+    <strong>Decorator is a separate Node Type</strong>study interpretation
+  </div>
+<div class="diagram" style="margin-top:18px">
+<svg aria-label="Study-oriented overview of Behavior Tree components" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 920 310">
+<defs>
+<marker id="partsFlowArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<text fill="#18202a" font-size="23" font-weight="700" text-anchor="middle" x="460" y="30">
+        High-level BT flow for study
+      </text>
+<rect fill="#1f4f8d" height="72" rx="15" stroke="#1f4f8d" stroke-width="2" width="170" x="45" y="105"></rect>
+<text fill="white" font-size="19" font-weight="700" text-anchor="middle" x="130" y="135">① Root</text>
+<text fill="white" font-size="14" text-anchor="middle" x="130" y="160">start decision making</text>
+<line marker-end="url(#partsFlowArrow)" stroke="#71869f" stroke-width="3" x1="215" x2="285" y1="141" y2="141"></line>
+<rect fill="#f8fbff" height="122" rx="18" stroke="#8c72bd" stroke-width="2.5" width="340" x="290" y="80"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="460" y="110">② Decision / Branching Node Group</text>
+<rect fill="#f2edfb" height="48" rx="11" stroke="#8c72bd" width="90" x="315" y="130"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="360" y="159">Decorator</text>
+<rect fill="#fff3e7" height="48" rx="11" stroke="#d49a61" width="90" x="415" y="130"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="460" y="159">Selector</text>
+<rect fill="#eef5ff" height="48" rx="11" stroke="#7ea4d5" width="90" x="515" y="130"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="560" y="159">Sequence</text>
+<line marker-end="url(#partsFlowArrow)" stroke="#71869f" stroke-width="3" x1="630" x2="700" y1="141" y2="141"></line>
+<rect fill="#2f7d5a" height="72" rx="15" stroke="#2f7d5a" stroke-width="2" width="170" x="705" y="105"></rect>
+<text fill="white" font-size="19" font-weight="700" text-anchor="middle" x="790" y="135">③ Task</text>
+<text fill="white" font-size="14" text-anchor="middle" x="790" y="160">actual Action</text>
+<rect fill="#fff3e7" height="52" rx="13" stroke="#d49a61" stroke-width="2" width="220" x="350" y="235"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="460" y="257">④ Service</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="460" y="278">extract and store information needed for judgment</text>
+<line marker-end="url(#partsFlowArrow)" stroke="#d49a61" stroke-dasharray="7 5" stroke-width="2.5" x1="460" x2="460" y1="235" y2="203"></line>
+</svg>
+</div>
+<div class="basics-stack">
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">Component ①</span>
+<h3>Root Node</h3>
+<p>
+        Root is <strong>the starting point of Behavior Tree decision making</strong>study interpretation</p>
+<p><strong>Direct statement from the paper:</strong>
+        Every tree has a root node, and each loop <strong>traverses the tree from the root toward the leaf nodes</strong>.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Behavior Tree traversal starting at the Root Node" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 260">
+<defs>
+<marker id="partRootArrow2" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<rect fill="#eaf2ff" height="58" rx="14" stroke="#5f87b8" stroke-width="2" width="160" x="300" y="30"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="380" y="65">Tick / Loop starts</text>
+<line marker-end="url(#partRootArrow2)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="88" y2="125"></line>
+<rect fill="#1f4f8d" height="62" rx="15" stroke="#1f4f8d" stroke-width="2" width="190" x="285" y="130"></rect>
+<text fill="white" font-size="21" font-weight="700" text-anchor="middle" x="380" y="168">ROOT</text>
+<line marker-end="url(#partRootArrow2)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="192" y2="228"></line>
+<text fill="#526174" font-size="15" text-anchor="middle" x="380" y="248">move down to lower decision Nodes</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">Component ②</span>
+<h3>Decision / Branching Node Group — Decorator / Selector / Sequence</h3>
+<p><strong>Why study these three together?</strong><br/>
+        All three are involved in <strong>“the process of deciding what to do next”</strong>inside the Behavior Tree, so comparing them as one group is easier at the beginning.</p>
+<div class="interpret" style="margin:12px 0">
+<strong>Remember only the question each Node asks</strong><br/><br/>
+<strong>Decorator</strong> → “Is this condition satisfied?”<br/>
+<strong>Selector</strong> → “Which of these choices works now?”<br/>
+<strong>Sequence</strong> → “Is this whole set satisfied?”
+        </div>
+<p><strong>In the air-combat example:</strong><br/>
+        In Fig. 7c, the paper explicitly states that <strong>a Selector is placed after the Decorator ‘OBFM?’</strong>. In other words, it first checks “Is the current situation OBFM?” and then handles detailed branches inside the OBFM logic.</p>
+<p>
+          For Sequence, the paper defines it as returning true when <strong>the execution results of all subnodes are true</strong>. However, the main text does not map each Sequence node to a specific combat block one by one. Therefore, the Sequence combat example below is <strong>a study example for understanding its role</strong>.
+        </p>
+<div class="source">Source: Sec. IV-B, journal p.32; Fig. 7c</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Comparison of Decorator, Selector, and Sequence using an air-combat decision example" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 820 620">
+<defs>
+<marker id="decisionGroupArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<text fill="#18202a" font-size="23" font-weight="700" text-anchor="middle" x="410" y="30">
+            Roles of the three Nodes in one combat-decision flow
+          </text>
+<!-- Decorator -->
+<rect fill="#f2edfb" height="70" rx="16" stroke="#8c72bd" stroke-width="2.5" width="250" x="285" y="55"></rect>
+<text fill="#18202a" font-size="20" font-weight="700" text-anchor="middle" x="410" y="84">Decorator: “OBFM?”</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="410" y="108">check whether the current situation satisfies OBFM</text>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="410" y1="125" y2="165"></line>
+<text fill="#2f7d5a" font-size="13" font-weight="700" x="430" y="151">True</text>
+<!-- Selector -->
+<rect fill="#fff3e7" height="72" rx="16" stroke="#d49a61" stroke-width="2.5" width="310" x="255" y="170"></rect>
+<text fill="#18202a" font-size="20" font-weight="700" text-anchor="middle" x="410" y="199">Selector</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="410" y="223">which detailed branch inside OBFM is valid?</text>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="210" y1="242" y2="305"></line>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="410" y1="242" y2="305"></line>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="610" y1="242" y2="305"></line>
+<rect fill="#f6f8fb" height="62" rx="13" stroke="#c5ced8" stroke-width="2" width="170" x="125" y="310"></rect>
+<text fill="#526174" font-size="16" font-weight="700" text-anchor="middle" x="210" y="336">Branch A</text>
+<text fill="#7b8794" font-size="14" text-anchor="middle" x="210" y="358">False</text>
+<rect fill="#eaf7f0" height="62" rx="13" stroke="#76af8e" stroke-width="3" width="170" x="325" y="310"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="410" y="336">Branch B</text>
+<text fill="#2f7d5a" font-size="14" font-weight="700" text-anchor="middle" x="410" y="358">True → selected</text>
+<rect fill="#f6f8fb" height="62" rx="13" stroke="#c5ced8" stroke-width="2" width="170" x="525" y="310"></rect>
+<text fill="#526174" font-size="16" font-weight="700" text-anchor="middle" x="610" y="336">Branch C</text>
+<text fill="#7b8794" font-size="14" text-anchor="middle" x="610" y="358">no need to check yet</text>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="410" y1="372" y2="418"></line>
+<!-- Sequence -->
+<rect fill="#eef5ff" height="72" rx="16" stroke="#7ea4d5" stroke-width="2.5" width="310" x="255" y="423"></rect>
+<text fill="#18202a" font-size="20" font-weight="700" text-anchor="middle" x="410" y="452">Sequence</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="410" y="476">are all conditions/steps inside the selected action satisfied?</text>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="225" y1="495" y2="545"></line>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="410" y1="495" y2="545"></line>
+<line marker-end="url(#decisionGroupArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="595" y1="495" y2="545"></line>
+<rect fill="#eaf7f0" height="48" rx="11" stroke="#76af8e" width="140" x="155" y="550"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="225" y="580">Condition 1 = True</text>
+<rect fill="#eaf7f0" height="48" rx="11" stroke="#76af8e" width="140" x="340" y="550"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="410" y="580">Condition 2 = True</text>
+<rect fill="#eaf7f0" height="48" rx="11" stroke="#76af8e" width="140" x="525" y="550"></rect>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="595" y="580">Condition 3 = True</text>
+</svg>
+<div class="interpret" style="margin-top:14px">
+<strong>At a glance:</strong><br/>
+          Decorator = <strong>entry-condition check</strong><br/>
+          Selector = <strong>select one among multiple branches</strong><br/>
+          Sequence = <strong>check whether all subnode results are True</strong>
+</div>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag green">Component ③</span>
+<h3>Task Node</h3>
+<p>
+        Task Node is <strong>the Node that performs the actual action at the end of the decision process</strong>.</p>
+<p><strong>Direct statement from the paper:</strong>
+        Task Node performs an actual action and is
+        <strong>a leaf node of the BT</strong>study interpretation</p>
+<p><strong>In this paper:</strong>
+        leaf Tasks designate the direction in which the aircraft should proceed, namely the
+        <strong>pursuit point</strong>.</p>
+<div class="source">Source: Sec. IV-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Task Node designates a pursuit point and connects to guidance and control" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 760 300">
+<defs>
+<marker id="partTaskArrow2" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<rect fill="#eef5ff" height="62" rx="15" stroke="#7ea4d5" stroke-width="2" width="260" x="250" y="24"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="380" y="50">upper decision Nodes</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="380" y="73">decide which action to take</text>
+<line marker-end="url(#partTaskArrow2)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="86" y2="130"></line>
+<rect fill="#2f7d5a" height="66" rx="15" stroke="#2f7d5a" stroke-width="2" width="190" x="285" y="135"></rect>
+<text fill="white" font-size="20" font-weight="700" text-anchor="middle" x="380" y="164">Task Node</text>
+<text fill="white" font-size="14" text-anchor="middle" x="380" y="187">Leaf / actual Action</text>
+<line marker-end="url(#partTaskArrow2)" stroke="#71869f" stroke-width="3" x1="380" x2="380" y1="201" y2="238"></line>
+<rect fill="#eaf7f0" height="48" rx="14" stroke="#76af8e" stroke-width="2" width="210" x="275" y="242"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="380" y="271">designate Pursuit Point</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag orange">Component ④</span>
+<h3>Service Node</h3>
+<p>
+        Service is <strong>a supporting Node that continuously obtains and stores information needed for judgment</strong>.</p>
+<p><strong>Direct statement from the paper:</strong>
+        Service Node
+        <strong>extracting and storing</strong>extracts and stores information needed for situation determination, and while Composite branching is being executed it
+        <strong>runs repeatedly at a set frequency</strong>.</p>
+<p><strong>Actual OBFM example in the paper:</strong>
+        When the OBFM condition is satisfied in Fig. 7c,
+        <strong>TurnCheck</strong>and <strong>SpeedControl</strong>are executed as Services.</p>
+<div class="interpret" style="margin:12px 0">
+<strong>Important distinction:</strong><br/><br/>
+<strong>Do not read the names TurnCheck / SpeedControl as meaning “a controller that directly commands aircraft turn or speed.”</strong><br/><br/>
+          What the paper clearly assigns to Service is
+          <strong>extracting and storing information needed for situation determination</strong>study interpretation<br/>
+          Actual aircraft control is performed later in the <strong>Guidance &amp; Control Model</strong>.
+        </div>
+<p class="small">
+<strong>Scope of the paper:</strong>
+          The paper names TurnCheck and SpeedControl, but it does not describe in detail which variables or Blackboard values each one reads/writes, nor their internal equations or exact execution frequencies.
+        </p>
+<div class="source">Source: Sec. IV-B–C, journal p.32; Fig. 7c</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Difference between Service Node and actual Guidance &amp; Control" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 820 560">
+<defs>
+<marker id="serviceVsControlArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<text fill="#18202a" font-size="23" font-weight="700" text-anchor="middle" x="410" y="30">
+            Service Node and actual aircraft control are different layers
+          </text>
+<!-- Decision-making side -->
+<rect fill="#f8fbff" height="245" rx="18" stroke="#a8bdd6" stroke-width="2" width="680" x="70" y="70"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="410" y="100">
+            Behavior Tree / Decision-Making
+          </text>
+<rect fill="#fff3e7" height="80" rx="14" stroke="#d49a61" stroke-width="2.5" width="190" x="95" y="135"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="190" y="165">Service</text>
+<text fill="#a75d12" font-size="15" text-anchor="middle" x="190" y="188">TurnCheck</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="190" y="207">process information for decision making</text>
+<rect fill="#fff3e7" height="80" rx="14" stroke="#d49a61" stroke-width="2.5" width="190" x="315" y="135"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="410" y="165">Service</text>
+<text fill="#a75d12" font-size="15" text-anchor="middle" x="410" y="188">SpeedControl</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="410" y="207">process information for decision making</text>
+<rect fill="#eaf7f0" height="80" rx="14" stroke="#76af8e" stroke-width="2.5" width="190" x="535" y="135"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="630" y="165">Task / Leaf</text>
+<text fill="#2f7d5a" font-size="14" text-anchor="middle" x="630" y="188">Pursuit Point</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="630" y="207">designate action direction</text>
+<path d="M 285 175 C 300 175, 305 175, 315 175" fill="none" stroke="#d49a61" stroke-dasharray="7 5" stroke-width="2.5"></path>
+<path d="M 505 175 C 520 175, 525 175, 535 175" fill="none" marker-end="url(#serviceVsControlArrow)" stroke="#71869f" stroke-width="2.5"></path>
+<rect fill="#fffaf4" height="44" rx="11" stroke="#e4c49d" width="520" x="150" y="245"></rect>
+<text fill="#a75d12" font-size="15" font-weight="700" text-anchor="middle" x="410" y="272">
+            Service = the “prepare information for judgment” side
+          </text>
+<!-- Arrow to actual control -->
+<line marker-end="url(#serviceVsControlArrow)" stroke="#71869f" stroke-width="3" x1="410" x2="410" y1="315" y2="360"></line>
+<!-- Guidance and control side -->
+<rect fill="#eef5ff" height="155" rx="18" stroke="#7ea4d5" stroke-width="2" width="580" x="120" y="365"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="410" y="398">
+            Guidance &amp; Control Model
+          </text>
+<rect fill="#eaf2ff" height="60" rx="13" stroke="#5f87b8" stroke-width="2" width="170" x="165" y="425"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="250" y="451">Pursuit Point</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="250" y="472">used as input</text>
+<line marker-end="url(#serviceVsControlArrow)" stroke="#71869f" stroke-width="3" x1="335" x2="405" y1="455" y2="455"></line>
+<rect fill="#eaf7f0" height="60" rx="13" stroke="#76af8e" stroke-width="2" width="245" x="410" y="425"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="532" y="450">generate actual control commands</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="532" y="472">Roll / G / Speed commands, etc.</text>
+<text fill="#275dad" font-size="16" font-weight="700" text-anchor="middle" x="410" y="548">
+            That is, SpeedControl Service ≠ the low-level Speed Controller
+          </text>
+</svg>
+<div class="interpret" style="margin-top:14px">
+<strong>One-line summary:</strong><br/>
+<code>Service → extract/store information needed for judgment</code><br/>
+<code>Task → designate Pursuit Point</code><br/>
+<code>Guidance &amp; Control → generate actual aircraft control commands</code>
+</div>
+</div>
+</div>
+</div>
+<div class="check" style="margin-top:20px">
+<h3>Chapter 3 at a glance</h3>
+<p>
+<strong>Root</strong>Decision making starts at
+      <strong>Decorator / Selector / Sequence</strong>, conditions and branches are evaluated by <strong>Task</strong>, and the actual action is finally performed by
+      <strong>Service</strong>. The information needed for those decisions is prepared by
+    </p>
+</div>
+</section>
+<section id="structure">
+<h2>4. Where does BT sit in the paper's overall system?</h2>
+<p class="lead">
+    Looking at BT alone can be confusing. The overall flow in the paper is
+    <strong>BEM → Flow Diagram → Behavior Tree → Pursuit Point → Guidance/Control → Aircraft Dynamics</strong>.
+  </p>
+<div class="diagram">
+<div class="flow">
+<div class="box">Basic Employment<br/>Manual (BEM)</div>
+<div class="arrow">→</div>
+<div class="box">Dogfight<br/>Flow Diagram</div>
+<div class="arrow">→</div>
+<div class="box" style="border-color:#4f7fb8;background:#edf5ff">Behavior Tree<br/>Decision Model</div>
+<div class="arrow">→</div>
+<div class="box">Pursuit Point</div>
+<div class="arrow">→</div>
+<div class="box">Guidance Law<br/>&amp; Controller</div>
+<div class="arrow">→</div>
+<div class="box">Aircraft<br/>Dynamics</div>
+</div>
+</div>
+<div class="interpret" style="margin-top:16px">
+<strong>Important:</strong> BT is not described as directly calculating throttle, aileron, elevator, and rudder commands. Decision making produces a <strong>pursuit point command</strong>, and the guidance/control model then creates the actual control commands.
+  </div>
+</section>
+<section id="branches">
+<h2>5. Top-Level BT Structure: OBFM / HABFM / DBFM</h2>
+<p class="lead">
+    This section is easiest to understand by looking at <strong>how the combat-situation classification in Fig. 3 becomes the major branches of the Behavior Tree in Figs. 6–7</strong>. The current combat situation is classified first, and the model then enters the BT node group corresponding to OBFM, HABFM, or DBFM.
+  </p>
+<div class="interpret">
+<strong>First, separate the roles of the figures</strong><br/><br/>
+<strong>Fig. 3</strong> → a <strong>Flow Diagram</strong><br/>
+<strong>Fig. 6–7</strong> → an implementation that makes that judgment structure and each maneuver logic executable in software: <strong>Behavior Tree implementation</strong>
+</div>
+<div class="diagram" style="margin-top:18px">
+<svg aria-label="Relationship between the combat-situation classification in Fig. 3 and the OBFM/HABFM/DBFM Behavior Tree structure in Figs. 6–7" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 1120 610">
+<defs>
+<marker id="topBTArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path>
+</marker>
+</defs>
+<text fill="#18202a" font-size="25" font-weight="700" text-anchor="middle" x="560" y="34">
+        Combat-situation judgment in Fig. 3 → top-level BT structure in Figs. 6–7
+      </text>
+<!-- LEFT: FLOW DIAGRAM -->
+<rect fill="#f8fbff" height="485" rx="20" stroke="#a8bdd6" stroke-width="2" width="470" x="35" y="65"></rect>
+<text fill="#18202a" font-size="21" font-weight="700" text-anchor="middle" x="270" y="100">① Classify the situation in the Flow Diagram</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="270" y="126">based on Fig. 3</text>
+<rect fill="#eaf2ff" height="58" rx="14" stroke="#5f87b8" stroke-width="2" width="210" x="165" y="155"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="270" y="190">Combat Geometry</text>
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="3" x1="270" x2="270" y1="213" y2="248"></line>
+<rect fill="#eaf2ff" height="58" rx="14" stroke="#5f87b8" stroke-width="2" width="210" x="165" y="253"></rect>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="270" y="288">Situation Awareness</text>
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="3" x1="270" x2="270" y1="311" y2="345"></line>
+<polygon fill="#f2edfb" points="270,350 365,402 270,454 175,402" stroke="#8c72bd" stroke-width="2.5"></polygon>
+<text fill="#18202a" font-size="18" font-weight="700" text-anchor="middle" x="270" y="396">Superior?</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="270" y="418">judge relative superiority</text>
+<line marker-end="url(#topBTArrow)" stroke="#275dad" stroke-width="3" x1="175" x2="100" y1="402" y2="482"></line>
+<line marker-end="url(#topBTArrow)" stroke="#8c72bd" stroke-width="3" x1="270" x2="270" y1="454" y2="482"></line>
+<line marker-end="url(#topBTArrow)" stroke="#d49a61" stroke-width="3" x1="365" x2="440" y1="402" y2="482"></line>
+<text fill="#275dad" font-size="13" font-weight="700" text-anchor="middle" x="126" y="435">Ownship advantage</text>
+<text fill="#6949a5" font-size="13" font-weight="700" text-anchor="middle" x="270" y="474">Neutral</text>
+<text fill="#a75d12" font-size="13" font-weight="700" text-anchor="middle" x="414" y="435">Adversary advantage</text>
+<rect fill="#eef5ff" height="48" rx="11" stroke="#275dad" stroke-width="2" width="120" x="45" y="487"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="105" y="517">OBFM</text>
+<rect fill="#f2edfb" height="48" rx="11" stroke="#8c72bd" stroke-width="2" width="120" x="210" y="487"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="270" y="517">HABFM</text>
+<rect fill="#fff3e7" height="48" rx="11" stroke="#d49a61" stroke-width="2" width="120" x="375" y="487"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="435" y="517">DBFM</text>
+<!-- MIDDLE ARROW -->
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="4" x1="520" x2="600" y1="305" y2="305"></line>
+<text fill="#526174" font-size="15" font-weight="700" text-anchor="middle" x="560" y="287">implemented as BT</text>
+<!-- RIGHT: BT STRUCTURE -->
+<rect fill="#ffffff" height="485" rx="20" stroke="#a8bdd6" stroke-width="2" width="470" x="615" y="65"></rect>
+<text fill="#18202a" font-size="21" font-weight="700" text-anchor="middle" x="850" y="100">② Major Node Groups in the Behavior Tree</text>
+<text fill="#526174" font-size="14" text-anchor="middle" x="850" y="126">based on Figs. 6–7</text>
+<rect fill="#1f4f8d" height="58" rx="14" stroke="#1f4f8d" stroke-width="2" width="150" x="775" y="155"></rect>
+<text fill="white" font-size="20" font-weight="700" text-anchor="middle" x="850" y="190">ROOT</text>
+<line marker-end="url(#topBTArrow)" stroke="#275dad" stroke-width="3" x1="850" x2="695" y1="213" y2="300"></line>
+<line marker-end="url(#topBTArrow)" stroke="#8c72bd" stroke-width="3" x1="850" x2="850" y1="213" y2="300"></line>
+<line marker-end="url(#topBTArrow)" stroke="#d49a61" stroke-width="3" x1="850" x2="1005" y1="213" y2="300"></line>
+<rect fill="#eef5ff" height="82" rx="14" stroke="#275dad" stroke-width="2.5" width="140" x="625" y="305"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="695" y="334">OBFM</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="695" y="357">Ownship advantage</text>
+<text fill="#275dad" font-size="12" text-anchor="middle" x="695" y="376">offensive maneuver logic</text>
+<rect fill="#f2edfb" height="82" rx="14" stroke="#8c72bd" stroke-width="2.5" width="140" x="780" y="305"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="850" y="334">HABFM</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="850" y="357">Neutral</text>
+<text fill="#6949a5" font-size="12" text-anchor="middle" x="850" y="376">high-aspect logic</text>
+<rect fill="#fff3e7" height="82" rx="14" stroke="#d49a61" stroke-width="2.5" width="140" x="935" y="305"></rect>
+<text fill="#18202a" font-size="19" font-weight="700" text-anchor="middle" x="1005" y="334">DBFM</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="1005" y="357">Adversary advantage</text>
+<text fill="#a75d12" font-size="12" text-anchor="middle" x="1005" y="376">defensive maneuver logic</text>
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="2.5" x1="695" x2="695" y1="387" y2="435"></line>
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="2.5" x1="850" x2="850" y1="387" y2="435"></line>
+<line marker-end="url(#topBTArrow)" stroke="#71869f" stroke-width="2.5" x1="1005" x2="1005" y1="387" y2="435"></line>
+<rect fill="#eaf7f0" height="54" rx="11" stroke="#76af8e" width="114" x="638" y="440"></rect>
+<text fill="#18202a" font-size="14" font-weight="700" text-anchor="middle" x="695" y="462">detailed judgment</text>
+<text fill="#526174" font-size="12" text-anchor="middle" x="695" y="482">→ Task</text>
+<rect fill="#eaf7f0" height="54" rx="11" stroke="#76af8e" width="114" x="793" y="440"></rect>
+<text fill="#18202a" font-size="14" font-weight="700" text-anchor="middle" x="850" y="462">detailed judgment</text>
+<text fill="#526174" font-size="12" text-anchor="middle" x="850" y="482">→ Task</text>
+<rect fill="#eaf7f0" height="54" rx="11" stroke="#76af8e" width="114" x="948" y="440"></rect>
+<text fill="#18202a" font-size="14" font-weight="700" text-anchor="middle" x="1005" y="462">detailed judgment</text>
+<text fill="#526174" font-size="12" text-anchor="middle" x="1005" y="482">→ Task</text>
+<rect fill="#f6f8fb" height="28" rx="9" stroke="#d9e1ea" width="370" x="665" y="515"></rect>
+<text fill="#34404d" font-size="13" text-anchor="middle" x="850" y="534">
+        more detailed BT decisions and Tasks continue inside each group
+      </text>
+<!-- BOTTOM NOTE -->
+<rect fill="#eef8f2" height="28" rx="9" stroke="#bfdcc9" width="810" x="155" y="570"></rect>
+<text fill="#2f7d5a" font-size="14" font-weight="700" text-anchor="middle" x="560" y="589">
+        Paper: OBFM / HABFM / DBFM are judged by the computer at every moment during the engagement.
+      </text>
+</svg>
+</div>
+<div class="basics-stack" style="margin-top:20px">
+<div class="basic-item">
+<div class="meta">
+<span class="tag blue">OBFM</span>
+<h3>Ownship has the advantage</h3>
+<p>
+          The paper states that the objective of OBFM is <strong>to shoot down the adversary as quickly as possible without wasting time and fuel</strong>. After entering the turn circle, the pilot should maintain the control zone and employ weapons when the adversary enters the WEZ.
+        </p>
+<p class="small">The related maneuvers are mainly described in blocks 8–12 of the Flow Diagram.</p>
+<div class="source">Source: Sec. III-B, journal p.31</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Study flow for OBFM" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 700 250">
+<defs><marker id="obfmArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<rect fill="#eef5ff" height="60" rx="13" stroke="#275dad" stroke-width="2" width="150" x="35" y="92"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="110" y="118">Turn Circle</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="110" y="140">enter</text>
+<line marker-end="url(#obfmArrow)" stroke="#71869f" stroke-width="3" x1="185" x2="265" y1="122" y2="122"></line>
+<rect fill="#eef5ff" height="60" rx="13" stroke="#275dad" stroke-width="2" width="160" x="270" y="92"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="350" y="118">Control Zone</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="350" y="140">maintain</text>
+<line marker-end="url(#obfmArrow)" stroke="#71869f" stroke-width="3" x1="430" x2="510" y1="122" y2="122"></line>
+<rect fill="#eaf7f0" height="60" rx="13" stroke="#76af8e" stroke-width="2" width="150" x="515" y="92"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="590" y="118">enter WEZ</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="590" y="140">→ employ weapon</text>
+<text fill="#275dad" font-size="15" font-weight="700" text-anchor="middle" x="350" y="205">Goal: attack quickly while maintaining the advantage</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag purple">HABFM</span>
+<h3>Neutral high-aspect situation</h3>
+<p>
+          HABFM is used when neither the adversary nor ownship has the advantage. In blocks 14–19, <strong>maneuvers are repeated until one side gains an advantage</strong>.
+        </p>
+<p>
+          The model compares room and energy to choose one-circle or two-circle maneuvering, then uses a winning cue to determine who has gained the upper hand.
+        </p>
+<div class="source">Source: Sec. III-B, journal p.31; Fig. 4</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Study flow for HABFM" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 700 280">
+<defs><marker id="habfmArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<rect fill="#f2edfb" height="54" rx="13" stroke="#8c72bd" stroke-width="2" width="160" x="270" y="25"></rect>
+<text fill="#18202a" font-size="17" font-weight="700" text-anchor="middle" x="350" y="58">Neutral</text>
+<line marker-end="url(#habfmArrow)" stroke="#71869f" stroke-width="3" x1="350" x2="350" y1="79" y2="115"></line>
+<polygon fill="#f8fbff" points="350,120 445,168 350,216 255,168" stroke="#8c72bd" stroke-width="2"></polygon>
+<text fill="#18202a" font-size="15" font-weight="700" text-anchor="middle" x="350" y="161">Room / Energy</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="350" y="182">compare</text>
+<line marker-end="url(#habfmArrow)" stroke="#71869f" stroke-width="3" x1="255" x2="140" y1="168" y2="225"></line>
+<line marker-end="url(#habfmArrow)" stroke="#71869f" stroke-width="3" x1="445" x2="560" y1="168" y2="225"></line>
+<rect fill="#eef5ff" height="50" rx="12" stroke="#7ea4d5" stroke-width="2" width="170" x="55" y="218"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="140" y="249">One-Circle</text>
+<rect fill="#eef5ff" height="50" rx="12" stroke="#7ea4d5" stroke-width="2" width="170" x="475" y="218"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="560" y="249">Two-Circle</text>
+</svg>
+</div>
+</div>
+<div class="basic-item">
+<div class="meta">
+<span class="tag orange">DBFM</span>
+<h3>Adversary has the advantage</h3>
+<p>
+          The objective of DBFM is <strong>to survive as long as possible while exploiting the adversary's mistakes and weaknesses to transition to a neutral or ownship-superior situation</strong>study interpretation
+        </p>
+<p>
+          . The paper explains that the ownship should create as many geometric problems as possible for the adversary and identifies the related maneuvers as blocks 23–33.
+        </p>
+<div class="source">Source: Sec. III-B, journal p.32</div>
+</div>
+<div class="big-diagram" style="display:block;min-height:auto">
+<svg aria-label="Study flow for DBFM" role="img" style="width:100%;height:auto;display:block" viewbox="0 0 700 250">
+<defs><marker id="dbfmArrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71869f"></path></marker></defs>
+<rect fill="#fff3e7" height="60" rx="13" stroke="#d49a61" stroke-width="2" width="170" x="35" y="90"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="120" y="116">Adversary advantage</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="120" y="139">unfavorable situation</text>
+<line marker-end="url(#dbfmArrow)" stroke="#71869f" stroke-width="3" x1="205" x2="275" y1="120" y2="120"></line>
+<rect fill="#fffaf4" height="60" rx="13" stroke="#e4c49d" stroke-width="2" width="160" x="280" y="90"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="360" y="116">survive + create problems</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="360" y="139">exploit adversary mistakes/weaknesses</text>
+<line marker-end="url(#dbfmArrow)" stroke="#71869f" stroke-width="3" x1="440" x2="510" y1="120" y2="120"></line>
+<rect fill="#eaf7f0" height="60" rx="13" stroke="#76af8e" stroke-width="2" width="150" x="515" y="90"></rect>
+<text fill="#18202a" font-size="16" font-weight="700" text-anchor="middle" x="590" y="116">Neutral / Superior</text>
+<text fill="#526174" font-size="13" text-anchor="middle" x="590" y="139">attempt to transition the situation</text>
+<text fill="#a75d12" font-size="15" font-weight="700" text-anchor="middle" x="350" y="205">Goal: survive while reversing the unfavorable geometric relationship</text>
+</svg>
+</div>
+</div>
+</div>
+<div class="interpret" style="margin-top:20px">
+<strong>Important source-scope note</strong><br/><br/>
+    The main text gives a concrete explanation of <strong>the top-level OBFM implementation in Fig. 7c</strong>, stating that the first node is the Decorator <code>OBFM?</code>, followed by a Selector. However, it does not explain the top-level node names and detailed node placement for HABFM and DBFM in the same level of textual detail.<br/><br/>
+    Therefore, the diagram above represents OBFM / HABFM / DBFM only as <strong>“major BT node groups”</strong>and does not invent specific node names such as HABFM? or DBFM?.
+  </div>
+<div class="source">
+    Source: Sec. III-B “Completed Flow Diagrams”, journal pp.30–32; Sec. IV-A–B, journal p.32; Fig. 3, Fig. 6, Fig. 7
+  </div>
+</section>
+<section id="summary">
+<h2>6. Summary</h2>
+<div class="check">
+<h3>① Why use BT?</h3>
+<p>
+      FSM becomes difficult to manage as states and transitions grow more complex; BT can be extended by adding nonleaf nodes; and tick-based reevaluation fits WVR combat where the situation changes continuously.
+    </p>
+<h3>② What is it made of?</h3>
+<p>
+<code>Root</code>,
+      <code>Composite (Sequence / Selector)</code>,
+      <code>Task</code>,
+      <code>Decorator</code>,
+      <code>Service</code>
+      The paper describes five node types:
+    </p>
+<h3>③ How is it organized in this paper?</h3>
+<p>
+      Air-combat maneuver knowledge is extracted from the BEM, represented as a flow diagram, and implemented as BT condition/selection/action logic. The top-level BT handles OBFM, HABFM, and DBFM situations; leaf Tasks designate pursuit points; and the guidance/control model connects those decisions to actual aircraft control.
+    </p>
+</div>
+<div class="card" style="margin-top:18px">
+<h3>Keep these two ideas separate while studying</h3>
+<table>
+<thead><tr><th>Figure / Concept</th><th>Question</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Fig. 3 Flow Diagram</strong></td>
+<td>“How is the pilot/manual tactical decision logic connected?”</td>
+</tr>
+<tr>
+<td><strong>Fig. 6–7 Behavior Tree</strong></td>
+<td>“How is that decision logic executed as a node structure in software?”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="sources">
+<h2>Source locations</h2>
+<table>
+<thead><tr><th>Topic</th><th>Location in paper</th></tr></thead>
+<tbody>
+<tr><td>Why BT is adopted; FSM limitation; scalability</td><td>Abstract; Sec. IV-A, journal pp.28, 32</td></tr>
+<tr><td>Basic BT terms: tree / node / root / parent-child / subnode / leaf / nonleaf / branch / execute / true-return / loop-tick / traversal</td><td>Sec. IV-A–B, journal p.32</td></tr>
+<tr><td>Definitions of Root / Composite / Task / Decorator / Service</td><td>Sec. IV-B, journal p.32</td></tr>
+<tr><td>Rapid WVR changes and tick-based judgment</td><td>Sec. IV-B, journal p.32</td></tr>
+<tr><td>OBFM/HABFM/DBFM branches and situation meanings</td><td>Sec. III-B, journal pp.30–32</td></tr>
+<tr><td>Overall BT structure and OBFM implementation</td><td>Fig. 6–7, journal pp.32–33</td></tr>
+<tr><td>Connection between pursuit point and Guidance/Control</td><td>Sec. IV-B–C, journal p.32</td></tr>
+</tbody>
+</table>
+<p class="small" style="margin-top:14px">
+    This document prioritizes statements explicitly supported by the paper. Labels such as “Study interpretation” indicate explanations reconstructed to make the original structure easier to understand.
+  </p>
+</section>
+</main>
+<footer>
+  Behavior Tree Study Note · Source-grounded summary of Yang et al. (2024)
+</footer>
+</body>
+</html>

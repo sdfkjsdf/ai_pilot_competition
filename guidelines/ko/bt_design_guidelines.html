@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>행동트리(BT) 설계 지침</title>
+<style>
+:root{--ink:#000;--muted:#000;--line:#000;--accent:#000;--red:#b00000;--green:#006b38;--paper:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:#fff;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:15px;line-height:1.75;word-break:keep-all}a{color:inherit}a:focus-visible{outline:2px solid #000;outline-offset:4px}.masthead{max-width:1080px;margin:auto;padding:56px 48px 30px}h1{font-size:36px;line-height:1.35;margin:12px 0} .intro{color:var(--muted);margin:0;max-width:800px}.nav{position:sticky;top:0;z-index:2;background:#fff;color:#000;border-top:1px solid #000;border-bottom:1px solid #000}.nav-inner{max-width:984px;margin:auto;display:flex;flex-wrap:wrap}.nav a{flex:1;min-width:150px;padding:14px 10px;text-align:center;font-size:13px;text-decoration:none}.nav a:hover{background:#fff;text-decoration:underline;text-underline-offset:4px}.nav b{margin-right:7px;color:#000}main{max-width:1080px;margin:28px auto 0;padding:0 48px}.rule{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--accent);margin-bottom:28px;padding:30px 32px 24px;scroll-margin-top:82px}.rule-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:19px}.number{font-size:32px;line-height:1.2;color:#000;font-weight:700;font-variant-numeric:tabular-nums}.rule h2{font-size:21px;line-height:1.5;margin:0}.topic{font-size:11px;letter-spacing:1px;color:var(--muted);margin:0 0 5px}.scenario{background:#fff;border-left:3px solid #000;padding:10px 14px;font-size:13px;margin:0 0 14px}.scenario b{margin-right:8px}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:16px}.example{border:1px solid var(--line);border-radius:0;overflow:hidden;display:flex;flex-direction:column}.example h4{font-size:13px;padding:9px 15px;margin:0;border-bottom:1px solid var(--line)}.bad h4{background:#fff;color:var(--red)}.good h4{background:#fff;color:var(--green)}.diagram{padding:17px 18px;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:center;gap:0;font-size:13px;line-height:1.55}.node{border:1px solid #000;background:#fff;border-radius:0;padding:9px 12px;width:100%;text-align:center}.node small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.node.fail{border-color:var(--red);background:#fff;color:var(--red)}.node.pass{border-color:var(--green);background:#fff;color:var(--green)}.node.dim{color:#000;border-style:dashed;background:white}.arrow{min-height:30px;display:flex;align-items:center;justify-content:center;gap:7px;color:#000;font-size:12px}.arrow:before{content:'↓';font-size:18px;font-weight:700}.arrow.stop{color:var(--red)}.arrow.stop:before{content:'×'}.split{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%}.split.three{grid-template-columns:repeat(3,1fr)}.split .node{padding:9px 5px;font-size:12px}.caption{padding:10px 14px;margin:0;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.figure-label{font-size:11px;color:var(--muted);margin:10px 0 0}
+.clause{margin-top:28px;padding-top:25px;border-top:1px solid #000;scroll-margin-top:100px}.clause-title{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.75;margin:0 0 18px}.clause-id{flex:0 0 36px;font-weight:700;font-variant-numeric:tabular-nums}.clause:first-of-type{margin-top:0;padding-top:0;border-top:0}
+@media(max-width:720px){.masthead{padding:30px 20px 23px}h1{font-size:29px}main{padding:0 14px;margin-top:18px}.rule{padding:22px 18px}.rule h2{font-size:19px}.number{font-size:27px}.comparison{grid-template-columns:1fr}.nav a{min-width:100px;font-size:11px;padding:9px 4px}.split.three .node{font-size:11px}.rule-head{gap:10px}}
+@media print{@page{size:A4;margin:14mm}html{scroll-behavior:auto}body{background:white;font-size:10pt}.masthead{padding:0 0 7mm}.masthead h1{font-size:24pt}.nav{display:none}main{padding:0;margin:0;max-width:none}.rule{border:0;border-top:2px solid var(--accent);box-shadow:none;padding:7mm 0 0;margin:0;break-before:page;break-inside:auto}.rule:first-child{break-before:auto}.rule-head{break-after:avoid}.clause{break-inside:avoid}.clause-title{font-size:11pt;break-after:avoid}.rule h2{font-size:16pt}.comparison{grid-template-columns:1fr 1fr}.diagram{padding:4mm}.node{padding:3mm;font-size:10pt}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+<link rel="stylesheet" href="../document-nav.css">
+</head>
+<body>
+<nav class="documentation-toolbar" aria-label="문서 탐색"><a href="./">한국어 문서 목록</a><a href="../en/bt_design_guidelines.html" lang="en">English</a><a href="bt_design_guidelines.pdf">PDF 열기</a><a href="bt_design_guidelines.pdf" download="bt_design_guidelines_ko.pdf">PDF 다운로드</a></nav>
+<header class="masthead">
+  <h1>행동트리(BT) 설계 지침</h1>
+  <p class="intro">본 지침은 행동트리의 진입조건, 노드별 책임 및 명령권 관리에 관한 설계 기준을 규정한다.</p>
+</header>
+<nav class="nav" aria-label="원칙 바로가기"><div class="nav-inner">
+  <a href="#rule1"><b>01</b>부모·자식 조건</a><a href="#rule2"><b>02</b>선택 공백 방지</a><a href="#rule3"><b>03</b>책임 분리</a><a href="#rule4"><b>04</b>단일 명령권</a><a href="#rule5"><b>05</b>매 주기 재평가</a>
+</div></nav>
+<main>
+<section class="rule" id="rule1" aria-labelledby="title1">
+  <header class="rule-head"><span class="number">01</span><div><p class="topic">부모·자식 조건</p><h2 id="title1">상위 진입조건이 하위 기동의 진입 가능성을<br>모두 포함하는지 확인하여야 한다.</h2></div></header>
+  <article class="clause" id="clause-1-1" aria-labelledby="clause-title-1-1">
+<h3 class="clause-title" id="clause-title-1-1"><span class="clause-id">1-1</span><span>하위 기동이 필요한 상황에서 상위 조건도 충족되는지 확인하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>실제 피격은 없으나 상대의 사격 위험이 감지되어 선제 회피가 필요한 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 상위 조건에 의한 진입 차단</h4><div class="diagram" role="img" aria-label="사격 위험 있음 · 실제 피격 없음 → 상위 방어 조건: 실제 피격 여부 (조건 불충족 → 분기 차단) → 하위 선제 회피 조건: 사격 위험 여부 (평가되지 않음)"><div class="node ">사격 위험 있음 · 실제 피격 없음</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">상위 방어 조건: 실제 피격 여부<small>조건 불충족 → 분기 차단</small></div>
+<div class="arrow stop" aria-hidden="true"></div><div class="node dim">하위 선제 회피 조건: 사격 위험 여부<small>평가되지 않음</small></div></div><p class="caption">하위 회피가 필요한 상황이 상위 진입조건에 포함되지 않는다.</p></div><div class="example good"><h4>바른 예 · 하위 진입 가능성 포함</h4><div class="diagram" role="img" aria-label="사격 위험 있음 · 실제 피격 없음 → 상위 방어 조건: 사격 위험 또는 실제 피격 (조건 충족 → 분기 진입) → 하위 선제 회피 선택 (회피 명령 생성)"><div class="node ">사격 위험 있음 · 실제 피격 없음</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">상위 방어 조건: 사격 위험 또는 실제 피격<small>조건 충족 → 분기 진입</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">하위 선제 회피 선택<small>회피 명령 생성</small></div></div><p class="caption">선제 회피가 필요한 상황에서도 상위 방어 분기에 진입한다.</p></div></div>
+<p class="figure-label">그림 1-1. 하위 진입 가능성 포함</p>
+</article>
+<article class="clause" id="clause-1-2" aria-labelledby="clause-title-1-2">
+<h3 class="clause-title" id="clause-title-1-2"><span class="clause-id">1-2</span><span>상위 노드와 하위 노드가 동일 상황을 서로 다른 기준으로 판단하지 않도록 공통 판단 결과를 사용하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>상위·하위 노드가 동일한 사격 위험을 판단하는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 판단 기준의 개별 정의</h4><div class="diagram" role="img" aria-label="동일한 상대 사격 상황 → 상위: 현재 조준 여부만 판단 (아직 정조준이 아니므로 진입 거부) → 하위: 예상 사격 위험도 판단 (회피 필요로 판단하나 도달 불가)"><div class="node ">동일한 상대 사격 상황</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">상위: 현재 조준 여부만 판단<small>아직 정조준이 아니므로 진입 거부</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node dim">하위: 예상 사격 위험도 판단<small>회피 필요로 판단하나 도달 불가</small></div></div><p class="caption">같은 위험을 서로 다른 기준으로 판단하여 결과가 불일치한다.</p></div><div class="example good"><h4>바른 예 · 공통 판단 결과 사용</h4><div class="diagram" role="img" aria-label="공통 사격 위험 판단 (현재 및 예상 위협을 하나의 기준으로 평가) → 상위 노드: 공통 결과 사용 (방어 분기 진입) → 하위 노드: 동일 결과 사용 (회피 기동 선택)"><div class="node ">공통 사격 위험 판단<small>현재 및 예상 위협을 하나의 기준으로 평가</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">상위 노드: 공통 결과 사용<small>방어 분기 진입</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">하위 노드: 동일 결과 사용<small>회피 기동 선택</small></div></div><p class="caption">상위·하위 노드는 동일한 위험 판단 결과를 참조한다.</p></div></div>
+<p class="figure-label">그림 1-2. 공통 판단 결과 사용</p>
+</article>
+</section>
+<section class="rule" id="rule2" aria-labelledby="title2">
+  <header class="rule-head"><span class="number">02</span><div><p class="topic">선택 공백 방지</p><h2 id="title2">판단과 제어명령의 공백이<br>발생하지 않도록 하여야 한다.</h2></div></header>
+  <article class="clause" id="clause-2-1" aria-labelledby="clause-title-2-1">
+<h3 class="clause-title" id="clause-title-2-1"><span class="clause-id">2-1</span><span>각 상황에서 판단 모듈과 기동 모듈이 적어도 하나는 선택되는지 확인하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>자기 기체와 상대 기체 중 어느 쪽의 일방 우세도 확정되지 않은 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 상황 분류 누락</h4><div class="diagram" role="img" aria-label="일방 우세가 없는 상황 → 공격 우세 아님 · 방어 열세 아님 (해당 상황의 분기 누락) → 선택된 기동 없음 (제어명령 공백)"><div class="node ">일방 우세가 없는 상황</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">공격 우세 아님 · 방어 열세 아님<small>해당 상황의 분기 누락</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">선택된 기동 없음<small>제어명령 공백</small></div></div><p class="caption">판단 분기가 상황 전체를 포함하지 못하면 기동 선택이 중단된다.</p></div><div class="example good"><h4>바른 예 · 상황별 선택 경로 확보</h4><div class="diagram" role="img" aria-label="일방 우세가 없는 상황 → HABFM 분류 (해당 모드의 기동 조건 평가) → HABFM 기동 1개 선택 (제어명령 생성)"><div class="node ">일방 우세가 없는 상황</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">HABFM 분류<small>해당 모드의 기동 조건 평가</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">HABFM 기동 1개 선택<small>제어명령 생성</small></div></div><p class="caption">상황 분류부터 기동 선택까지 도달 경로를 확보한다.</p></div></div>
+<p class="figure-label">그림 2-1. 상황별 선택 경로 확보</p>
+</article>
+<article class="clause" id="clause-2-2" aria-labelledby="clause-title-2-2">
+<h3 class="clause-title" id="clause-title-2-2"><span class="clause-id">2-2</span><span>개발 시 예외처리로 문제를 우회하여서는 안 된다. 예외 발생 원인은 실제 적용 전에 디버깅을 통하여 제거하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>방향 오차를 정규화하는 계산에 크기가 0인 오차벡터가 입력된 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 예외 발생 원인 미제거</h4><div class="diagram" role="img" aria-label="방향 오차벡터 = 0 (이미 목표 방향에 정렬된 상태) → 오차벡터를 크기로 나눔 (0으로 나누는 연산 발생) → 예외처리 후 실행만 계속 (원인 및 명령 생성 문제 잔존)"><div class="node ">방향 오차벡터 = 0<small>이미 목표 방향에 정렬된 상태</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">오차벡터를 크기로 나눔<small>0으로 나누는 연산 발생</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">예외처리 후 실행만 계속<small>원인 및 명령 생성 문제 잔존</small></div></div><p class="caption">예외처리로 실행을 계속해도 잘못된 계산식은 수정되지 않는다.</p></div><div class="example good"><h4>바른 예 · 적용 전 원인 제거</h4><div class="diagram" role="img" aria-label="개발 중 오차 0 입력으로 재현 → 정렬 상태의 계산 경로 정의 (정규화 없이 방향 오차 회전 보정 = 0) → 유효한 제어명령 생성 확인 (원인 제거 후 실제 적용)"><div class="node ">개발 중 오차 0 입력으로 재현</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">정렬 상태의 계산 경로 정의<small>정규화 없이 방향 오차 회전 보정 = 0</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">유효한 제어명령 생성 확인<small>원인 제거 후 실제 적용</small></div></div><p class="caption">오차 0의 물리적 의미를 반영하여 정의되지 않는 연산을 제거한다.</p></div></div>
+<p class="figure-label">그림 2-2. 적용 전 원인 제거</p>
+</article>
+</section>
+<section class="rule" id="rule3" aria-labelledby="title3">
+  <header class="rule-head"><span class="number">03</span><div><p class="topic">책임 분리</p><h2 id="title3">Service·Condition·Task의 책임을<br>분리하여 준수하여야 한다.</h2></div></header>
+  <article class="clause" id="clause-3-1" aria-labelledby="clause-title-3-1">
+<h3 class="clause-title" id="clause-title-3-1"><span class="clause-id">3-1</span><span>Service는 관측, Condition은 판단, Task는 명령 생성을 담당하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>상승 기동의 관측·판단·명령 생성 기능을 노드에 배치하는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 노드별 책임 혼재</h4><div class="diagram" role="img" aria-label="Service (관측과 상승 명령을 함께 생성) → Condition (기동 불필요로 판단) → Task 미선택 (Service가 생성한 명령만 잔존)"><div class="node fail">Service<small>관측과 상승 명령을 함께 생성</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">Condition<small>기동 불필요로 판단</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">Task 미선택<small>Service가 생성한 명령만 잔존</small></div></div><p class="caption">관측 노드가 명령을 생성하면 기동 선택과 명령 발행이 분리된다.</p></div><div class="example good"><h4>바른 예 · 노드별 책임 분리</h4><div class="diagram" role="img" aria-label="Service (속도·거리 등 관측값 갱신) → Condition (기동 필요 여부 판단) → Task (선택된 기동의 명령 생성)"><div class="node ">Service<small>속도·거리 등 관측값 갱신</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">Condition<small>기동 필요 여부 판단</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">Task<small>선택된 기동의 명령 생성</small></div></div><p class="caption">관측, 판단 및 명령 생성을 각 노드의 책임으로 구분한다.</p></div></div>
+<p class="figure-label">그림 3-1. 노드별 책임 분리</p>
+</article>
+<article class="clause" id="clause-3-2" aria-labelledby="clause-title-3-2">
+<h3 class="clause-title" id="clause-title-3-2"><span class="clause-id">3-2</span><span>관측값은 한 번 계산하여 공유하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>하나의 제어 주기에서 여러 노드가 상대와의 거리를 사용하는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 관측값 중복 계산</h4><div class="diagram" role="img" aria-label="노드 A: 거리 계산 (현재 표본 사용) → 노드 B: 거리 재계산 (별도 갱신된 표본 사용) → 동일 주기의 판단값 불일치 (기동 선택과 명령 생성 기준이 달라짐)"><div class="node ">노드 A: 거리 계산<small>현재 표본 사용</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">노드 B: 거리 재계산<small>별도 갱신된 표본 사용</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">동일 주기의 판단값 불일치<small>기동 선택과 명령 생성 기준이 달라짐</small></div></div><p class="caption">별도 계산과 표본 갱신으로 같은 관측량의 값이 달라질 수 있다.</p></div><div class="example good"><h4>바른 예 · 공통 관측값 공유</h4><div class="diagram" role="img" aria-label="Service: 현재 표본 확보 → 거리 1회 계산 및 저장 (해당 제어 주기의 공통 관측값) → 각 노드가 동일 값 참조 (동일 표본·동일 계산 결과 사용)"><div class="node ">Service: 현재 표본 확보</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">거리 1회 계산 및 저장<small>해당 제어 주기의 공통 관측값</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">각 노드가 동일 값 참조<small>동일 표본·동일 계산 결과 사용</small></div></div><p class="caption">각 노드는 해당 제어 주기에 계산된 공통 관측값을 사용한다.</p></div></div>
+<p class="figure-label">그림 3-2. 공통 관측값 공유</p>
+</article>
+<article class="clause" id="clause-3-3" aria-labelledby="clause-title-3-3">
+<h3 class="clause-title" id="clause-title-3-3"><span class="clause-id">3-3</span><span>Condition과 Task는 동일한 진입 판단 결과를 사용하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>Condition이 High-Yo-Yo 진입을 승인하여 Task에 전달하는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 승인 결과와 실행 기준 불일치</h4><div class="diagram" role="img" aria-label="Condition: 현재 판단으로 승인 → Task: 이전 주기의 판단값 사용 (승인 결과를 전달받지 않음) → 선택된 상승 기동을 실행하지 않음 (판단과 실행 불일치)"><div class="node ">Condition: 현재 판단으로 승인</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">Task: 이전 주기의 판단값 사용<small>승인 결과를 전달받지 않음</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">선택된 상승 기동을 실행하지 않음<small>판단과 실행 불일치</small></div></div><p class="caption">Condition의 승인과 Task의 실행이 서로 다른 판단 결과에 의존한다.</p></div><div class="example good"><h4>바른 예 · 승인 결과의 일관된 전달</h4><div class="diagram" role="img" aria-label="Condition: 현재 판단으로 승인 → 승인 결과를 Task에 전달 (동일 제어 주기의 결과) → Task: 승인된 기동 실행 (상승 명령 생성)"><div class="node ">Condition: 현재 판단으로 승인</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">승인 결과를 Task에 전달<small>동일 제어 주기의 결과</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">Task: 승인된 기동 실행<small>상승 명령 생성</small></div></div><p class="caption">Task는 자신을 선택한 Condition의 판단 결과를 사용한다.</p></div></div>
+<p class="figure-label">그림 3-3. 승인 결과의 일관된 전달</p>
+</article>
+<article class="clause" id="clause-3-4" aria-labelledby="clause-title-3-4">
+<h3 class="clause-title" id="clause-title-3-4"><span class="clause-id">3-4</span><span>Task 내부에 별도의 진입조건을 추가하여서는 안 된다.</span></h3>
+<p class="scenario"><b>예시 상황</b>트리에 표시된 진입조건을 모두 충족하였으나 Task 내부에 별도 조건이 있는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · Task 내부의 추가 진입조건</h4><div class="diagram" role="img" aria-label="Condition: 기동 진입 승인 → Task 내부: 별도 거리조건 검사 (트리에 표시되지 않은 추가 조건) → 추가 조건 불충족으로 실행 거부 (승인된 기동의 실행 차단)"><div class="node ">Condition: 기동 진입 승인</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">Task 내부: 별도 거리조건 검사<small>트리에 표시되지 않은 추가 조건</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">추가 조건 불충족으로 실행 거부<small>승인된 기동의 실행 차단</small></div></div><p class="caption">Task 내부의 추가 조건으로 실제 진입 기준을 파악하기 어렵다.</p></div><div class="example good"><h4>바른 예 · 진입조건의 명시적 배치</h4><div class="diagram" role="img" aria-label="필요한 진입조건을 Condition에 배치 (별도 조건의 필요성도 이 위치에서 검토) → Condition: 모든 진입조건 평가 → 승인 시 Task 실행 (추가 진입 판단 없이 명령 생성)"><div class="node ">필요한 진입조건을 Condition에 배치<small>별도 조건의 필요성도 이 위치에서 검토</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">Condition: 모든 진입조건 평가</div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">승인 시 Task 실행<small>추가 진입 판단 없이 명령 생성</small></div></div><p class="caption">진입 판단은 Condition에서 완료하고 Task는 승인 결과를 실행한다.</p></div></div>
+<p class="figure-label">그림 3-4. 진입조건의 명시적 배치</p>
+</article>
+<article class="clause" id="clause-3-5" aria-labelledby="clause-title-3-5">
+<h3 class="clause-title" id="clause-title-3-5"><span class="clause-id">3-5</span><span>진단 노드에 명령권을 부여하여서는 안 된다.</span></h3>
+<p class="scenario"><b>예시 상황</b>진단 노드가 전술 명령의 상태를 기록하는 과정에서 진단 자료 누락을 발견한 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 진단 기능의 명령 변경</h4><div class="diagram" role="img" aria-label="전술 Task: 추적 명령 생성 → 진단 노드: 기록 자료 일부 누락 (진단 문제를 명령 변경 사유로 사용) → 진단 노드가 상승 명령으로 교체 (선택되지 않은 기능이 명령권 행사)"><div class="node ">전술 Task: 추적 명령 생성</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">진단 노드: 기록 자료 일부 누락<small>진단 문제를 명령 변경 사유로 사용</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">진단 노드가 상승 명령으로 교체<small>선택되지 않은 기능이 명령권 행사</small></div></div><p class="caption">진단 기능이 명령을 교체하면 전술 선택과 무관한 기동이 발생한다.</p></div><div class="example good"><h4>바른 예 · 진단 기능의 기록 전담</h4><div class="diagram" role="img" aria-label="전술 Task: 추적 명령 생성 → 진단 노드: 누락 상태 기록 (명령값 변경 없음) → 추적 명령 전달 (선택된 Task의 명령권 유지)"><div class="node ">전술 Task: 추적 명령 생성</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">진단 노드: 누락 상태 기록<small>명령값 변경 없음</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">추적 명령 전달<small>선택된 Task의 명령권 유지</small></div></div><p class="caption">진단 노드는 관측·기록만 수행하며 명령을 생성하거나 변경하지 않는다.</p></div></div>
+<p class="figure-label">그림 3-5. 진단 기능의 기록 전담</p>
+</article>
+</section>
+<section class="rule" id="rule4" aria-labelledby="title4">
+  <header class="rule-head"><span class="number">04</span><div><p class="topic">단일 명령권</p><h2 id="title4">최종 명령권을 갖는 모듈은<br>정확히 하나로 한정하여야 한다.</h2></div></header>
+  <article class="clause" id="clause-4-1" aria-labelledby="clause-title-4-1">
+<h3 class="clause-title" id="clause-title-4-1"><span class="clause-id">4-1</span><span>진입조건이 유사한 모듈의 중복 생성 여부를 검토하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>동일한 사격 위험에 반응하는 회피 모듈 두 개가 등록된 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 중복 선택 및 명령 발행</h4><div class="diagram" role="img" aria-label="동일한 사격 위험 감지 → 회피 A·회피 B가 각각 선택 (유사 조건을 독립적으로 적용) → A 명령과 B 명령 동시 발행 (최종 명령권 중복)"><div class="node ">동일한 사격 위험 감지</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">회피 A·회피 B가 각각 선택<small>유사 조건을 독립적으로 적용</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">A 명령과 B 명령 동시 발행<small>최종 명령권 중복</small></div></div><p class="caption">역할 구분 없이 유사 모듈을 추가하면 명령권이 중복될 수 있다.</p></div><div class="example good"><h4>바른 예 · 중복 검토 후 단일 선택</h4><div class="diagram" role="img" aria-label="두 회피 모듈의 역할·조건 비교 (기능 중복 여부 확인) → 중복 기능 통합 또는 선택 우선순위 명시 → 회피 모듈 1개만 선택·발행 (최종 명령권 단일화)"><div class="node ">두 회피 모듈의 역할·조건 비교<small>기능 중복 여부 확인</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">중복 기능 통합 또는 선택 우선순위 명시</div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">회피 모듈 1개만 선택·발행<small>최종 명령권 단일화</small></div></div><p class="caption">유사 모듈의 중복을 정리하고 최종 발행 모듈을 하나로 한정한다.</p></div></div>
+<p class="figure-label">그림 4-1. 중복 검토 후 단일 선택</p>
+</article>
+<article class="clause" id="clause-4-2" aria-labelledby="clause-title-4-2">
+<h3 class="clause-title" id="clause-title-4-2"><span class="clause-id">4-2</span><span>선택 모듈 변경 시 이전 모듈의 명령권 반환 여부를 확인하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>High-Yo-Yo가 종료되어 정밀추적으로 전환하는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 종료 모듈의 명령권 잔류</h4><div class="diagram" role="img" aria-label="High-Yo-Yo 종료 판단 → 정밀추적 모듈 선택 (이전 상승 명령의 발행 상태 미정리) → 상승 명령과 추적 명령 중복 (이전 모듈의 명령권 잔류)"><div class="node ">High-Yo-Yo 종료 판단</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">정밀추적 모듈 선택<small>이전 상승 명령의 발행 상태 미정리</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">상승 명령과 추적 명령 중복<small>이전 모듈의 명령권 잔류</small></div></div><p class="caption">후속 모듈을 선택하더라도 이전 모듈의 명령권이 남을 수 있다.</p></div><div class="example good"><h4>바른 예 · 명령권 반환 및 인계</h4><div class="diagram" role="img" aria-label="High-Yo-Yo 종료 판단 → 이전 모듈의 명령권 반환 (해당 모듈의 명령 발행 종료) → 정밀추적 모듈로 인계 (해당 주기에 추적 명령 1개 발행)"><div class="node ">High-Yo-Yo 종료 판단</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">이전 모듈의 명령권 반환<small>해당 모듈의 명령 발행 종료</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">정밀추적 모듈로 인계<small>해당 주기에 추적 명령 1개 발행</small></div></div><p class="caption">이전 명령권 반환과 후속 명령 생성을 연결하여 중복과 공백을 방지한다.</p></div></div>
+<p class="figure-label">그림 4-2. 명령권 반환 및 인계</p>
+</article>
+<article class="clause" id="clause-4-3" aria-labelledby="clause-title-4-3">
+<h3 class="clause-title" id="clause-title-4-3"><span class="clause-id">4-3</span><span>안전 모듈은 안전한 상태로 복구되면 명령권을 반환하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>지면충돌 회피 후 안전 모듈의 복구 완료 조건을 충족한 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 복구 완료 후 선점 지속</h4><div class="diagram" role="img" aria-label="안전 복구 완료 → 안전 모듈의 활성 상태 유지 (명령권 반환 누락) → 상승 명령 지속 (전술 기동 복귀 차단)"><div class="node ">안전 복구 완료</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">안전 모듈의 활성 상태 유지<small>명령권 반환 누락</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">상승 명령 지속<small>전술 기동 복귀 차단</small></div></div><p class="caption">위험이 해소되어도 안전 모듈이 명령권을 유지하면 복귀가 차단된다.</p></div><div class="example good"><h4>바른 예 · 복구 완료 후 명령권 반환</h4><div class="diagram" role="img" aria-label="안전 복구 완료 확인 → 안전 모듈 종료 및 명령권 반환 → 현재 상황의 전술 모듈 선택 (전술 기동 재개)"><div class="node ">안전 복구 완료 확인</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">안전 모듈 종료 및 명령권 반환</div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">현재 상황의 전술 모듈 선택<small>전술 기동 재개</small></div></div><p class="caption">안전 복구 완료 시 명령권을 반환하고 현재 상황에 따라 전술을 재선택한다.</p></div></div>
+<p class="figure-label">그림 4-3. 복구 완료 후 명령권 반환</p>
+</article>
+</section>
+<section class="rule" id="rule5" aria-labelledby="title5">
+  <header class="rule-head"><span class="number">05</span><div><p class="topic">매 주기 재평가</p><h2 id="title5">매 제어 주기 상위 노드부터 재평가하는<br>Reactive BT 구조를 적용하여야 한다.</h2></div></header>
+  <article class="clause" id="clause-5-1" aria-labelledby="clause-title-5-1">
+<h3 class="clause-title" id="clause-title-5-1"><span class="clause-id">5-1</span><span>기동 종료까지의 성공 보장을 진입 시점의 필수조건으로 요구하여서는 안 된다.</span></h3>
+<p class="scenario"><b>예시 상황</b>현재 회피가 필요하나 상대의 향후 기동을 확정할 수 없는 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 종료 성공의 사전 보장 요구</h4><div class="diagram" role="img" aria-label="현재 회피 필요 → 종료까지 성공 보장 여부 검사 (미래 상대 기동 불확실 → 거부) → 필요한 회피 기동 미실행 (진입 차단)"><div class="node ">현재 회피 필요</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">종료까지 성공 보장 여부 검사<small>미래 상대 기동 불확실 → 거부</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node dim">필요한 회피 기동 미실행<small>진입 차단</small></div></div><p class="caption">미래의 성공 보장을 요구하면 현재 필요한 기동이 선택되지 못한다.</p></div><div class="example good"><h4>바른 예 · 현재 판단 및 주기적 재평가</h4><div class="diagram" role="img" aria-label="현재 관측에 따라 회피 선택 → 명령 실행 후 다음 제어 주기 진입 → 상위 노드부터 재평가 (현재 상황에 따라 지속·전환·종료)"><div class="node ">현재 관측에 따라 회피 선택</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">명령 실행 후 다음 제어 주기 진입</div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">상위 노드부터 재평가<small>현재 상황에 따라 지속·전환·종료</small></div></div><p class="caption">현재 필요한 기동을 실행하고 갱신된 관측으로 다음 동작을 결정한다.</p></div></div>
+<p class="figure-label">그림 5-1. 현재 판단 및 주기적 재평가</p>
+</article>
+<article class="clause" id="clause-5-2" aria-labelledby="clause-title-5-2">
+<h3 class="clause-title" id="clause-title-5-2"><span class="clause-id">5-2</span><span>과도하게 보수적인 진입조건으로 노드의 실행이 차단되지 않도록 하여야 한다.</span></h3>
+<p class="scenario"><b>예시 상황</b>공통 위험 판단에서 회피 필요가 확인되었으나 동일 위험을 여러 관측기로 재확인하도록 한 경우.</p>
+<div class="comparison"><div class="example bad"><h4>틀린 예 · 중복 확인 조건의 누적</h4><div class="diagram" role="img" aria-label="공통 위험 판단: 회피 필요 → 별도 관측기 A·B의 동시 확인 요구 (동일 위험을 중복 증명하도록 조건 추가) → 하나라도 미확인 시 진입 거부 (필요한 회피 기동이 반복적으로 차단됨)"><div class="node ">공통 위험 판단: 회피 필요</div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">별도 관측기 A·B의 동시 확인 요구<small>동일 위험을 중복 증명하도록 조건 추가</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node fail">하나라도 미확인 시 진입 거부<small>필요한 회피 기동이 반복적으로 차단됨</small></div></div><p class="caption">기동 필요성과 무관한 중복 확인은 노드를 실행 불가능하게 만들 수 있다.</p></div><div class="example good"><h4>바른 예 · 필요한 진입조건으로 정리</h4><div class="diagram" role="img" aria-label="각 조건의 판단 목적 검토 → 동일 위험에 대한 중복 확인 제거 (기동 필요성을 판단하는 조건 사용) → 회피 필요 시 해당 노드 실행 (현재 관측에 따라 기동 수행)"><div class="node ">각 조건의 판단 목적 검토</div>
+<div class="arrow" aria-hidden="true"></div><div class="node ">동일 위험에 대한 중복 확인 제거<small>기동 필요성을 판단하는 조건 사용</small></div>
+<div class="arrow" aria-hidden="true"></div><div class="node pass">회피 필요 시 해당 노드 실행<small>현재 관측에 따라 기동 수행</small></div></div><p class="caption">진입조건별 필요성을 검토하여 불필요한 차단 요인을 제거한다.</p></div></div>
+<p class="figure-label">그림 5-2. 필요한 진입조건으로 정리</p>
+</article>
+</section>
+</main>
+</body>
+</html>

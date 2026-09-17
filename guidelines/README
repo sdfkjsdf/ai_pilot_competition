@@ -1,1 +1,8 @@
 행동트리 관련 배경지식 및 보완 기술서
+
+문서 사이트: https://sdfkjsdf.github.io/ai_pilot_competition/
+한국어: https://sdfkjsdf.github.io/ai_pilot_competition/ko/
+English: https://sdfkjsdf.github.io/ai_pilot_competition/en/
+
+ko/와 en/에는 학습 노트 HTML, 설계 지침 HTML 및 설계 지침 PDF를 보관합니다.
+guidelines/ 폴더만 GitHub Pages로 배포합니다.

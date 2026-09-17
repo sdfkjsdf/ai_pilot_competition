@@ -1,6 +1,17 @@
 # ai_pilot_competition
 2026 AI Pilot Top Gun Challenge에 출판한 대회 코드 
 
+## 행동트리 문서 / Behavior Tree Documentation
+
+[문서 사이트 열기 / Open documentation](https://sdfkjsdf.github.io/ai_pilot_competition/)
+
+| 언어 / Language | 학습 노트 / Study Notes | 설계 지침 / Design Guidelines | PDF |
+| --- | --- | --- | --- |
+| 한국어 | [HTML](https://sdfkjsdf.github.io/ai_pilot_competition/ko/behavior_tree_study_notes.html) | [HTML](https://sdfkjsdf.github.io/ai_pilot_competition/ko/bt_design_guidelines.html) | [PDF](https://sdfkjsdf.github.io/ai_pilot_competition/ko/bt_design_guidelines.pdf) |
+| English | [HTML](https://sdfkjsdf.github.io/ai_pilot_competition/en/behavior_tree_study_notes.html) | [HTML](https://sdfkjsdf.github.io/ai_pilot_competition/en/bt_design_guidelines.html) | [PDF](https://sdfkjsdf.github.io/ai_pilot_competition/en/bt_design_guidelines.pdf) |
+
+문서 원본은 [`guidelines/`](guidelines/)에 있습니다. GitHub Pages는 이 폴더만 게시하며, C++ 빌드·실행 파일은 게시 대상에 포함하지 않습니다.
+
 ## 저장소 받기
 
 PowerShell에서 다음 명령을 실행합니다.
